@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarbooking.mapper.RentCarBookingMapper">
+
+<!-- 예약 리스트 -->
+	<select id="list" resultType="com.hallabong.rentcarbooking.domain.RentCarBookingVO">
+	<![CDATA[
+	select bookingNo, totalPrice, consumerId, rentalDate, 
+	    returnDate, bookingStatus,
+	    companyName , carName
+	from(
+	    select   rownum rnum, bookingNo, totalPrice, consumerId, rentalDate, 
+	        returnDate, bookingStatus,
+	        companyName , carName
+	    from(
+	        select 
+	            rcb.bookingNo, rcb.totalPrice, rcb.consumerId, rcb.rentalDate, 
+	            rcb.returnDate, rcb.bookingStatus,
+	            rcc.companyName ,cbi.carName
+	        from
+	            rentcarbooking rcb, rentcarcompany rcc, carbasicinfo cbi
+	        where 	
+	]]>
+	<include refid="search"/>
+	<![CDATA[
+	            rcb.bookingno >0 and
+	            rcc.companyNo = rcb.companyNo and rcb.carInfoNo = cbi.carInfoNo
+	        ORDER BY rcb.bookingNo desc
+	    )
+	)
+	where rnum BETWEEN #{startRow} and #{endRow}
+	]]>
+	</select>
+
+	<select id="getTotalRow" resultType="long">
+	<![CDATA[
+	select 
+	    count(rcb.bookingNo)
+	from 
+	    rentcarbooking rcb, rentcarcompany rcc, carbasicinfo cbi
+	where	
+	]]>
+	<include refid="search"/>
+	<![CDATA[
+    rcb.bookingno >0 and
+    rcc.companyNo = rcb.companyNo and rcb.carInfoNo = cbi.carInfoNo	
+	]]>
+	
+	</select>
+<!-- 예약 리스트 검색 -->	
+	<sql id="search">
+		<trim prefix="( " suffix=")and" prefixOverrides="or"> 
+		<!-- 문자열에서 특정문자를 포함한경우 true-추가되게 만들었다(List 로 가져오지 않아도 된다) -->
+				
+			<foreach collection="keyArr" item="key">
+				
+				<trim prefix="or">
+					<!-- switch case 문과 동일 -->
+					<choose>
+						<when test="key == 'C'.toString()">
+							rcc.companyname like '%' || #{word} ||'%'
+						</when>
+						<when test="key == 'I'.toString()">
+							rcb.consumerId like '%' || #{word} ||'%'
+						</when>
+						<when test="key == 'N'.toString()">
+							cbi.carName like '%' || #{word} ||'%'
+						</when>
+					</choose>
+				</trim>
+				
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- 예약 상세보기 -->
+	<select id="view" resultType="com.hallabong.rentcarbooking.domain.RentCarBookingVO">
+	select 
+	    rcb.bookingNo, rcb.totalPrice, rcb.consumerId, rcb.rentalDate, 
+	    rcb.returnDate, rcb.bookingStatus,
+	    rcb.userName, rcb.userEmail, rcb.userTel,
+	    rcb.paymentType, rcb.paymentCompany, rcb.paymentAccount, rcb.drivingLicense,
+	    rcb.companyCarsNo, rcb.carNo, rcb.carInfoNo, rcb.companyNo,
+	    rcc.companyName ,cbi.carName
+	from
+	    rentcarbooking rcb, rentcarcompany rcc, carbasicinfo cbi
+	where 
+	    rcb.bookingNo = #{bookingNo} and
+	    rcc.companyNo = rcb.companyNo and rcb.carInfoNo = cbi.carInfoNo
+	    
+	</select>
+	
+	<!-- 등록을 위한 정보 가져오기 -->
+	<select id="getInfoForBooking" resultType="com.hallabong.rentcarbooking.domain.RentCarBookingVO">
+	select 
+		rcc.companyName ,cbi.carName, cbi.carfuel, 
+		cars.insurancetype, cars.price prePrice
+	from 
+		rentcarcompany rcc, carbasicinfo cbi, cars cars
+	where 
+	    rcc.companyNo = #{companyNo} and cbi.carInfoNo = #{carInfoNo} and cars.carNo = #{carNo}	
+	
+	</select>
+	<!-- 등록을위한 회사차량번호가져오기 -->
+	<select id="getCompanyCarsNo" resultType="com.hallabong.rentcarbooking.domain.RentCarBookingVO">
+	select max(companyCarsNo) companyCarsNo
+	from companycars
+	where booking = 0 and carno = #{carNo}
+	</select>
+	
+	<!-- 예약 등록 (결제 이전)-->
+	<insert id="write">
+	insert into 
+	    rentcarBooking
+	    (bookingNo,carNo,companyCarsNo, companyNo, carInfoNo, 
+	    consumerId, userName, userEmail, userTel, totalPrice,
+	    rentalDate,returnDate, drivingLicense, bookingStatus)
+	values
+	    (SEQ_RENTCARBOOKING.nextval,#{carNo},#{companyCarsNo},#{companyNo},#{carInfoNo}, 
+	    #{consumerId}, #{userName},#{userEmail}, #{userTel}, #{totalPrice}, 
+	    #{rentalDate},#{returnDate},
+	    #{drivingLicense},'예약')	
+   	
+   		<selectKey keyProperty="bookingNo" resultType="long" order="AFTER" >
+		select SEQ_RENTCARBOOKING.currval from dual
+		</selectKey> 
+		
+	</insert>
+	<!-- 차 번호판 예약상태 업데이트 -->
+	<update id="updateCompanyCars">
+		update 
+			companycars
+		set
+			booking = #{booking}, consumerId = #{vo.consumerId,jdbcType=VARCHAR}
+		where companyCarsNo = #{vo.companyCarsNo}
+	</update>
+	<!-- 결제정보 업데이트 -->
+	<update id="writePayment">
+	update 
+		rentcarBooking
+	 set 
+	 	paymentType = #{paymentType}, paymentCompany = #{paymentCompany}, 
+	 	paymentAccount= #{paymentAccount},bookingStatus = #{bookingStatus}
+	where 
+		bookingNo = #{bookingNo}
+	</update>
+	
+	<!-- 날짜, 사용자 내용 수정 -->
+	<update id="update">
+	update 
+		rentcarBooking
+	 set 
+	 	userName = #{userName}, userEmail = #{userEmail}, 
+	 	userTel= #{userTel},drivingLicense = #{drivingLicense}, totalPrice = #{totalPrice},
+	 	rentalDate= #{rentalDate},returnDate = #{returnDate},bookingStatus = #{bookingStatus}
+	where 
+		bookingNo = #{bookingNo}
+	</update>
+	<update id="updatePayment">
+	update 
+		rentcarBooking
+	 set 
+	 	paymentType = #{paymentType}, paymentCompany = #{paymentCompany}, 
+	 	paymentAccount= #{paymentAccount}
+	where 
+		bookingNo = #{bookingNo}	
+	</update>
+	<delete id="delete">
+	delete rentcarBooking
+		where bookingNo = #{bookingNo}
+	</delete>
+</mapper>

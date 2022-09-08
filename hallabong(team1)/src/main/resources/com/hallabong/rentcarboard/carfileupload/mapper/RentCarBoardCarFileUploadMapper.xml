@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.carfileupload.mapper.RentCarBoardCarFileUploadMapper">
+
+	<select id="carBasicInfoList" resultType="com.hallabong.rentcarboard.carfileupload.domain.RentCarBoardCarFileUploadVO" >
+	select 
+		carInfoNo, orgFileName, fileName, realSavePath, fileType
+	from 
+		car_fileupload
+	where 
+		carInfoNo = #{carInfoNo}
+	</select>
+	
+	<insert id="writeCarFileUpload"  >
+	
+	insert into 
+			car_FileUpload (uploadNo, carInfoNo, orgFileName, fileName, fileSize, realSavePath, fileType)
+		values
+		(seq_car_FileUpload.nextval,#{carInfoNo}, #{orgFileName,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileSize}, #{realSavePath,jdbcType=VARCHAR},#{fileType,jdbcType=VARCHAR})
+	</insert>
+	
+			<!-- 변경 -->
+	<select id="getCarFileUpload" resultType="com.hallabong.rentcarboard.carfileupload.domain.RentCarBoardCarFileUploadVO">
+	select 
+		carInfoNo, orgFileName, fileName, realSavePath, fileType
+	from 
+		car_fileupload
+	where 
+		carInfoNo = #{carInfoNo}
+	</select>
+	
+	
+		<!-- 파일업로드 db 삭제 -->
+	<delete id="deleteCarFileUpload">
+	delete car_FileUpload where carInfoNo = #{carInfoNo}
+	</delete>
+	
+		<update id="updateFileUploadForNull">
+	update
+		car_FileUpload
+	set 
+		orgFileName = '',fileName = '',fileSize = '',realSavePath = ''
+	where
+		carInfoNo = #{carInfoNo}
+	</update>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.rentcarcompany.mapper.RentCarBoardRentCarCompanyMapper">
+	<!-- 렌트카 회사 리스트 -->
+	<select id="rentCarCompanyList" resultType="com.hallabong.rentcarboard.rentcarcompany.domain.RentCarBoardRentCarCompanyVO" >
+	<![CDATA[
+    select companyName, companyNo, tel, address, id
+    from(
+            select 
+            /*+ index_desc (rentCarCompany pk_rentCarCompany)*/
+               Rownum rnum, companyName, companyNo, tel, address, id
+            from 
+                rentcarcompany 
+            where  
+ 				]]>	
+ 			<include refid="searchRentCarCompany"/> 
+ 				<![CDATA[            
+            rownum <= #{endRow}
+         )
+         where rnum > #{startRow}-1
+	]]>
+	</select>
+	<!--  렌트카 회사 페이징 전체 개수 -->
+	<select id="getTotalRowRentCarCompany" resultType="long">
+	<![CDATA[
+			select count(companyNo) 
+			from  rentcarcompany
+			where 
+ 				]]>	
+ 			<include refid="searchRentCarCompany"/> 
+ 				<![CDATA[
+				companyNo > 0
+	]]>		
+	</select>
+	
+	<sql id="searchRentCarCompany">
+		<trim prefix="(" suffix=") and" prefixOverrides="and">
+				<!-- choose 회사이름은 있을때 작동 되게 해야함 "" like 둘다 쓸수없음 %% 유사한 것을 못써서 -->
+			<if test="key != null and key != ''">
+				companyName like '%' || #{word,jdbcType=VARCHAR} ||'%'
+			</if >
+		</trim>
+	</sql>
+	
+		<!-- 그대로 회사 view -->
+	<select id="getCompany" resultType="com.hallabong.rentcarboard.rentcarcompany.domain.RentCarBoardRentCarCompanyVO">
+	select 
+		rcc.companyNo, rcc.companyName, rcc.tel, rcc.address, rcc.id
+	from 
+		rentcarcompany rcc, cars cars
+	where 
+		rcc.companyNo = cars.companyNo and cars.carNo = #{carNo}
+	</select>
+	
+	<!-- 렌트카 등록 -->
+	<insert id="writeRentCarCompany">
+	insert into 
+		rentCarCompany (companyNo, companyName, tel, address,id)
+	VALUES
+		(seq_RentCarCompany.nextval, #{companyName},#{tel},#{address},#{id})
+	</insert>	
+	
+	<!-- 차 회사 보기,수정 동시에 처리하기위해  -->
+	<select id="getAllCompany" resultType="com.hallabong.rentcarboard.rentcarcompany.domain.RentCarBoardRentCarCompanyVO">
+		select companyNo,companyName,id
+		from rentcarcompany
+	</select>
+	
+		<!-- 차회사 수정 -->
+	<update id="updateRentCarCompany">
+		update 
+			rentcarcompany
+		set
+			 companyName = #{companyName},tel = #{tel}, address = #{address}
+		where companyNo = #{companyNo}
+	</update>
+	
+		<!-- 회사 삭제 -->
+	<delete id="deleteCompany">
+	delete rentCarCompany where companyNo = #{companyNo}
+	</delete>
+	
+</mapper>

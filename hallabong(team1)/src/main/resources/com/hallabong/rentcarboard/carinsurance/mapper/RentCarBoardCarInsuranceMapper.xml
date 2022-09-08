@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.carinsurance.mapper.RentCarBoardCarInsuranceMapper">
+<!-- 차 보험 가져오기-->
+	<select id="getCarInsurance" resultType="com.hallabong.rentcarboard.carinsurance.domain.RentCarBoardCarInsuranceVO">
+	select 
+		carNo, insuranceNo,category ,insurancePrice ,insuranceAge,
+		insuranceExperience ,compensation, customerCharge 
+	from 
+		carinsurance
+	where 
+		carNo = #{carNo}
+	</select>
+	
+</mapper>

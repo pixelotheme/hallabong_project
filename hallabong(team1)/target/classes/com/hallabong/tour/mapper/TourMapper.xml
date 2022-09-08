@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.tour.mapper.TourMapper">
+
+	<!-- 관광명소 게시판 리스트 -->
+	<select id="list" resultType="com.hallabong.tour.vo.TourVO">
+		select no, area, theme, name, thumbnail, likeCnt
+		from(
+			select rownum rnum, no, area, theme, name, thumbnail, likeCnt
+			from(
+				select no, area, theme, name, thumbnail,
+				(SELECT count(*) FROM tourLike where tour.no = tourLike.no)likeCnt
+				from tour
+				<include refid="search" />
+				order by no desc
+			)
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 전체 데이터 개수 -->
+	<select id="getTotalRow" resultType="long">
+		select count(*) from tour
+		<include refid="search" />
+	</select>
+	
+	<!-- 게시판 검색 -->
+	<sql id="search">
+		<if test="word != null and word != ''">
+			where 1=0
+				<if test="area.indexOf('제주시'.toString()) >= 0">
+					or name like ${"'%" + word + "%'"}
+				</if>
+				<if test="area.indexOf('조천읍'.toString()) >= 0">
+					or name like ${"'%" + word + "%'"}
+				</if>
+		</if>
+	</sql>
+	
+	<!-- 관광명소 게시판 글보기 -->
+	<select id="view" resultType="com.hallabong.tour.vo.TourVO">
+		select t.no, t.area, t.theme, t.name, m.id, t.fileName, t.address, t.content, t.tel, t.hours, t.map,
+		(select 'LIKED' from tourLike where no = 1 and id = 'test') likeNo,
+		(SELECT count(*) FROM tourLike WHERE no = 1) likeCnt
+		from tour t, member m
+		WHERE no = #{no} and (t.id = m.id)
+	</select>
+	
+	<!-- 관광명소 변경 -->
+	<update id="tourChange">
+		update tour set fileName = #{fileName}
+		where no = #{no}
+	</update>
+	
+	<!-- 관광명소 게시판 글작성 -->
+	<insert id="write">
+		INSERT INTO tour(no, id, area, theme, name, thumbnail, fileName, address, content, tel, hours, map) 
+		VALUES(tour_seq.nextval, #{id}, #{area}, #{theme}, #{name}, #{thumbnail}, #{fileName},
+		#{address}, #{content}, #{tel}, #{hours}, #{map})
+	</insert>
+	
+	<!-- 관광명소 게시판 글수정 -->
+	<update id="update">
+		update tour set title = #{title}, content = #{content}
+		where no = #{no}
+	</update>
+	
+	<!-- 관광명소 게시판 글삭제 -->
+	<delete id="delete">
+		delete from tour
+		where no = #{no}
+	</delete>
+	
+	<!-- 관광명소 좋아요 -->
+	<insert id="like">
+		insert into tourLike(id, likeNo)
+		values (#{id}, #{likeNo})
+	</insert>
+
+	<!-- 관광명소 좋아요 취소 -->
+	<delete id="unlike">
+		delete from tourLike
+		where id = #{id} and no = #{likeNo}
+	</delete>
+	
+</mapper>

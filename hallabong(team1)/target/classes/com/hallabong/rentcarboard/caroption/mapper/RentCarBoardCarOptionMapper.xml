@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.caroption.mapper.RentCarBoardCarOptionMapper">
+<!-- 1개차량 옵션  가져오기 -->
+	<select id="getCarOption" resultType="com.hallabong.rentcarboard.caroption.domain.RentCarBoardCarOptionVO">
+	select 
+		carNo ,smoking,navigation,blackbox,rearCamera,rearSensor,frontSensor,
+		sunroof,bluetooth,heatingSheet,leatherSheet,ventilationSheet,carSeatPay ,carSeatFree,
+		driverAirbag,passengerAirbag ,fourWheel ,smartKey,rearAutomaticDoor,freeCharge,usb,
+		aux,dmb,camping
+	from 
+		caroption
+	where 
+		carNo = #{carNo}
+	</select>
+	
+		<!-- 차옵션 등록 -->
+	<insert id="writeCarOption">
+	insert into 
+		caroption(carOptionNo,carNo, smoking, navigation, blackbox,rearCamera,rearSensor,
+		sunroof,bluetooth,heatingSheet, heatingHandle, leatherSheet, driverAirbag,smartKey,
+		usb,aux,dmb)
+	values(
+	seq_carOption.nextval,#{carNo}, #{smoking,jdbcType=VARCHAR}, #{navigation,jdbcType=VARCHAR}, #{blackbox,jdbcType=VARCHAR},#{rearCamera,jdbcType=VARCHAR},#{rearSensor,jdbcType=VARCHAR},
+		#{sunroof,jdbcType=VARCHAR},#{bluetooth,jdbcType=VARCHAR},#{heatingSheet,jdbcType=VARCHAR}, #{heatingHandle,jdbcType=VARCHAR}, #{leatherSheet,jdbcType=VARCHAR}, #{driverAirbag,jdbcType=VARCHAR},#{smartKey,jdbcType=VARCHAR},
+		#{usb,jdbcType=VARCHAR},#{aux,jdbcType=VARCHAR},#{dmb,jdbcType=VARCHAR}
+	)
+	</insert>
+	
+		<!-- 차량 옵션 수정 -->
+	<update id="updateCarOption">
+		update 
+			caroption
+		set
+			 carNo = #{carNo,jdbcType=VARCHAR}, smoking = #{smoking,jdbcType=VARCHAR} , navigation = #{navigation,jdbcType=VARCHAR}, blackbox = #{blackbox,jdbcType=VARCHAR},
+			 rearCamera = #{rearCamera,jdbcType=VARCHAR}, rearSensor = #{rearSensor,jdbcType=VARCHAR} , sunroof = #{sunroof,jdbcType=VARCHAR}, bluetooth = #{bluetooth,jdbcType=VARCHAR},
+			 heatingSheet = #{heatingSheet,jdbcType=VARCHAR}, heatingHandle = #{heatingHandle,jdbcType=VARCHAR} , leatherSheet = #{leatherSheet,jdbcType=VARCHAR}, driverAirbag = #{driverAirbag,jdbcType=VARCHAR},
+			 smartKey = #{smartKey,jdbcType=VARCHAR}, usb = #{usb,jdbcType=VARCHAR} , aux = #{aux,jdbcType=VARCHAR}, dmb = #{dmb,jdbcType=VARCHAR}
+			 
+		where carNo = #{carNo}
+		
+	</update>
+	
+</mapper>

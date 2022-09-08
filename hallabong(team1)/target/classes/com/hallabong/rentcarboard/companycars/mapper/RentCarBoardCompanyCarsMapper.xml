@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.companycars.mapper.RentCarBoardCompanyCarsMapper">
+<!-- 차 번호판 가져오기-->
+	
+		<!-- 해당 회사의 차량 번호판 , 검색 (번호판), 정렬 예약 남은 차량 역순-->
+	<select id="getCompanyCarsList" resultType="com.hallabong.rentcarboard.companycars.domain.RentCarBoardCompanyCarsSynthesizeVO">
+	select companycarsno, carno, companyno, licenseplate, 
+            booking,consumerid, writeDate, updateDate ,
+            carname, companyname
+    from(
+    
+        select rnum, companycarsno, carno, companyno, licenseplate, 
+                booking,consumerid, writeDate, updateDate ,
+                carname, companyname
+        from(
+        
+            SELECT  
+                rownum rnum, cpc.companycarsno, cpc.carno, cpc.companyno, cpc.licenseplate, 
+                cpc.booking,cpc.consumerid, cpc.writeDate, cpc.updateDate ,cpc.id,
+                cbi.carname, rcc.companyname
+                FROM 
+                    companyCars cpc, carbasicinfo cbi, rentcarcompany rcc, cars cars
+                where 
+                <include refid="searCompanyCars"/>
+                    cpc.carNo = cars.carno and cars.carinfono = cbi.carinfono
+                    and cpc.companyno = rcc.companyNo
+
+                    and cpc.carNo = #{carNo}
+                    and cpc.companyNo = #{companyNo}
+                order by companycarsno desc
+            )
+   )where rnum BETWEEN #{pageObject.startRow} and #{pageObject.endRow}   
+	
+	
+	</select>
+	<!-- 리스트 페이징을위한 전체 개수 -->
+	<select id="getTotalRowForCompanyCars" resultType="long">
+	select 
+		count(cpc.companyCarsNo)
+	from 
+		companycars cpc
+<!-- 		, carbasicinfo cbi -->
+	where 
+	<include refid="searCompanyCars"/>
+		cpc.companyNo = #{companyNo}
+		and cpc.carNo = #{carNo}  
+	</select>
+	<!-- 리스트 검색을 위한 쿼리 -->
+	<sql id="searCompanyCars">
+		<trim prefix="(" suffix=") and" prefixOverrides="or">
+					<!-- choose 회사이름은 있을때 작동 되게 해야함 "" like 둘다 쓸수없음 %% 유사한 것을 못써서 -->
+					<if test="pageObject.key == 'P'.toString()">
+						cpc.licensePlate like '%' || #{pageObject.word,jdbcType=VARCHAR} ||'%'
+					</if >
+					<if test="pageObject.key == 'C'.toString()">
+						cpc.id like '%' || #{pageObject.word,jdbcType=VARCHAR} ||'%'
+					</if >
+					<!-- B가 0 인개수만 가져오기 (view 에서 예약가능한지 확인 정보) -->
+					<if test="pageObject.key == 'B'.toString()">
+						cpc.booking = 0
+					</if >
+				
+		</trim>
+	</sql>
+	<!-- 리스트 정렬을 위한 쿼리 -->
+	
+	<!-- 번호판 등록 -->
+	<insert id="writeCompanyCars">
+	insert into companyCars(companyCarsNo, carNo, companyNo, licensePlate,id)
+	VALUES (seq_companyCars.nextval, #{carNo}, #{companyNo}, #{licensePlate}, #{id})
+	</insert>
+	
+	<!-- 번호판 상세 보기 -->
+	<select id="viewCompanyCars" resultType="com.hallabong.rentcarboard.companycars.domain.RentCarBoardCompanyCarsVO">
+	select companyCarsNo, carNo, companyNo, licensePlate, 
+	       booking,consumerId, writeDate, updateDate
+	    from companycars
+	where companyCarsNo = #{companyCarsNo}	
+	</select>
+	
+	<!-- 번호판 수정 -->
+	<update id="updateCompanyCars">
+		update 
+			companycars
+		set
+			licensePlate = #{licensePlate}
+		where companyCarsNo = #{companyCarsNo}
+	</update>
+	<!-- 번호판 삭제 -->
+	<delete id="deleteCompanyCars">
+	delete companycars where companyCarsNo = #{companyCarsNo}
+	</delete>
+</mapper>

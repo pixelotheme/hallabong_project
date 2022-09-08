@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.hallabong.tour.mapper.TourAttachMapper">
+
+	<select id="findByBno" resultType="com.hallabong.tour.vo.TourAttachVO">
+		<!-- CDATA - mybatis에서 Oracle DB 처리문을 해석해서 되는 확인 처리 - 해석이 안되는 것도 오라클로 그대로 넘겨주세요.  -->
+		<![CDATA[
+		select * from tour_attach where no = #{no}
+		]]>
+	</select>
+	
+	<!-- 어제 지워지지 않은 파일을 지우기 위한 자료 목록 -->
+	<select id="getOldFiles" resultType="com.hallabong.tour.vo.TourAttachVO">
+		<!-- CDATA - mybatis에서 Oracle DB 처리문을 해석해서 되는 확인 처리 - 해석이 안되는 것도 오라클로 그대로 넘겨주세요.  -->
+		<![CDATA[
+		select * from tour_attach where uploadPath = to_char(sysdate - 1, 'yyyy\mm\dd')
+		]]>
+	</select>
+
+	<insert id="insert">
+		insert into tour_attach(uuid, uploadPath, fileName, fileType, no)
+		values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{no})
+	</insert>
+
+	<delete id="delete">
+		delete from tour_attach
+		where uuid = #{uuid}
+	</delete>
+
+</mapper>

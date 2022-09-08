@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="com.hallabong.diner.mapper.DinerMapper">
+
+	<select id="list" resultType="com.hallabong.diner.vo.DinerVO">
+		select no, region, kind, name, image, introduce
+		from (
+		select rownum rnum, no, region, kind, name, image, introduce
+		from (
+		select no, region, kind, name, image, introduce
+		from diner
+		<include refid="search" />
+		order by no desc
+		)
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getTotalRow" resultType="Long">
+		select count(*) from diner
+		<include refid="search"/>
+	</select>
+	
+	<sql id="search">
+		<if test="word != null and word != ''">
+		where 1=0
+			<if test="key.indexOf('1'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('2'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('3'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('4'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('5'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('6'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('7'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('8'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('EV'.toString()) >= 0">
+				or region like ${"'%" + word + "%'"}
+			</if>
+			</if>
+			
+			<if test="word != null and word != ''">
+		where 1=0
+			<if test="key.indexOf('1'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('2'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('3'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('4'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('5'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('6'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('7'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('8'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('9'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('10'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('11'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('12'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			<if test="key.indexOf('EV'.toString()) >= 0">
+				or kind like ${"'%" + word + "%'"}
+			</if>
+			</if>
+	</sql>
+	
+<!-- 	<select id="view" resultType="com.hallabong.diner.vo.DinerVO"> -->
+<!-- 		select no, region, kind, name, address, tel, foodType, price, image, content, hours, park -->
+	
+<!-- 	</select> -->
+	
+	
+	
+	<update id="increase">
+		update diner
+		set hit = hit + 1
+		where no = #{no}
+	</update>
+	
+		<insert id="write">
+		insert into image(no, region, kind, name, address, tel, foodType, price, introduce, image, content, park, hours)
+		values (image_seq.nextval, #{region}, #{kind}, #{name}, #{address}, #{tel}, #{foodType}, #{price}, #{introduce}, #{image}, #{content}, #{park}, #{hours})
+	</insert>
+	
+
+
+</mapper>

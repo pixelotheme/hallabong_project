@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.qna.mapper.QnaMapper">
+
+	<select id="list" resultType="com.hallabong.qna.vo.QnaVO">
+		select no, title, id, writeDate, cnt
+		from (
+			select rownum rnum, no, title, id, writeDate, cnt
+			from (
+				select no, title, id, writeDate,
+					(select count(*) from qna qc where q.no = qc.refNo) - 1 cnt
+				from qna q
+				where levNo = 0
+				order by refNo desc
+			)
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+
+	<select id="getTotalRow" resultType="long">
+		select count(*) from qna
+		where levNo = 0
+	</select>
+
+	<insert id="write">
+		insert into qna(no, title, content, id, refNo, ordNo, levNo, parentNo)
+		values(qna_seq.nextval, #{title}, #{content}, #{id}, qna_seq.nextval, 1, 0, null)
+	</insert>
+	
+	<select id="view" resultType="com.hallabong.qna.vo.QnaVO">
+		select no, title, content, id, writeDate, refNo, ordNo, levNo
+		from qna
+		where no = #{no}
+	</select>
+	
+	
+	<insert id="answer">
+		insert into qna(no, title, content, id, refNo, ordNo, levNo, parentNo)
+		values(qna_seq.nextval, #{title}, #{content}, #{id}, #{refNo}, #{ordNo}, #{levNo}, #{parentNo})
+	</insert>
+	
+	<update id="increaseOrdNo">
+		update qna set ordNo = ordNo + 1
+		where refNo = #{refNo} and ordNo >= #{ordNo}
+	</update>
+	
+	<!-- 수정하기 -->
+	<update id="update">
+		update qna set title = #{title}, content = #{content}
+		where no = #{no}
+	</update>
+	
+	<!-- 삭제하기 -->
+	<delete id="delete">
+		delete from qna
+		where no = #{no}
+	</delete>
+	
+</mapper>

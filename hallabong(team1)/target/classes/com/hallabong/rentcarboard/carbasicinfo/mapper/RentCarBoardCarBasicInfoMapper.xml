@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.carbasicinfo.mapper.RentCarBoardCarBasicInfoMapper">
+<select id="carBasicInfoList" resultType="com.hallabong.rentcarboard.carbasicinfo.domain.RentCarBoardSynthesizeVO" >
+<![CDATA[
+select carInfoNo, carName, carFuel, carCapacity , carTypes,
+	    filename, orgFileName, filesize, 
+        realsavepath
+        from(
+        
+ select rownum rnum, carInfoNo, carName, carFuel, carCapacity , carTypes,
+	    filename, orgFileName, filesize, 
+        realsavepath
+	from(        
+        select
+         cbi.carInfoNo, cbi.carName,  cbi.carFuel, cbi.carCapacity , cbi.carTypes,
+            cfup.filename,cfup.orgFileName, cfup.filesize, 
+                cfup.realsavepath
+        from carbasicinfo cbi, car_fileupload cfup
+        where 
+        ]]>
+        <include refid="carBasicInfoSearch"/>
+        <![CDATA[
+        cbi.carinfoNo = cfup.carinfoNo
+        order by cbi.carinfoNo desc
+    )
+    )where rnum between #{startRow} and #{endRow}
+]]>
+</select>
+
+	<select id="getTotalRowForcarBasicInfo" resultType="long">
+		select count(cbi.carinfoNo)
+		from carbasicinfo cbi, car_fileupload cfup
+		where
+		<include refid="carBasicInfoSearch"/> 
+		cbi.carinfoNo = cfup.carinfoNo
+			
+	</select>
+	<!-- 검색 -->
+	<sql id="carBasicInfoSearch">
+		<trim prefix="(" suffix=") and" prefixOverrides="or">
+		
+			<foreach collection="keyArr" item="key">
+				
+				<trim prefix="or">
+					<!-- switch case 문과 동일 -->
+					<choose>
+						<!--  type은 문자열이면 toString 안붙여도 되야하는데
+						확인 필요-->
+						<when test="key == 'N'.toString()">
+							cbi.carName like '%' || #{word} ||'%'
+						</when>
+						<when test="key == 'T'.toString()">
+							cbi.carTypes like '%' || #{word} ||'%'
+						</when>
+						<when test="key == 'F'.toString()">
+							cbi.carFuel like '%' || #{word} ||'%'
+						</when>
+					</choose>
+				</trim>
+				
+			</foreach>
+		
+		</trim>
+	</sql>
+	
+		<!--carBasicInfo 차량 이름... -->
+	<select id="getCarBasicInfo" resultType="com.hallabong.rentcarboard.carbasicinfo.domain.RentCarBoardCarBasicInfoVO">
+	 	select 
+        carInfoNo,carName,  carFuel, carCapacity , carTypes
+	from 
+		carBasicInfo
+	where 
+		carInfoNo = #{carInfoNo}
+	
+	</select>
+	
+	
+	<!-- 차량 기본정보 등록 + 파일업로드writeCarBasicInfoGetCarInfoNo -->
+		<insert id="writeCarBasicInfoGetCarInfoNo" >
+	insert into 
+		carBasicInfo(carInfoNo, carName, carTypes, carCapacity, carFuel)
+	VALUES
+		(seq_carBasicInfo.nextval, #{carName},#{carTypes},
+		 #{carCapacity}, #{carFuel})
+		
+		<selectKey keyProperty="carInfoNo" resultType="long" order="AFTER" >
+		select seq_carBasicInfo.currval from dual
+		</selectKey> 
+		
+	</insert>
+	
+	
+	<!-- 수정 updateCarBasicInfo-->
+		<update id="updateCarBasicInfo">
+		update 
+			carBasicInfo
+		set
+			 carName = #{carName},carTypes = #{carTypes}, carCapacity = #{carCapacity}, carFuel = #{carFuel}
+		where carInfoNo = #{carInfoNo}
+	</update>
+	<!-- 차량 기본정보 삭제 - on delete 설정으로 파일도 같이 삭제 - 실제 파일도 삭제해야함-->
+	<delete id="deleteCarBasicInfo">
+	delete carBasicInfo where carInfoNo = #{carInfoNo}
+	</delete>	
+	
+		<!-- 자동차 등록을 위한 기본 차량정보가져오기 -->
+	<select id="getAllCarBasicInfo" resultType="com.hallabong.rentcarboard.carbasicinfo.domain.RentCarBoardCarBasicInfoVO">
+		select carInfoNo, carName,  carFuel, carCapacity , carTypes  
+		from carbasicinfo
+	</select>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.faq.mapper.FaqMapper">
+
+	<!-- 리스트 -->
+	<select id="list" resultType="com.hallabong.faq.vo.FaqVO">
+		select no, title, content, id
+		from (
+			select rownum rnum, no, title, content, id
+			from (
+				select no, title, content, id
+				from faq
+				order by no desc
+			)
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	<!-- 전체 데이터 개수 -->
+	<select id="getTotalRow" resultType="long">
+		select count(*) from faq
+	</select>
+	<!-- 보기 -->
+	<select id="view" resultType="com.hallabong.faq.vo.FaqVO">
+		select no, title, content, id
+		from faq
+		where no = #{no}
+	</select>
+	<!-- FAQ 등록 -->
+	<insert id="write">
+		insert into faq(no, title, content, id)
+		values(faq_seq.nextval, #{title}, #{content}, #{id})
+	</insert>
+	<!-- FAQ 수정 -->
+	<update id="update">
+		update faq set title = #{title}, content = #{content}
+		where no = #{no}
+	</update>
+	<!-- FAQ 글 삭제 -->
+	<delete id="delete">
+		delete from faq
+		where no = #{no}
+	</delete>
+</mapper>

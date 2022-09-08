@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.mapper.RentCarBoardMapper">
+<!-- 렌트카 리스트 -->
+	<select id="list" resultType="com.hallabong.rentcarboard.domain.RentCarSynthesizeDTO">
+		<![CDATA[
+		select 
+		    rnum ,companyName, companyNo, insuranceInfo,
+	        carInfoNo, carName,carTypes, carFuel,
+	        carNo, modelYears,rentAge, price, 
+	        smoking,navigation,blackbox,rearCamera,rearSensor,frontSensor,sunroof, 
+	        bluetooth,heatingSheet,heatinghandle, filename,orgFileName, filesize, 
+	        realsavepath ,fileType
+		from 
+		    ( 
+	    select 
+	        rownum rnum ,companyName, companyNo, insuranceInfo,
+	        carInfoNo, carName,carTypes, carFuel,
+	        carNo, modelYears,rentAge, price, 
+	        smoking,navigation,blackbox,rearCamera,rearSensor,frontSensor,sunroof, 
+	        bluetooth,heatingSheet,heatinghandle, filename,orgFileName, filesize, 
+	        realsavepath ,fileType
+	    from 
+	        ( 
+	            select 
+	                rcc.companyName, rcc.companyNo, cars.insuranceInfo,
+	                cbi.carInfoNo,cbi.carName,cbi.carTypes, cbi.carFuel,
+	                cars.carNo, cars.modelYears,cars.rentAge, cars.price, 
+	                cop.smoking,cop.navigation,cop.blackbox,cop.rearCamera,cop.rearSensor,cop.frontSensor,cop.sunroof, 
+	                cop.bluetooth,cop.heatingSheet,cop.heatinghandle, cfup.filename,cfup.orgFileName, cfup.filesize, 
+	                cfup.realsavepath ,cfup.fileType
+	            from 
+	                rentcarcompany rcc,cars cars,caroption cop, car_fileupload cfup
+	                ,carBasicInfo cbi
+	            where 
+				    ]]>
+				        <include refid="search"/> 
+				        	<![CDATA[
+	                rcc.companyno = cars.companyno and cop.carno = cars.carno 
+	                and cbi.carInfoNo = cfup.carInfoNo
+	                and cars.carinfono = cbi.carinfono
+	                order by carNo desc 
+	            )
+	            
+	    )
+	    where rnum between #{startRow} and #{endRow}
+		]]>	
+	</select>
+	<select id="getTotalRow" resultType="long">
+			select count(carNo) 
+			from cars cars, rentcarcompany rcc, carBasicInfo cbi
+			where 
+ 			<include refid="search"/> 
+				cars.companyno = rcc.companyno and cars.carInfoNo = cbi.carInfoNo
+			
+	</select>
+<!-- 렌트카 리스트 검색 -->	
+	<sql id="search">
+		<trim prefix="(" suffix=") and" prefixOverrides="and">
+		
+				<!-- choose 회사이름은 있을때 작동 되게 해야함 "" like 둘다 쓸수없음 %% 유사한 것을 못써서 -->
+			<if test="key != null and key != ''">
+				rcc.companyName = #{key,jdbcType=VARCHAR}
+			</if >
+			
+			<trim prefix="and" >
+
+				cbi.carName like '%' || #{word,jdbcType=VARCHAR} ||'%'
+			</trim>
+		
+		
+		</trim>
+	</sql>
+	
+	<!-- 변경 렌트카 가져오기-->
+	<select id="getCars" resultType="com.hallabong.rentcarboard.domain.RentCarBoardCarsVO">
+	select 
+		carNo, companyNo, carInfoNo, insuranceType, price, gearbox,
+        to_char(modelyears, 'yyyy-MM') modelyears, rentAge,
+		rentExperience,license,insuranceInfo ,
+		rentCarNote ,cancelAndRefund,writeDate ,updateDate, id
+	from 
+		cars
+	where 
+		carNo = #{carNo}
+	</select>
+		
+		
+	<!-- 차량 등록후 번호리턴  carName,carTypes, carCapacity, carFuel 제거, carInfoNo추가-->
+	<insert id="writeCarGetCarNo" >
+	insert into 
+		cars(carInfoNo,carNo, companyNo, price, modelYears, 
+		 rentAge, rentExperience, license,insuranceInfo,rentCarNote,cancelAndRefund,id)
+	VALUES
+		(#{carInfoNo},seq_Cars.nextval,#{companyNo}, #{price},TO_DATE(#{modelYears},'YYYY-MM'),
+		 #{rentAge}, #{rentExperience}, #{license},
+		#{insuranceInfo},#{rentCarNote},#{cancelAndRefund},#{id})
+		
+		<selectKey keyProperty="carNo" resultType="long" order="AFTER" >
+		select seq_Cars.currval from dual
+		</selectKey> 
+		
+	</insert>		
+	
+		<!-- 차량 수정  변경 carName,carTypes, carCapacity, carFuel 제거, carInfoNo추가-->
+	<update id="updateCar">
+		update 
+			cars
+		set
+			carInfoNo = #{carInfoNo}, carNo = #{carNo}, companyNo = #{companyNo} , price = #{price},
+			 modelYears = TO_DATE(#{modelYears},'YYYY-MM'), rentAge = #{rentAge}, rentExperience = #{rentExperience},
+			 license = #{license}, insuranceInfo = #{insuranceInfo},
+			 rentCarNote = #{rentCarNote}, cancelAndRefund = #{cancelAndRefund} , id = #{id}
+			 
+		where carNo = #{carNo}
+		
+	</update>
+		<!-- 차량삭제 -->
+	<delete id="deleteCar">
+	delete cars where carNo = #{carNo}
+	</delete>
+</mapper>

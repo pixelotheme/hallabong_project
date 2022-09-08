@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+
+<mapper namespace="com.hallabong.member.mapper.MemberMapper">
+
+		<!--  일반 사용자  -->
+		
+		<!-- 로그인 -->
+		<select id="login" resultType="com.hallabong.member.vo.LoginVO">
+			select id, name, gradeNo
+			from member
+			where id = #{id} and pw = #{pw}
+		</select>
+		
+		<!-- 회원가입 -->
+		<insert id="sign">
+		 insert into member(id, pw, name, birth, gender, tel, email, memberNo, gradeNo)
+		 values(#{id}, #{pw}, #{name}, #{birth}, #{gender}, #{tel}, #{email}, member_seq.nextval, '1')
+		</insert>
+		
+		<!-- 아이디 중복 검사 리스트 -->
+		<select id="check_Id" parameterType="String" resultType="int">
+			select count(*) from member where id = #{id}
+		</select>
+		
+		<!-- 이메일 중복 검사 리스트-->
+		<select id="check_Email" parameterType="String" resultType="int">
+			select count(*) from member where email = #{email}
+		</select>
+		
+		<!-- 연락처 중복 검사 리스트-->
+		<select id="check_Tel" parameterType="String" resultType="int">
+			select count(*) from member where tel = #{tel}
+		</select>
+		
+		<!-- 아이디 , 비밀번호 찾기 및 중복검사 -->
+		<!-- 아이디  찾기 -->
+		<select id="checkId" resultType="com.hallabong.member.vo.MemberVO">
+			select id from member where id = #{id}
+		</select>
+
+		<!-- 이메일 찾기 -->
+		<select id="checkEmail" resultType="com.hallabong.member.vo.MemberVO">
+			select email from member where email = #{email}
+		</select>
+		
+		<!-- 아이디 찾기 -->
+		<select id="findId" resultType="com.hallabong.member.vo.MemberVO">
+			select id from member where tel = #{tel} and name = #{name}
+		</select>
+		
+		<!-- 비밀번호 찾기 -->
+		<select id="findPw" resultType="com.hallabong.member.vo.MemberVO">
+			select pw from member where id = #{id}
+		</select>
+		
+		<!-- 비밀번호 변경  -->
+		  <update id="changePw">
+		  	update member set pw = #{pw} 
+		  	where id = #{id}
+		  </update>
+		 
+		<!-- 정보 변경 -->
+			<update id="updateMember">
+			 update member set id = #{id}, email = #{email}, name = #{name}, tel = #{tel}
+			 where id = #{id}
+			</update>
+			
+			<!-- 정보 변경 -->
+			<update id="exUpdateMember">
+			 update member set id = #{id}, email = #{email}, name = #{name}, tel = #{tel}
+			 where id = #{id}
+			</update>
+			
+		<!-- 마이페이지 -->
+			<select id="myPage" resultType="com.hallabong.member.vo.MemberVO">
+				select m.id, m.pw, m.email, m.name, m.tel, m.birth, m.gender, m.regDate, m.status, m.gradeNo, g.gradeName
+				from member m, grade g
+				where (id = #{id}) and (m.gradeNo= g.gradeNo)
+			</select>
+			
+		<!-- 회원 탈퇴 -->
+			<delete id="memberWithdraw">
+				delete from member
+				where id = #{id}
+			</delete>
+			
+			
+		<!-- 관리자 페이지  -->
+		
+		
+		<!-- 회원 리스트 -->
+		<select id="memberList" resultType="com.hallabong.member.vo.MemberVO">
+		select rnum, memberNo, id, name, tel, email, gradeNo, gradeName from(
+		 select rownum rnum, memberNo, id, name, tel, email,  gradeNo, gradeName from(
+		  select  m.memberNo, m.id, m.name, m.tel, m.email, m.gradeNo, g.gradeName 
+		  from member m, grade g 
+		  where m.gradeNo = g.gradeNo
+		  order by memberNo desc
+		  )
+		  ) where rnum between #{startRow} and #{endRow}
+		</select>
+		
+		<!-- 조회 -->
+		<select id="getTotalRow" resultType="java.lang.Long">
+		select count(*) from member
+		</select>
+		
+		<!-- 등급 변경 -->
+		<update id="grade">
+			update member set gradeNo = #{gradeNo}
+			where id = #{id}
+		</update>
+		
+		<!-- 회원 보기 -->
+		 <select id="view" resultType="com.hallabong.member.vo.MemberVO">
+		 	select m.id, m.pw, m.email, m.name, m.tel, m.birth, m.gender, m.regDate, m.status, m.gradeNo, g.gradeName
+				from member m, grade g
+				where (id = #{id}) and (m.gradeNo= g.gradeNo)
+		 </select>
+
+
+</mapper>

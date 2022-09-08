@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hallabong.rentcarboard.ajax.mapper.RentCarBoardAjaxMapper">
+
+		<select id="getCompany" resultType="com.hallabong.rentcarboard.rentcarcompany.domain.RentCarBoardRentCarCompanyVO">
+	select 
+		companyNo, companyName, tel, address, id
+	from 
+		rentcarcompany 
+	where 
+		companyNo = #{companyNo}
+	</select>
+	<!-- 보험 등록 -->
+	<insert id="writeCarInsurance">
+	insert into 
+		carInsurance(carNo, insuranceNo, category, insurancePrice,
+		insuranceAge, insuranceExperience,compensation,customerCharge)
+	VALUES
+		(
+		#{carNo},
+		SEQ_CarINSURANCE.nextval, 
+		#{category}, 
+		#{insurancePrice},
+		#{insuranceAge}, 
+		#{insuranceExperience},
+		#{compensation},
+		#{customerCharge}
+		)
+	</insert>
+	
+	<!-- 보험 수정 -->
+	<update id="updateCarInsurance">
+	update
+		carInsurance
+	set
+			 carNo = #{carNo}, insuranceNo = #{insuranceNo} , category = #{category}, insurancePrice = #{insurancePrice},
+			 insuranceAge = #{insuranceAge}, insuranceExperience = #{insuranceExperience} , 
+			 compensation = #{compensation}, customerCharge = #{customerCharge}
+	where
+		insuranceNo = #{insuranceNo}
+	</update>
+	
+	<!-- 보험 삭제 -->
+	<delete id="deleteCarInsurance">
+	delete
+		carInsurance
+	where 
+		insuranceNo = #{insuranceNo}
+	</delete>		
+	
+</mapper>
