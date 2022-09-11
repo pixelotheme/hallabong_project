@@ -20,6 +20,7 @@ import com.hallabong.rentcarboard.caroption.service.RentCarBoardCarOptionService
 import com.hallabong.rentcarboard.companycars.service.RentCarBoardCompanyCarsService;
 import com.hallabong.rentcarboard.domain.RentCarBoardCarsVO;
 import com.hallabong.rentcarboard.domain.RentCarSynthesizeDTO;
+import com.hallabong.rentcarboard.rentcarcompany.domain.RentCarBoardRentCarCompanyVO;
 import com.hallabong.rentcarboard.rentcarcompany.service.RentCarBoardRentCarCompanyService;
 import com.hallabong.rentcarboard.service.RentCarBoardService;
 import com.hallabong.rentcarboard.util.PageObjectCustom;
@@ -61,7 +62,6 @@ public class RentCarBoardController {
 	
 	
 	
-	
 	@GetMapping("/rentCarBoardList.do")
 	public String list(PageObjectCustom pageObject,Model model) {
 		List<RentCarSynthesizeDTO> dto = service.list(pageObject);
@@ -78,12 +78,17 @@ public class RentCarBoardController {
 		
 		return "rentcarboard/rentCarBoardList";
 	}
+	
 	//렌트카 보기 // 옵션, 보험, 파일업로드 까지 끝내고 마지막에
 	@GetMapping("rentCarBoardView.do")
 	public String view(Model model, long carNo, long carInfoNo, long companyNo) {
 		
 		log.info("view ..... : "+carNo);
-		model.addAttribute("companyVO", rccService.getCompany(carNo)); //완료
+		RentCarBoardRentCarCompanyVO rccVO = rccService.getCompany(carNo);
+		
+		rccVO.setAddress(rccVO.getAddress().replace("/", ","));
+		
+		model.addAttribute("companyVO", rccVO); //완료
 		model.addAttribute("carsVO", service.getCars(carNo));
 		
 		//리스트에서 carInfoNo 도 같이 뽑아둠
@@ -94,6 +99,7 @@ public class RentCarBoardController {
 		model.addAttribute("carFileUploadVO", cfupService.getCarFileUpload(carInfoNo)); //완료
 		
 		PageObjectCustom pageObject = new PageObjectCustom();
+		//예약되어있는 것만 가져온다
 		pageObject.setKey("B");
 		model.addAttribute("totalCompanyCars", cssService.getTotalRowForCompanyCars(pageObject, carNo, companyNo));
 		
@@ -111,7 +117,7 @@ public class RentCarBoardController {
 	}
 	//등록 
 	@PostMapping("/rentCarBoardWrite.do")
-		public String rentCarwrite(RentCarBoardCarsVO carsVO, RentCarBoardCarOptionVO carOptionVO,RentCarBoardCarBasicInfoVO carBasicInfoVO, long perPageNum) throws Exception {
+	public String rentCarwrite(RentCarBoardCarsVO carsVO, RentCarBoardCarOptionVO carOptionVO,RentCarBoardCarBasicInfoVO carBasicInfoVO, long perPageNum) throws Exception {
 		log.info("rentCarWrite"+carsVO);
 		carsVO.setCarInfoNo(carBasicInfoVO.getCarInfoNo());
 		log.info("rentCarWrite"+carsVO);

@@ -8,41 +8,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>렌트카 리스트</title>
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <meta charset="UTF-8">
 
-<title>렌트카 리스트</title>
-<style type="text/css">
-li{
-list-style: none;
-}
 
-.dataRow:hover{
-	background: #eee;
-	cursor: pointer;
-}
-.dataRow{
-	border-left: none;
-	border-right: none;
-}
-.list-group-item:first-child{
-border-top-left-radius:0;
-border-top-right-radius:0;
-}
-.carImage{
-width:100px;
+<link rel="stylesheet" href="/resources/rentCar/rentCarCSS/rentcarboard/list.css">
 
-height: 110px;
-}
-
-.price{
-padding-top: 95px;
-font-size: 30px;
-}
-</style>
 
 <script type="text/javascript">
 
@@ -111,16 +86,38 @@ jQuery(document).ready(function() {
 							</div>
 							<div class="col-md-3 carOption" >
 								<ul>
-									<li>${ vo.smoking == null ? "금연차량":"<strong>금연차량</strong>" }
-									${ vo.navigation == null ? "네이게이션":"<strong>네이게이션</strong>" }</li>
-									<li>${ vo.blackbox == null ? "블랙박스":"<strong>블랙박스</strong>" }
-									${ vo.rearCamera == null ? "후방카메라":"<strong>후방카메라</strong>" }</li>
-									<li>${ vo.frontSensor == null ? "전방센서":"<strong>전방센서</strong>" }
-									${ vo.rearSensor == null ? "후방센서":"<strong>후방센서</strong>" }</li>
-									<li>${ vo.sunroof == null ? "썬루프":"<strong>썬루프</strong>" }
-									${ vo.bluetooth == null ? "블루투스":"<strong>블루투스</strong>" }</li>
-									<li>${ vo.heatingSheet == null ? "열선시트":"<strong>열선시트</strong>" }
-									${ vo.heatingHandle == null ? "열선핸들":"<strong>열선핸들</strong>" }</li>
+									<li class="car_op">
+									<p>
+									${(vo.smoking == '금연차량')? '<span class="on">금연차량</span>':'<span class="off">금연차량</span>'}
+									</p>
+									<p>
+									${(vo.navigation == '네비게이션')? '<span class="on">네비게이션</span>':'<span class="off">네비게이션</span>'}
+									</p>
+									<p>
+									${(vo.blackbox == '블랙박스')? '<span class="on">블랙박스</span>':'<span class="off">블랙박스</span>'}
+									</p>
+									<p>
+									${(vo.rearCamera == '후방카메라')? '<span class="on">후방카메라</span>':'<span class="off">후방카메라</span>'}
+									</p>
+									<p>
+									${(vo.frontSensor == '전방센서')? '<span class="on">전방센서</span>':'<span class="off">전방센서</span>'}
+									</p>
+									<p>
+									${(vo.rearSensor == '후방센서')? '<span class="on">후방센서</span>':'<span class="off">후방센서</span>'}
+									</p>
+									<p>
+									${(vo.sunroof == '썬루프')? '<span class="on">썬루프</span>':'<span class="off">썬루프</span>'}
+									</p>
+									<p>
+									${(vo.bluetooth == '블루투스')? '<span class="on">블루투스</span>':'<span class="off">블루투스</span>'}
+									</p>
+									<p>
+									${(vo.heatingSheet == '열선시트')? '<span class="on">열선시트</span>':'<span class="off">열선시트</span>'}
+									</p>
+									<p>
+									${(vo.heatingHandle == '열선핸들')? '<span class="on">열선핸들</span>':'<span class="off">열선핸들</span>'}
+									</p>
+								</li>	
 								</ul>
 							</div>
 							<div class="col-md-3 text-right price" >

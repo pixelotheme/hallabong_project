@@ -16,11 +16,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-<script type="text/javascript">
-$(function(){
-	
-})
-</script>
 
 </head>
 <body>
@@ -50,7 +45,7 @@ $(function(){
 				<li class="list-group-item row">
 				<div class="col-md-3">정원</div>
 				<div class="col-md-9">
-				${carBasicInfoVO.carCapacity }
+				${carBasicInfoVO.carCapacity }명
 				</div>
 				</li>
 				<li class="list-group-item row">

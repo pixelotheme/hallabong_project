@@ -158,10 +158,10 @@ ${vo }
 						<label>반납일</label> <input class="form-control" value="${param.returnDate }" readonly="readonly" />
 					</div>
 					<div class="form-group">
-						<label>상품금액</label> <input class="form-control" value="<fmt:formatNumber value='${vo.prePrice }' pattern='#,###'/>" readonly="readonly"/>
+						<label>상품금액</label> <input class="form-control" value="<fmt:formatNumber value='${vo.prePrice }' pattern='#,###원'/>" readonly="readonly"/>
 					</div>
 					<div class="form-group">
-						<label>최종금액</label> <input class="form-control" value="<fmt:formatNumber value='${vo.totalPrice }' pattern='#,###'/>"  readonly="readonly"/>
+						<label>최종금액</label> <input class="form-control" value="<fmt:formatNumber value='${vo.totalPrice }' pattern='#,###원'/>"  readonly="readonly"/>
 					</div>
 
 

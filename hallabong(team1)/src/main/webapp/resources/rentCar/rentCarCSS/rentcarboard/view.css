@@ -1,0 +1,20 @@
+@charset "UTF-8";
+#text-info-typeA p{
+    width: 22%;
+    float: left;
+    height: 20px;
+    margin: 0 9px 6px 0;
+/*     padding: 2px 2px; */
+    border: 1px solid #c8c8c8;
+    border-radius: 2px;
+    color: #c8c8c8;
+    text-align: center;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: -.7px;
+}
+#text-info-typeA p .on    
+   {
+        color: #000;
+/* border: 1px solid #000; */
+    }

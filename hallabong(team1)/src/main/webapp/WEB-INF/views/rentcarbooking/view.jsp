@@ -94,7 +94,7 @@ $(function(){
 				</li>
 				<li class="list-group-item row">
 					<div class="col-md-3">예약 금액</div>
-					<div class="col-md-9">${vo.totalPrice }</div>
+					<div class="col-md-9"><fmt:formatNumber value='${vo.totalPrice }' pattern='#,###원'/></div>
 				</li>
 				<li class="list-group-item row">
 					<div class="col-md-3">결제 수단</div>

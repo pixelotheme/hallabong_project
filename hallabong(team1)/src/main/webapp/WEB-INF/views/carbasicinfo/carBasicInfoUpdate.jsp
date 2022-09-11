@@ -6,14 +6,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>차량 기본정보</title>
+
 <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<title>차량 기본정보</title>
+<!-- 정규표현식 -->
+<script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
+<script type="text/javascript" src="/resources/rentCar/form.js"></script>
+
+<script type="text/javascript">
+var loginGradeNo = "${login.gradeNo}";
+
+</script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/carbasicinfo/updateFunc.js"></script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/carbasicinfo/updateEvent.js"></script>
+
 </head>
+
+
 <body>
 ${CarBasicInfo }
 ${carFileUploadVO }
@@ -41,7 +55,7 @@ ${carFileUploadVO }
 			
 			<div class="form-group">
 				<label for="carCapacity">차량 정원</label>
-				<input name="carCapacity" id="carCapacity" class="form-control" required="required" value="${CarBasicInfo.carCapacity }">
+				<input id="carCapacity" class="form-control" required="required" value="${CarBasicInfo.carCapacity }명">
 			</div>		
 			<div>
 				연료
@@ -82,7 +96,7 @@ ${carFileUploadVO }
 			
 			
 			<div>
-				<button class="btn btn-default">등록</button>
+				<button type="button" class="btn btn-default" id="submitBtn">등록</button>
 				<button type="reset" class="btn btn-default">새로입력</button>
 				<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
 			</div>

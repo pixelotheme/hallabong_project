@@ -24,183 +24,12 @@
 <script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
 <script type="text/javascript" src="/resources/rentCar/form.js"></script>
 <script>
-function checkData(){
-	if(!checkEmpty("price", "가격"))return false;
-	if(!checkEmpty("modelYears", "연식"))return false;
-	if(!checkEmpty("rentAge", "대여가능 나이"))return false;
-	if(!checkEmpty("rentExperience", "운전경력"))return false;
-	if(!checkEmpty("license", "면허종류"))return false;
-	
-	return true;
-}
-
-	//다음 api js 파일로 옮김
-$(function(){
-
-	$("#selectCompany").on("change",function(){
-
-		var checkId = $(this).find(':selected').data("id")
-// 		alert(checkId);
-		//아이디 비교할 예정 다르면 선택불가
-		});
-
-	$("#submitBtn").on("click", function(){
-		event.preventDefault();
-		var companyCheck = $("#selectCompany").find(':selected').data("id")
-		
-		alert(companyCheck)
-		alert("로그인 아이디"+ "${login.id}")
-		// 선택된 아이디 == 로그인한 아이디
-		if(companyCheck != "${login.id}"){
-			alert("등록한 회사를 선택해주세요")
-			
-			return null;
-			}
-		else{
-
-			if(!checkData()){
-				alert("입력다시")
-				return false;
-				}
-			else{
-				var regex = /[^0-9]/g;
-				//input 태그 hidden으로 집어넣어줄 예정 - 가격, 대여가능나이, 대여가능 운정 경력
-				var price = $("#price").val();
-				var rentAge = $("#rentAge").val();
-				var rentExperience = $("#rentExperience").val();
-				price = price.replace(regex, "");
-				rentAge = rentAge.replace(regex, "");
-				rentExperience = rentExperience.replace(regex, "");
-	
-				var str = '<input type="hidden" name="price"  value="'+price+'" />';
-				str += '<input type="hidden" name="rentAge" id="rentAge" value="'+rentAge+'"/>';
-				str += '<input type="hidden" name="rentExperience" id="rentExperience"  value="'+rentExperience+'"/>';	
-	
-				$("#actionForm").append(str)
-				$("#actionForm").submit();
-				}	
-					
-			}
-		
-		});
-	//가격 변환
-	$("#price").change(function(){
-		var price = $("#price").val();
-		var regex = /[^0-9]/g;	
-		price = price.replace(regex, "")
-		
-		price = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-		$("#price").val(price);
-		})
-	//대여가능(만)나이
-	$("#rentAge").change(function(){
-		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-		var rentAge = $("#rentAge").val();
-		rentAge = rentAge.replace(regex, "")+'살';
-		$("#rentAge").val(rentAge);
-				
-		})	
-// 	대여가능 운전 경력
-	$("#rentExperience").change(function(){
-		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-		var rentExperience = $("#rentExperience").val();
-		rentExperience = rentExperience.replace(regex, "")+'년';
-		$("#rentExperience").val(rentExperience);
-				
-		})
-				
-})
-
-	//날짜 js
-function inputYMDNumber(obj) {
-
-    // @see DELETE 키버튼이 눌리지 않은 경우에만 실행
-    if(event.keyCode != 8) {
-
-        // @see 숫자와 하이픈(-)기호의 값만 존재하는 경우 실행
-        if(obj.value.replace(/[0-9 \-]/g, "").length == 0) {
-
-            // @see 하이픈(-)기호를 제거한다.
-            let number = obj.value.replace(/[^0-9]/g,"");
-
-            let ymd = "";
-
-            // @see 문자열의 길이에 따라 Year, Month, Day 앞에 하이픈(-)기호를 삽입한다.
-
-            if(number.length < 4) {
-
-                return number;
-
-            }
-//              else if(number.length < 6){
-
-//                 ymd += number.substr(0, 4);
-
-//                 ymd += "-";
-
-//                 ymd += number.substr(4);
-
-//             } 
-            else {
-
-                ymd += number.substr(0, 4);
-
-                ymd += "-";
-
-                if( number.substr(4, 2) > 12){
-					ymd += 12;
-                    }
-                else{
-                ymd += number.substr(4, 2);
-                    }
-				
-//                 ymd += "-";
-
-//                 ymd += number.substr(6);
-// 				alert("형식은 yyyy-MM")
-
-
-            }
-
-            // @see 입력 가능 날짜 제한 기능 - 선택
-            // if(ymd.length == 10) {
-            //
-            //     const birthDay = new Date(number.substr(0,4)+"/"+number.substr(4,2)+"/"+number.substr(6)+" 00:00:00");
-            //     const limitDay = new Date("2000/10/04 23:59:59");
-            //
-            //     if(birthDay > limitDay) {
-            //         alert("2000년 10월 04일 이후의 날짜는\n선택할 수 없습니다.");
-            //         obj.value = "";
-            //         obj.focus();
-            //         return false;
-            //     }
-            // }
-            obj.value = ymd;
-
-        } else {
-
-            alert("숫자 이외의 값은 입력하실 수 없습니다.");
-
-            //@see 숫자와 하이픈(-)기호 이외의 모든 값은 삭제한다.
-
-            obj.value = obj.value.replace(/[^0-9 ^\-]/g,"");
-
-            return false;
-
-        }
-
-    } else {
-
-        return false;
-
-    }
-
-}
-
+var loginId = "${login.id}";
 </script>
+
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/writeFunc.js"></script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/writeEvent.js"></script>
+
 </head>
 <body>
 	<div class="container">
@@ -220,7 +49,7 @@ function inputYMDNumber(obj) {
 								<div class="col-lg-6">
 								회사
 									<select class="form-control" name="companyNo" id="selectCompany">
-											<option data-id="N">회사 선택</option>
+											<option data-id="N" value="N">회사 선택</option>
 										<c:forEach items="${companys }" var="company">
 											<option value="${company.companyNo }" data-id="${company.id }">${company.companyName }</option>
 										</c:forEach>

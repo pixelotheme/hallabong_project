@@ -29,38 +29,13 @@
 
 
 <script>
-//다음 api js 파일로 옮김
-function checkData(num){
-	if(!checkEmpty("insurancePrice"+num, "보험금1"+num))return false;
-	if(!checkEmpty("insuranceAge"+num, "보험 가입 대상 나이"))return false;
-	if(!checkEmpty("insuranceExperience"+num, "보험 가입 운전경력"))return false;
-	if(!checkEmpty("compensation"+num, "보상한도"))return false;
-	
-	
-	return true;
-}	
+var carNo = "${param.carNo }"
 
 
-	//다음 api js 파일로 옮김
 $(function(){
 
 	$("#InsurancePlus").show();
 	
-// 	$("#InsurancePlusBtn").on("click",function(){
-// 		$("#InsurancePlus").fadeToggle(100);
-// 		})	
-	$("#InsurancePlusBtn").on("click",function(){
-		$("#InsurancePlus").data("plus", "1")
-// 		$("#InsurancePlus").fadeToggle(100);
-		alert($("#InsurancePlus").data("plus"));
-		$("#InsurancePlus").show(100);
-		})	
-	$("#InsurancePlusBtnClose").on("click",function(){
-		$("#InsurancePlus").data("plus", "0")
-// 		$("#InsurancePlus").fadeToggle(100);
-		alert($("#InsurancePlus").data("plus"));
-		$("#InsurancePlus").hide(100);
-		})	
 				
 		//2번째 가 없을때 에러나는상황
 	$("#submitBtn").on("click",function(){
@@ -102,14 +77,15 @@ $(function(){
 			
 					var carNo = "${param.carNo }";
 					var carInfoNo = "${param.carInfoNo}";
+					var regex = /[^0-9]/g;
 				let carInsuranceVOList = [
 					{
 						category : $("#category1").val(),
 						insuranceNo : insuranceNoCheck,
-						insurancePrice : $("#insurancePrice1").val(),
-						insuranceAge :$("#insuranceAge1").val(),
-						insuranceExperience :$("#insuranceExperience1").val(),
-						compensation :$("#compensation1").val(),
+						insurancePrice : $("#insurancePrice1").val().replace(regex, ""),
+						insuranceAge :$("#insuranceAge1").val().replace(regex, ""),
+						insuranceExperience :$("#insuranceExperience1").val().replace(regex, ""),
+						compensation :$("#compensation1").val().replace(regex, ""),
 						customerCharge :$("#customerCharge1").val(),
 						carNo : "${param.carNo }"
 					}
@@ -117,10 +93,10 @@ $(function(){
 					{
 						category : $("#category2").val(),
 						insuranceNo : ${carInsuranceVO[1].insuranceNo},
-					insurancePrice : $("#insurancePrice2").val(),
-					insuranceAge :$("#insuranceAge2").val(),
-					insuranceExperience :$("#insuranceExperience2").val(),
-					compensation :$("#compensation2").val(),
+					insurancePrice : $("#insurancePrice2").val().replace(regex, ""),
+					insuranceAge :$("#insuranceAge2").val().replace(regex, ""),
+					insuranceExperience :$("#insuranceExperience2").val().replace(regex, ""),
+					compensation :$("#compensation2").val().replace(regex, ""),
 					customerCharge :$("#customerCharge2").val(),
 					carNo : "${param.carNo }"
 					} 
@@ -206,93 +182,14 @@ $(function(){
 
 			}
 
-	
-	//보험금가격 변환
-	$("#insurancePrice1").change(function(){
-		var insurancePrice = $("#insurancePrice1").val();
-		var regex = /[^0-9]/g;
-
-		insurancePrice = insurancePrice.replace(regex, "")
-		
-		insurancePrice = insurancePrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-		$("#insurancePrice1").val(insurancePrice);
-		})
-	//보상한도가격 변환
-	$("#compensation1").change(function(){
-		var compensation = $("#compensation1").val();
-		var regex = /[^0-9]/g;
-
-		compensation = compensation.replace(regex, "");
-		
-		compensation = compensation.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-		$("#compensation1").val(compensation);
-		})
-	//보험 가입 대상 (만)나이
-	$("#insuranceAge1").keyup(function(){
-		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-		var insuranceAge = $("#insuranceAge1").val();
-		insuranceAge = insuranceAge.replace(regex, "")+'살';
-		$("#insuranceAge1").val(insuranceAge);
-				
-		})	
-// 	보허 가입 대상 운전 경력
-	$("#insuranceExperience1").keyup(function(){
-		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-		var insuranceExperience = $("#insuranceExperience1").val();
-		insuranceExperience = insuranceExperience.replace(regex, "")+'년';
-		$("#insuranceExperience1").val(insuranceExperience);
-				
-		})
-
-	//보험금가격 변환
-	$("#insurancePrice2").change(function(){
-		var insurancePrice = $("#insurancePrice2").val();
-		var regex = /[^0-9]/g;
-
-		insurancePrice = insurancePrice.replace(regex, "")
-		
-		insurancePrice = insurancePrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-		$("#insurancePrice2").val(insurancePrice);
-		})
-	//보상한도가격 변환
-	$("#compensation2").change(function(){
-		var compensation = $("#compensation2").val();
-		var regex = /[^0-9]/g;
-
-		compensation = compensation.replace(regex, "");
-		
-		compensation = compensation.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-		$("#compensation2").val(compensation);
-		})
-	//보험 가입 대상 (만)나이
-	$("#insuranceAge2").keyup(function(){
-		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-		var insuranceAge = $("#insuranceAge2").val();
-		insuranceAge = insuranceAge.replace(regex, "")+'살';
-		$("#insuranceAge2").val(insuranceAge);
-				
-		})	
-// 	보허 가입 대상 운전 경력
-	$("#insuranceExperience2").keyup(function(){
-		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-		var insuranceExperience = $("#insuranceExperience2").val();
-		insuranceExperience = insuranceExperience.replace(regex, "")+'년';
-		$("#insuranceExperience2").val(insuranceExperience);
-				
-		})
-		
 		
 })
 	
 </script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/carinsurance/updateFunc.js"></script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/carinsurance/updateEvent.js"></script>
+
+
 </head>
 <body>
 	<div class="container">

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+li{
+list-style: none;
+}
+
+.dataRow:hover{
+	background: #eee;
+	cursor: pointer;
+}
+.dataRow{
+	border-left: none;
+	border-right: none;
+}
+.list-group-item:first-child{
+border-top-left-radius:0;
+border-top-right-radius:0;
+}
+.carImage{
+width:100px;
+
+height: 110px;
+}
+
+.price{
+padding-top: 95px;
+font-size: 30px;
+}
+
+.car_op p{
+    float: left;
+    width: 38%;
+    height: 20px;
+    margin: 4px 7px 0 0;
+    padding: 0 1px;
+    border: 1px solid #c9c9c9;
+    border-radius: 2px;
+    color: #a0a0a0;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: -.7px;
+}
+.car_op p .on {
+    color:#000;
+}

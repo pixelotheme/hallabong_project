@@ -3,58 +3,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>차량 기본정보</title>
 <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<title>차량 기본정보</title>
+<!-- 정규표현식 -->
+<script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
+<script type="text/javascript" src="/resources/rentCar/form.js"></script>
 
 <script type="text/javascript">
-$(function(){
-	$("#cancelBtn").on("click",function(){
-		location="/carbasicinfo/carBasicInfoList.do?perPageNum=${param.perPageNum}"
-		})
 
-		//대여가능(만)나이
-		$("#carCapacity").keyup(function(){
-			var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-			var carCapacity = $("#carCapacity").val();
-			carCapacity = carCapacity.replace(regex, "")+'명';
-			$("#carCapacity").val(carCapacity);
-					
-			})	
-
-		$("#submitBtn").on("click", function(){
-			
-			
-			//  == 로그인한 아이디 == 등급번호 -
-			if("admin" != "admin"){
-				alert("관리자 아이디로 로그인해주세요")
-				
-				return null;
-				}
-			else{
-				event.preventDefault();
-				var regex = /[^0-9]/g;
-				//input 태그 hidden으로 집어넣어줄 예정 - 가격, 대여가능나이, 대여가능 운정 경력
-				var carCapacity = $("#carCapacity").val();
-				carCapacity = carCapacity.replace(regex, "");
-
-				var str = '<input type="hidden" name="carCapacity"  value="'+carCapacity+'" />';
-
-				
-				
-				$("#actionForm").append(str)
-				$("#actionForm").submit();
-				}
-			
-			});
-})
+var loginGradeNo = "${login.gradeNo}";
 
 </script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/carbasicinfo/writeFunc.js"></script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/carbasicinfo/writeEvent.js"></script>
+
 </head>
 <body>
 	<div class="container">

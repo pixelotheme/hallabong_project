@@ -15,7 +15,7 @@
 
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/addressForWrite.js"></script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/telForWrite.js"></script>
-<script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/ajaxForUpdate.js"></script>
+<!-- <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/ajaxForUpdate.js"></script> -->
 <!-- ajax  -->
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/infoForUpdateFunc.js"></script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/infoForUpdateEvent.js"></script>

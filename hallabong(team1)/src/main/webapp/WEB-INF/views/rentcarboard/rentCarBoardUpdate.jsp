@@ -21,171 +21,19 @@
 }
 </style>
 
-<script type="text/javascript"
-	src="/resources/rentCar/rentCarJS/companyWrite.js"></script>
+<script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
+<script type="text/javascript" src="/resources/rentCar/form.js"></script>
+
+
 <script>
-$(function(){
-	
-$("#selectCompany").on("change",function(){
 
-	var checkId = $(this).find(':selected').data("id")
-		alert(checkId);
-	//아이디 비교할 예정 다르면 선택불가
-	});
-
-$("#submitBtn").on("click", function(){
-	var companyCheck = $("#selectCompany").find(':selected').data("id")
-	
-	alert(companyCheck)
-	
-	// 선택된 아이디 == 로그인한 아이디
-	if(companyCheck != "admin"){
-		alert("회사를 등록한 아이디로 로그인해주세요")
-		
-		return null;
-		}
-	else{
-		event.preventDefault();
-		var regex = /[^0-9]/g;
-		//input 태그 hidden으로 집어넣어줄 예정 - 가격, 대여가능나이, 대여가능 운정 경력
-		var price = $("#price").val();
-		var rentAge = $("#rentAge").val();
-		var rentExperience = $("#rentExperience").val();
-		price = price.replace(regex, "");
-		rentAge = rentAge.replace(regex, "");
-		rentExperience = rentExperience.replace(regex, "");
-
-		var str = '<input type="hidden" name="price"  value="'+price+'" />';
-		str += '<input type="hidden" name="rentAge" id="rentAge" value="'+rentAge+'"/>';
-		str += '<input type="hidden" name="rentExperience" id="rentExperience"  value="'+rentExperience+'"/>';	
-
-		$("#actionForm").append(str)
-		$("#actionForm").submit();
-
-		
-		$("#actionForm").submit();
-		
-		}
-	
-	});
-//가격 변환
-$("#price").change(function(){
-	var price = $("#price").val();
-	var regex = /[^0-9]/g;	
-	price = price.replace(regex, "")
-	
-	price = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-	$("#price").val(price);
-	})
-//대여가능(만)나이
-$("#rentAge").keyup(function(){
-	var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-	var rentAge = $("#rentAge").val();
-	rentAge = rentAge.replace(regex, "")+'살';
-	$("#rentAge").val(rentAge);
-			
-	})	
-//	대여가능 운전 경력
-$("#rentExperience").keyup(function(){
-	var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
-
-	var rentExperience = $("#rentExperience").val();
-	rentExperience = rentExperience.replace(regex, "")+'년';
-	$("#rentExperience").val(rentExperience);
-			
-	})
-
-
-})// end of function(){}
-//날짜 js
-function inputYMDNumber(obj) {
-
-    // @see DELETE 키버튼이 눌리지 않은 경우에만 실행
-    if(event.keyCode != 8) {
-
-        // @see 숫자와 하이픈(-)기호의 값만 존재하는 경우 실행
-        if(obj.value.replace(/[0-9 \-]/g, "").length == 0) {
-
-            // @see 하이픈(-)기호를 제거한다.
-            let number = obj.value.replace(/[^0-9]/g,"");
-
-            let ymd = "";
-
-            // @see 문자열의 길이에 따라 Year, Month, Day 앞에 하이픈(-)기호를 삽입한다.
-
-            if(number.length < 4) {
-
-                return number;
-
-            }
-//              else if(number.length <= 6){
-
-//                 ymd += number.substr(0, 4);
-
-//                 ymd += "-";
-
-//                 ymd += number.substr(4);
-
-//             } 
-            else {
-
-                ymd += number.substr(0, 4);
-
-                ymd += "-";
-
-                if( number.substr(4, 2) > 12){
-					ymd += 12;
-                    }
-                else{
-                ymd += number.substr(4, 2);
-                    }
-				
-//                 ymd += "-";
-
-//                 ymd += number.substr(6);
-// 				alert("형식은 yyyy-MM")
-
-
-            }
-
-            // @see 입력 가능 날짜 제한 기능 - 선택
-            // if(ymd.length == 10) {
-            //
-            //     const birthDay = new Date(number.substr(0,4)+"/"+number.substr(4,2)+"/"+number.substr(6)+" 00:00:00");
-            //     const limitDay = new Date("2000/10/04 23:59:59");
-            //
-            //     if(birthDay > limitDay) {
-            //         alert("2000년 10월 04일 이후의 날짜는\n선택할 수 없습니다.");
-            //         obj.value = "";
-            //         obj.focus();
-            //         return false;
-            //     }
-            // }
-            obj.value = ymd;
-
-        } else {
-
-            alert("숫자 이외의 값은 입력하실 수 없습니다.");
-
-            //@see 숫자와 하이픈(-)기호 이외의 모든 값은 삭제한다.
-
-            obj.value = obj.value.replace(/[^0-9 ^\-]/g,"");
-
-            return false;
-
-        }
-
-    } else {
-
-        return false;
-
-    }
-
-}
+var loginId = "${login.id}";
 
 </script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/updateFunc.js"></script>
+<script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/updateEvent.js"></script>
+
+
 </head>
 <body>
 	<div class="container">
@@ -249,7 +97,7 @@ function inputYMDNumber(obj) {
 						<!-- /.panel-heading -->
 						<div class="panel-body form-group">
 							<div>
-								<label for="price">가격</label> <input class="form-control" name="price" id="price" value="${carsVO.price }"/>
+								<label for="price">가격</label> <input class="form-control" id="price" value="<fmt:formatNumber value='${carsVO.price }' pattern='#,###'/>"/>
 							</div>
 							<div>
 							변속기
@@ -275,14 +123,14 @@ function inputYMDNumber(obj) {
 							</div>
 							<div>
 								<!-- 숫자만 -->
-								<label for="rentAge">대여가능 나이</label> <input class="form-control" name="rentAge"
-									id="rentAge" value="${carsVO.rentAge }"/>
+								<label for="rentAge">대여가능 나이</label> <input class="form-control" 
+									id="rentAge" value="${carsVO.rentAge }살"/>
 							</div>
 				
 							<div>
 								<!-- 숫자만 -->
 								<label for="rentExperience">대여가능 운전 경력</label> <input class="form-control"
-									name="rentExperience" id="rentExperience"  value="${carsVO.rentExperience }"/>
+									 id="rentExperience"  value="${carsVO.rentExperience }년"/>
 							</div>
 							<div>
 								<label for="license">면허</label> <input class="form-control"
@@ -318,6 +166,7 @@ function inputYMDNumber(obj) {
 						<div class="panel-heading">렌터카 옵션 선택</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body form-group">						
+						${carOptionVO }
 								<div>
 									<label class="checkbox-inline">
 									<input type="checkbox" name="smoking" value="금연차량" ${(carOptionVO.smoking == '금연차량')? 'checked':''}>금연차량

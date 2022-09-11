@@ -1,5 +1,5 @@
 /**
- * 
+ * daum 주소 api 
  */
 
 function daumZipCode() {
