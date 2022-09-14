@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
 <title>예약 보기</title>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
 $(function(){
@@ -42,7 +42,7 @@ $(function(){
 	// 삭제 버튼 이벤트
 	$("#deleteBtn").on("click", function(){
 		// alert("새로고침 클릭");
-		if(confirm("삭제?")){
+		if(confirm("예약을 취소하시겠습니까?")){
 		location = "delete.do?bookingNo=${vo.bookingNo}&companyCarsNo=${vo.companyCarsNo}";
 			}
 	});
@@ -141,7 +141,7 @@ $(function(){
 			<div class="btn-group" style="padding: 20px;">
 			<c:if test="${login.id == vo.consumerId || login.gradeNo == 9}">
 			  <button type="button" class="btn btn-default" id="updateBtn">수정</button>
-			  <button type="button" class="btn btn-default" id="deleteBtn">삭제</button>
+			  <button type="button" class="btn btn-default" id="deleteBtn">예약취소</button>
 			</c:if>
 			  <button type="button" class="btn btn-default" id="listBtn">리스트</button>
 			</div>

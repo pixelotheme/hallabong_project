@@ -7,7 +7,7 @@ $(function(){
 	$("#selectCompany").on("change",function(){
 
 		var checkId = $(this).find(':selected').data("id")
- 		alert(checkId + loginId);
+// 		alert(checkId + loginId);
 		//아이디 비교할 예정 다르면 선택불가
 		if(checkId != loginId){
 			alert("등록한 회사를 선택해주세요")
@@ -34,7 +34,7 @@ $(function(){
 		else{
 
 			if(!checkData()){
-				alert("입력다시")
+				alert("다시 입력해주세요")
 				return false;
 				}
 			else{

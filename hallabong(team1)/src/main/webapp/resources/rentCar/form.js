@@ -9,7 +9,7 @@
 //필수항목 체크 메서드
 //if(!checkEmpty("title", "제목")){return false;}
 function checkEmpty(id, item){
-	alert("form"+ id)
+//	alert("form"+ id)
 	var str = toObject(id).value;
 	str = str.trim();
 	toObject(id).value = str;

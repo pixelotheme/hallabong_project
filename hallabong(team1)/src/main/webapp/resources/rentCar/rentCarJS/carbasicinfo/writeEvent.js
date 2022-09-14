@@ -3,7 +3,7 @@
  */
 $(function(){
 	$("#cancelBtn").on("click",function(){
-		location="/carbasicinfo/carBasicInfoList.do?perPageNum=${param.perPageNum}"
+		location="/carbasicinfo/carBasicInfoList.do?perPageNum="+perPageNum;
 		});
 
 		//대여가능(만)나이

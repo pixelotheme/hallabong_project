@@ -2,9 +2,7 @@
  * 
  */
 $(function(){
-	$("#cancelBtn").on("click",function(){
-		location="/carbasicinfo/carBasicInfoList.do?perPageNum=${param.perPageNum}"
-		});
+
 
 		//대여가능(만)나이
 	$("#carCapacity").keyup(function(){

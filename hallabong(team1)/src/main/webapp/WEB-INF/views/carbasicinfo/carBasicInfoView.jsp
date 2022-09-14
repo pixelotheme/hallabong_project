@@ -10,12 +10,29 @@
 <head>
 <meta charset="UTF-8">
 <title>차량 기본정보 보기</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
+<script type="text/javascript">
+$(function(){
+	
+	$("#deleteBtn").on("click", function(){
+		
+		if(confirm("정말 삭제하시겠습니까?")){
+			location='/carbasicinfo/carBasicInfoDelete.do?carInfoNo=${carBasicInfoVO.carInfoNo}&perPageNum=${param.perPageNum }';
+				}
+	})
 
+	$("#imageDeleteBtn").click(function(){
+		if(confirm("정말 삭제하시겠습니까?")){
+			$("#imageDeleteForm").submit();
+				}
+	})
+})
+
+</script>
 
 </head>
 <body>
@@ -60,7 +77,7 @@
 			
 							<img alt="차량 이미지" src="/upload/rentcarboard/${carFileUploadVO.realSavePath}/s_${carFileUploadVO.fileName}" width="100px">
 												
-					<form action="carBasicInfoImageDelete.do" method="post" enctype="multipart/form-data">
+					<form action="carBasicInfoImageDelete.do" method="post" enctype="multipart/form-data" id="imageDeleteForm">
 						<div class="form-group">
 							<input type="hidden" name="del" value="${carFileUploadVO.fileName != null ? carFileUploadVO.fileName:"0" }">
 <%-- 							<input type="hidden" name="carNo" value="${carsVO.carNo }"> --%>
@@ -70,7 +87,7 @@
 							<input type="hidden" name="key" value="${param.key}">									
 							<input type="hidden" name="word" value="${param.word}">									
 						</div>
-						<button class="btn btn-default">이미지 삭제</button>
+						<button class="btn btn-default" id="imageDeleteBtn" type="button">이미지 삭제</button>
 						
 					</form>
 
@@ -83,7 +100,8 @@
 
 <button class="btn btn-default" type="button" onclick="location='/carbasicinfo/carBasicInfoUpdate.do?carInfoNo=${carBasicInfoVO.carInfoNo}&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">차량 기본 정보 수정</button>
 
-<button class="btn btn-default" type="button" onclick="location='/carbasicinfo/carBasicInfoDelete.do?carInfoNo=${carBasicInfoVO.carInfoNo}&perPageNum=${param.perPageNum }'">차량 기본 정보 삭제</button>
+<%-- <button id="deleteBtn" class="btn btn-default" type="button" onclick="location='/carbasicinfo/carBasicInfoDelete.do?carInfoNo=${carBasicInfoVO.carInfoNo}&perPageNum=${param.perPageNum }'">차량 기본 정보 삭제</button> --%>
+<button id="deleteBtn" class="btn btn-default" type="button">차량 기본 정보 삭제</button>
 <button class="btn btn-default" type="button" onclick="location='/carbasicinfo/carBasicInfoList.do?page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">리스트</button>
 
 </div>

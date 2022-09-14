@@ -28,7 +28,12 @@
 <script>
 
 var loginId = "${login.id}";
-
+$(function(){
+	$("#cancelBtn").on("click",function(){
+		location='/rentcarboard/rentCarBoardView.do?carNo=${param.carNo}&carInfoNo=${param.carInfoNo }&companyNo=${param.companyNo }&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}';
+		
+		});
+})
 </script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/updateFunc.js"></script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/updateEvent.js"></script>
@@ -37,9 +42,6 @@ var loginId = "${login.id}";
 </head>
 <body>
 	<div class="container">
-<%-- 	${carsVO } --%>
-<%-- 	${carOptionVO } --%>
-<%-- 	${carFileUploadVO } --%>
 		<h2>렌트카 수정</h2>
 		<form method="post" id="actionForm">
 			<input type="hidden" name="page" value="${param.page}">
@@ -166,7 +168,6 @@ var loginId = "${login.id}";
 						<div class="panel-heading">렌터카 옵션 선택</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body form-group">						
-						${carOptionVO }
 								<div>
 									<label class="checkbox-inline">
 									<input type="checkbox" name="smoking" value="금연차량" ${(carOptionVO.smoking == '금연차량')? 'checked':''}>금연차량
@@ -262,9 +263,9 @@ var loginId = "${login.id}";
 							
 			
 			<div>
-				<button type="button" id="submitBtn">등록</button>
-				<button type="reset">새로입력</button>
-				<button type="button" id="cancelBtn">취소</button>
+				<button type="button" id="submitBtn" class="btn btn-default">등록</button>
+				<button type="reset" class="btn btn-default">새로입력</button>
+				<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
 			</div>
 		</form>
 

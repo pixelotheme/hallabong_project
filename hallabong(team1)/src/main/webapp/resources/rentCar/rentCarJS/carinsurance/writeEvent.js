@@ -9,13 +9,13 @@ $(function(){
 	$("#InsurancePlusBtn").on("click",function(){
 		$("#InsurancePlus").data("plus", "1")
 // 		$("#InsurancePlus").fadeToggle(100);
-		alert($("#InsurancePlus").data("plus"));
+//		alert($("#InsurancePlus").data("plus"));
 		$("#InsurancePlus").show(100);
 		})	
 	$("#InsurancePlusBtnClose").on("click",function(){
 		$("#InsurancePlus").data("plus", "0")
 // 		$("#InsurancePlus").fadeToggle(100);
-		alert($("#InsurancePlus").data("plus"));
+//		alert($("#InsurancePlus").data("plus"));
 
 		
 		
@@ -25,25 +25,25 @@ $(function(){
 		
 	$("#submitBtn").on("click",function(){
 		var checkValue = false;
-		alert("data-plus : " + $("#InsurancePlus").data("plus"));
+//		alert("data-plus : " + $("#InsurancePlus").data("plus"));
 				
 		if($("#InsurancePlus").data("plus") == 1){
-			alert("둘다검사")
+//			alert("둘다검사")
 			if(!checkData(1)){
-				alert("입력다시")
+//				alert("입력다시")
 				return false;
 				}
 			if(!checkData(2)){
-				alert("입력다시")
+//				alert("입력다시")
 				return false;
 				}
 			checkValue = true;
 			}
 		else{
-			alert("data-plust : " + $("#InsurancePlus").data("plus"));
-					alert("하나만검사")
+//			alert("data-plust : " + $("#InsurancePlus").data("plus"));
+//					alert("하나만검사")
 			if(!checkData(1)){
-				alert("입력다시")
+//				alert("입력다시")
 				return false;
 				}
 			checkValue = true;
@@ -196,7 +196,7 @@ $(function(){
 		})
 	$("#cancelBtn").on("click",function(){
 		
-		location='/rentcarboard/rentCarBoardList.do';
+		location='/rentcarboard/rentCarBoardList.do?perPageNum='+perPageNum;
 				
 		})
 })

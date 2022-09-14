@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hallabong.member.service.MailSendService;
 import com.hallabong.member.service.MemberService;
 import com.hallabong.member.vo.LoginVO;
 import com.hallabong.member.vo.MemberVO;
@@ -34,11 +37,14 @@ public class MemberController {
 	// 추 후 타 프로젝트 시 변경하여 사용할 수 있도록 모듈 설정
 	private final String MODULE = "member";
 	
+	
+	
 	// 의존성 주입
 	@Autowired
 	@Qualifier("msi")
 	private MemberService service;
 	
+
 	// 로그인 폼
 	@GetMapping("/loginForm.do")
 	public String loginForm() {
@@ -63,17 +69,13 @@ public class MemberController {
 		log.info("login vo1 " + vo1);
 		
 		if(vo1 == null) {
-			return MODULE + "/loginError";
-			
+			return MODULE + "/loginError";			
 		}
 		
-		else {
-			
-			return "redirect:../main.do";
-			
+		else {			
+			return "redirect:../main.do";			
 		}
-		
-		
+				
 	}
 	
 	// 로그인 에러
@@ -171,6 +173,9 @@ public class MemberController {
 		}
 		
 
+		
+
+
 	
 		
 		
@@ -226,6 +231,11 @@ public class MemberController {
 			
 			return "redirect:/member/myPage.do";
 	}
+		
+		
+		
+		
+		
 		// 회원탈퇴 폼
 		@GetMapping("/memberWithdrawForm.do")
 		public String memberWithdrawForm(Model model, HttpServletRequest request) throws Exception {
@@ -270,6 +280,7 @@ public class MemberController {
 			
 			return MODULE + "/memberList";
 		}
+		
 		// 등급 변경
 		@PostMapping("/gradeModify.do")
 		public String gradeModify(MemberVO vo, Model model) throws Exception {

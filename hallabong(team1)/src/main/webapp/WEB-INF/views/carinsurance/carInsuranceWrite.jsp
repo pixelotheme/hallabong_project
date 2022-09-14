@@ -25,7 +25,8 @@
 <script type="text/javascript" src="/resources/rentCar/form.js"></script>
 <script>
 
-var carNo = "${param.carNo }"
+	var carNo = "${param.carNo }"
+	var perPageNum = "${param.perPageNum}";
 </script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/carinsurance/writeFunc.js"></script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/carinsurance/writeEvent.js"></script>

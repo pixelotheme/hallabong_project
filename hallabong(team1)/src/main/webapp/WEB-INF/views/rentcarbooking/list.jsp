@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
 <title>렌트카 예약 리스트</title>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
 $(function(){
@@ -39,11 +39,6 @@ $(function(){
 	});
 	
 	
-	// 한 페이지에 보여줄 데이터 개수 변경 이벤트
-// 	$("#perPageNum").on("change", function(){
-// 		// alert("새로고침 클릭");
-// 		location="list.do?perPageNum=" + $(this).val();
-// 	});
 });
 </script>
 </head>
@@ -82,16 +77,6 @@ $(function(){
 				  </div>
 				</form>
 			</div>
-			<!-- 한페이지의 데이터 개수 -->
-	<!-- 		<div class="col-md-4 text-right"> -->
-	<!-- 			<form class="form-inline"> -->
-	<!-- 				<select id="perPageNum" name="perPageNum" class="form-control"> -->
-	<!-- 					<option>10</option> -->
-	<!-- 					<option>15</option> -->
-	<!-- 					<option>20</option> -->
-	<!-- 				</select> -->
-	<!-- 			</form> -->
-	<!-- 		</div> -->
 		</div>
 		<!-- 검색 줄의 끝 -->
 		</c:if>
@@ -101,7 +86,7 @@ $(function(){
 		<div class="col-md-12">
 			<!-- 데이터 들어가는공간 -->
 			<div class="list-group">
-				<c:forEach items="${list }" var="vo">
+				<c:forEach items="${rbList }" var="vo">
 					<c:if test="${login.gradeNo == 9 }">
 					
 						<div class="list-group-item dataRow row">
@@ -119,7 +104,7 @@ $(function(){
 								</span>
 							</div>
 							<div class="col-md-3">
-								<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/></span>
+								<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
 	
 								<span>${vo.bookingStatus }</span>
 								<span>예약자 - ${vo.consumerId }</span>
@@ -144,7 +129,7 @@ $(function(){
 									</span>
 								</div>
 								<div class="col-md-3">
-									<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/></span>
+									<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
 		
 									<span class="badge">${vo.bookingStatus }</span>
 									<span>[예약자 - ${vo.consumerId }]</span>
@@ -164,9 +149,9 @@ $(function(){
 	<!-- 페이지 처리, 버튼  -->
 	<div class="row">
 		<div class="col-md-4">
-<!-- 			<div class="btn-group" style="padding: 20px;"> -->
-<!-- 			  <button type="button" class="btn btn-default" id="writeBtn">등록</button> -->
-<!-- 			</div> -->
+			<div class="btn-group" style="padding: 20px;">
+			  <button type="button" class="btn btn-default" id="writeBtn">등록</button>
+			</div>
 		</div>
 		<div class="col-md-8 pull-right text-right">
 			<pageNav:rentCarPageNav listURI="list.do" pageObject="${pageObject }"/>

@@ -31,6 +31,13 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
 		// alert(gradeNo);
 		$(".formGradeNo").val([gradeNo]);
 	});
+
+	$(".formGradeModifyBtn").click(function(){
+
+		var gradeNo = $(".gradeNo:checked").val();
+
+		})
+		
 	
 	
 	//
@@ -87,7 +94,7 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
 	<tfoot>
 		<tr>
 			<td colspan="8">
-				<a href="../" class="btn btn-default">메인 페이지</a>
+				<a href="../main.do" class="btn btn-default">메인 페이지</a>
 			</td>
 		</tr>
 	</tfoot>
@@ -132,7 +139,7 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
            
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-default" id="formGradeModifyBtn">변경</button>
+        <button type="submit" class="btn btn-default" >변경</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
       </div>
     </div>

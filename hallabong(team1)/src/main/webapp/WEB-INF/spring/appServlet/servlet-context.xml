@@ -7,7 +7,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+		>
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -32,9 +34,27 @@
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
 	
-	<context:component-scan base-package="com.hallabong" />
+	
+	
+	
+	<context:component-scan base-package="com.hallabong.*" />
 	<context:annotation-config/>
 	<aop:aspectj-autoproxy/>
 	
-	
+	<mvc:interceptors>
+		<mvc:interceptor>
+		<!-- 권한 전체 패키지설정 -->
+			<mvc:mapping path="/rentcarboard/**" /> 
+			<mvc:mapping path="/rentcarbooking/**" /> 
+			<mvc:mapping path="/carbasicinfo/**" /> 
+			<mvc:mapping path="/carinsurance/**" /> 
+			<mvc:mapping path="/companycars/**" /> 
+			<mvc:mapping path="/rentcarcompany/**" /> 
+			<mvc:mapping path="/faq/**" /> 
+			<!-- 로그인 필요없는 url 설정 -->
+			<mvc:exclude-mapping path="/rentcarboard/rentCarBoardList.do"/>
+			<mvc:exclude-mapping path="/rentcarboard/rentCarBoardView.do"/>
+			<beans:bean class="com.hallabong.util.interceptor.CustomInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans:beans>

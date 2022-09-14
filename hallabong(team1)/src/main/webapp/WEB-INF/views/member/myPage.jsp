@@ -45,10 +45,6 @@
 			<th>이메일</th>
 			<td class="id">${vo.email }</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th>주소</th> -->
-<%-- 			<td class="id">${vo.address }</td> --%>
-<!-- 		</tr> -->
 		<tr>
 			<th>가입일</th>
 			<td class="id"><fmt:formatDate value="${vo.regDate }"/></td>
@@ -56,6 +52,18 @@
 		<tr>
 			<th>등급</th>
 			<td class="id">${vo.gradeName }</td>
+		</tr>		
+		<tr>
+			<th>주소</th>
+			<td class="id">${vo.address }</td>
+		</tr>
+		<tr>
+			<th>취미</th>
+			<td class="id">${vo.hobby }</td>
+		</tr>
+		<tr>
+			<th>운전면허</th>
+			<td class="id">${vo.license }</td>
 		</tr>
 	</tbody>
 	<tfoot>
@@ -70,11 +78,13 @@
 				<a href="../member/memberList.do" class="btn btn-default">회원리스트</a>
 				</c:if>
 				<a href="../hotelbooking/list.do" class="btn btn-success" style="">호텔  예약 목록</a>
-				<a href="../list.do" class="btn btn-success">렌트카  예약 목록</a>	
+				<a href="../rentcarbooking/list.do" class="btn btn-success">렌트카  예약 목록</a>	
 			</td>
 		</tr>
-	</tfoot>
+	</tfoot>	
+	
 </table>   
+<%@include file="../rentcarbooking/list.jsp" %>
 </div>
 </body>
 </html>

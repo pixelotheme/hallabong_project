@@ -7,13 +7,13 @@ $(function(){
 	$("#InsurancePlusBtn").on("click",function(){
 		$("#InsurancePlus").data("plus", "1")
 // 		$("#InsurancePlus").fadeToggle(100);
-		alert($("#InsurancePlus").data("plus"));
+//		alert($("#InsurancePlus").data("plus"));
 		$("#InsurancePlus").show(100);
 		})	
 	$("#InsurancePlusBtnClose").on("click",function(){
 		$("#InsurancePlus").data("plus", "0")
 // 		$("#InsurancePlus").fadeToggle(100);
-		alert($("#InsurancePlus").data("plus"));
+//		alert($("#InsurancePlus").data("plus"));
 
 		
 		$("#InsurancePlus").hide(100);

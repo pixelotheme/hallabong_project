@@ -9,10 +9,10 @@
 <title>차량 기본정보</title>
 
 <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <!-- 정규표현식 -->
 <script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
@@ -20,7 +20,13 @@
 
 <script type="text/javascript">
 var loginGradeNo = "${login.gradeNo}";
-
+var perPageNum = "${param.perPageNum}";
+$(function(){
+	$("#cancelBtn").on("click",function(){
+		location='/carbasicinfo/carBasicInfoView.do?carInfoNo=${param.carInfoNo}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}';
+		
+		});
+})
 </script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/carbasicinfo/updateFunc.js"></script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/carbasicinfo/updateEvent.js"></script>
@@ -29,8 +35,6 @@ var loginGradeNo = "${login.gradeNo}";
 
 
 <body>
-${CarBasicInfo }
-${carFileUploadVO }
 	<div class="container">
 	<h2>차량 기본정보 수정</h2>
 		<form  method="post" id="actionForm" enctype="multipart/form-data">

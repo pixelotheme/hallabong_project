@@ -21,9 +21,6 @@ public interface MemberService {
 	
 	// 비밀번호 변경
 	public MemberVO changePw(HttpServletResponse response, MemberVO vo) throws Exception;
-	
-//	// 이메일발송
-//	public void sendEmail(MemberVO vo, String div) throws Exception;
 
 	// 비밀번호찾기
 	public MemberVO findPw(HttpServletResponse response, MemberVO vo) throws Exception;
@@ -43,8 +40,6 @@ public interface MemberService {
 	// 회원 정보 수정
 	public int memberUpdate(MemberVO vo) throws Exception;
 	
-	// 회원 정보 추가 입력
-	public int exMemberUpdate(MemberVO vo) throws Exception;
 	
 	
 	// 회원 탈퇴

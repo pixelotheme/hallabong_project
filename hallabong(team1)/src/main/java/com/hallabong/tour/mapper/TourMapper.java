@@ -20,9 +20,11 @@ public interface TourMapper {
 	
 	// write 처리
 	public int write(TourVO vo) throws Exception;
+	public long writeSelectKey(TourVO vo) throws Exception;
 	
 	// update 처리
 	public int update(TourVO vo) throws Exception;
+	public long updateSelectKey(TourVO vo) throws Exception;
 	
 	// delete 처리
 	public int delete(long no) throws Exception;

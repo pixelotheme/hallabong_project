@@ -51,17 +51,13 @@ $(function(){
 			}
 		else{
 			
-// 		var Date = {rentalDate : $("#rentalDate").val() , returnDate : $("#returnDate").val(), prePrice: $("#plusPrice").data("price")}
 		var Date = {rentalDate : $("#rentalDate").val() , returnDate : $("#returnDate").val(), prePrice: prePrice}
 		
-// 		alert(JSON.stringify(Date))
-
 		$.ajax({
 			     method: 'post',
 			     url: '/rentcarboardajaxcontroller/totalPrice.do',
 			     data: JSON.stringify(Date),
 			     contentType: "application/json; charset=utf-8",
-// 			     success: function (data,status, xhr) {
 			     success: function (data,status, xhr) {
 			        if (data) {
 						if(data.totalPrice == prePrice){
@@ -69,12 +65,12 @@ $(function(){
 
 // 							alert("천단위"+ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 							var formatPrice = ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							str = '<label class="col-md-4" for="returnDate">예약 금액</label>';
-							str += "<div class='col-md-8'>"+formatPrice+"원</div>"
+							str = '<label class="col-xs-4" for="returnDate">예약 금액</label>';
+							str += "<div class='col-xs-8'>"+formatPrice+"원</div>"
 							$("#bookingPrice").html(str);
 							$("#totalPrice").attr("value", ajaxPrice)
 														
-// 							alert("대여,반납일을 다시선택해주세요")
+							alert("대여,반납일을 다시선택해주세요")
 							}
 						else{
 // 							alert("성공 "+data.totalPrice);
@@ -82,8 +78,8 @@ $(function(){
 
 // 							alert("천단위"+ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 							var formatPrice = ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							str = '<label class="col-md-4" for="returnDate">예약 금액</label>';
-							str += "<div class='col-md-8'>"+formatPrice+"원</div>"
+							str = '<label class="col-xs-4" for="returnDate">예약 금액</label>';
+							str += "<div class='col-xs-8'>"+formatPrice+"원</div>"
 							$("#bookingPrice").html(str);
 							$("#totalPrice").attr("value", ajaxPrice)
 							}
@@ -132,6 +128,13 @@ $(function(){
 			}
 	})
 
+
+	$("#deleteBtn").on("click", function(){
+		
+		if(confirm("정말 삭제하시겠습니까?")){
+			location='/rentcarboard/rentCarBoardDelete.do?carNo=${carsVO.carNo}';
+				}
+	})
 	
 })//end of $(function(){})
 </script>
@@ -147,64 +150,64 @@ $(function(){
 		
 				<ul class="list-group">
 				<li class="list-group-item row">
-					<div class="col-md-3">차량 이미지</div>
-					<div class="col-md-9">
+					<div class="col-xs-3">차량 이미지</div>
+					<div class="col-xs-9">
 				<img alt="차량 이미지" src="/upload/rentcarboard/${carFileUploadVO.realSavePath}/s_${carFileUploadVO.fileName}" width="100px">
 					</div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">회사명</div>
-					<div class="col-md-9">${companyVO.companyName }</div>
+					<div class="col-xs-3">회사명</div>
+					<div class="col-xs-9">${companyVO.companyName }</div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">차량이름</div>
-					<div class="col-md-9">${carBasicInfoVO.carName }</div>
+					<div class="col-xs-3">차량이름</div>
+					<div class="col-xs-9">${carBasicInfoVO.carName }</div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">차 분류</div><div class="col-md-9">${carBasicInfoVO.carTypes }</div>
+					<div class="col-xs-3">차 분류</div><div class="col-xs-9">${carBasicInfoVO.carTypes }</div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">정원</div><div class="col-md-9">${carBasicInfoVO.carCapacity }명</div>
+					<div class="col-xs-3">정원</div><div class="col-xs-9">${carBasicInfoVO.carCapacity }명</div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">연료</div>
-					<div class="col-md-9">${carBasicInfoVO.carFuel }</div><p></p>
+					<div class="col-xs-3">연료</div>
+					<div class="col-xs-9">${carBasicInfoVO.carFuel }</div><p></p>
 				</li>
 <!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-md-3">회사 번호</div><div class="col-md-9">${carsVO.companyNo }</div> --%>
+<%-- 					<div class="col-xs-3">회사 번호</div><div class="col-xs-9">${carsVO.companyNo }</div> --%>
 <!-- 				</li> -->
 				<li class="list-group-item row">
-					<div class="col-md-3">가격</div><div class="col-md-9"><fmt:formatNumber value='${carsVO.price }' pattern='#,###원'/></div>
+					<div class="col-xs-3">가격</div><div class="col-xs-9"><fmt:formatNumber value='${carsVO.price }' pattern='#,###원'/></div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">기어</div><div class="col-md-9">${carsVO.gearbox}</div>
+					<div class="col-xs-3">기어</div><div class="col-xs-9">${carsVO.gearbox}</div>
 				</li>
 <!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-md-3">보험종류</div><div class="col-md-9">${carsVO.insuranceType }</div> --%>
+<%-- 					<div class="col-xs-3">보험종류</div><div class="col-xs-9">${carsVO.insuranceType }</div> --%>
 <!-- 				</li> -->
 				<li class="list-group-item row">
-					<div class="col-md-3">대여가능 나이</div><div class="col-md-9"><fmt:formatNumber value='${carsVO.rentAge }' pattern='#살'/></div>
+					<div class="col-xs-3">대여가능 나이</div><div class="col-xs-9"><fmt:formatNumber value='${carsVO.rentAge }' pattern='#살'/></div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">대여 가능 운전 경력</div><div class="col-md-9"><fmt:formatNumber value='${carsVO.rentExperience }' pattern='#년'/></div>
+					<div class="col-xs-3">대여 가능 운전 경력</div><div class="col-xs-9"><fmt:formatNumber value='${carsVO.rentExperience }' pattern='#년'/></div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">면허</div><div class="col-md-9">${carsVO.license }</div>
+					<div class="col-xs-3">면허</div><div class="col-xs-9">${carsVO.license }</div>
 				</li>
 <!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-md-3">보험 안내</div><div class="col-md-9">${carsVO.insuranceInfo }</div> --%>
+<%-- 					<div class="col-xs-3">보험 안내</div><div class="col-xs-9">${carsVO.insuranceInfo }</div> --%>
 <!-- 				</li> -->
 <!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-md-3">참고사항</div><div class="col-md-9">${carsVO.rentCarNote }</div> --%>
+<%-- 					<div class="col-xs-3">참고사항</div><div class="col-xs-9">${carsVO.rentCarNote }</div> --%>
 <!-- 				</li> -->
 <!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-md-3">취소/환불</div><div class="col-md-9">${carsVO.cancelAndRefund }</div> --%>
+<%-- 					<div class="col-xs-3">취소/환불</div><div class="col-xs-9">${carsVO.cancelAndRefund }</div> --%>
 <!-- 				</li> -->
 				<li class="list-group-item row">
-					<div class="col-md-3">연식</div><div class="col-md-9">${carsVO.modelYears }</div>
+					<div class="col-xs-3">연식</div><div class="col-xs-9">${carsVO.modelYears }</div>
 				</li>
 <!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-md-3">렌트카 등록 아이디</div><div class="col-md-9">${carsVO.id }</div> --%>
+<%-- 					<div class="col-xs-3">렌트카 등록 아이디</div><div class="col-xs-9">${carsVO.id }</div> --%>
 <!-- 				</li> -->
 			</ul>	
 		</div>	
@@ -212,7 +215,7 @@ $(function(){
 		<div>
 			<ul class="list-group ">
 				<li class="list-group-item row">
-				<div class="col-md-3">자차 포함 여부</div><div class="col-md-9"><strong>${carsVO.insuranceType }</strong></div>
+				<div class="col-xs-3">자차 포함 여부</div><div class="col-xs-9"><strong>${carsVO.insuranceType }</strong></div>
 				</li>
 			</ul>
 			
@@ -220,40 +223,40 @@ $(function(){
 				<c:forEach items="${carInsuranceVO }" var="vo" varStatus="cnt">
 					<c:if test="${cnt.count == 2}">
 					<li class="list-group-item row">
-					<div class="col-md-12">-------------------------------------------------------</div>
+					<div class="col-xs-12">-------------------------------------------------------</div>
 					</li>
 					</c:if>
 					<li class="list-group-item row">
-						<div class="col-md-3">보험종류</div>
-						<div class="col-md-9">${vo.category}</div>
+						<div class="col-xs-3">보험종류</div>
+						<div class="col-xs-9">${vo.category}</div>
 					</li>
 					<li class="list-group-item row">
-						<div class="col-md-3">보험금</div>
-						<div class="col-md-9"><fmt:formatNumber value='${vo.insurancePrice }' pattern='#,###원'/></div>
+						<div class="col-xs-3">보험금</div>
+						<div class="col-xs-9"><fmt:formatNumber value='${vo.insurancePrice }' pattern='#,###원'/></div>
 					</li>
 					<li class="list-group-item row">
-						<div class="col-md-3">보험 가입 가능 나이</div>
-						<div class="col-md-9"><fmt:formatNumber value='${vo.insuranceAge }' pattern='#살'/></div>
+						<div class="col-xs-3">보험 가입 가능 나이</div>
+						<div class="col-xs-9"><fmt:formatNumber value='${vo.insuranceAge }' pattern='#살'/></div>
 					</li>
 					<li class="list-group-item row">
-						<div class="col-md-3">보험 가입 가능 운전경력</div>
-						<div class="col-md-9"><fmt:formatNumber value='${vo.insuranceExperience }' pattern='#년'/></div>
+						<div class="col-xs-3">보험 가입 가능 운전경력</div>
+						<div class="col-xs-9"><fmt:formatNumber value='${vo.insuranceExperience }' pattern='#년'/></div>
 					</li>
 					<li class="list-group-item row">
-						<div class="col-md-3">보상한도</div>
-						<div class="col-md-9"><fmt:formatNumber value='${vo.compensation }' pattern='#,###원'/></div>
+						<div class="col-xs-3">보상한도</div>
+						<div class="col-xs-9"><fmt:formatNumber value='${vo.compensation }' pattern='#,###원'/></div>
 					</li>
 					<li class="list-group-item row">
-						<div class="col-md-3">고객부담금</div>
-						<div class="col-md-9">${vo.customerCharge }</div>
+						<div class="col-xs-3">고객부담금</div>
+						<div class="col-xs-9">${vo.customerCharge }</div>
 					</li>
 					
 				</c:forEach>
 				<li class="list-group-item row">
-					<div class="col-md-12">-------------------------------------------------------</div>
+					<div class="col-xs-12">-------------------------------------------------------</div>
 				</li>
 				<li class="list-group-item row">
-					<div class="col-md-3">보험 안내</div><div class="col-md-9">${carsVO.insuranceInfo }</div>
+					<div class="col-xs-3">보험 안내</div><div class="col-xs-9">${carsVO.insuranceInfo }</div>
 				</li>
 			</ul>
 			
@@ -264,14 +267,14 @@ $(function(){
 			
 			<ul class="list-group ">
 				<li class="list-group-item row">
-					<div class="col-md-3">참고사항</div><div class="col-md-9">${carsVO.rentCarNote }</div>
+					<div class="col-xs-3">참고사항</div><div class="col-xs-9">${carsVO.rentCarNote }</div>
 				</li>
 
 			</ul>
 			
 			<ul class="list-group ">
 				<li class="list-group-item row">
-					<div class="col-md-3">취소/환불</div><div class="col-md-9">${carsVO.cancelAndRefund }</div>
+					<div class="col-xs-3">취소/환불</div><div class="col-xs-9">${carsVO.cancelAndRefund }</div>
 				</li>
 			</ul>
 		
@@ -385,9 +388,11 @@ $(function(){
 			<input type="hidden" value="${companyVO.companyNo }" name="companyNo">
 			<input type="hidden" value="${carBasicInfoVO.carInfoNo }" name="carInfoNo">
 			<input type="hidden" value="" name='totalPrice' id='totalPrice'>
-	<!-- 		<input type="hidden" value="" name='rentalDate' id='rentalDateInput'> -->
-	<!-- 		<input type="hidden" value="" name='returnDate' id='returnDateInput'> -->
-	<%-- 		<input type="hidden" value="${param.perPageNum }" name="perPageNum"> --%>
+			<input type="hidden" name="page" value="${param.page}">
+			<input type="hidden" name="perPageNum" value="${param.perPageNum}">		
+			<input type="hidden" name="key" value="${param.key}">
+			<input type="hidden" name="word" value="${param.word}">		
+			
 			<div class="panel panel-default">
 				<div class="panel-heading">
 				예약
@@ -405,14 +410,12 @@ $(function(){
 					</div>
 					
 					<div class="row" id="bookingPrice">
-						<label class="col-md-4" for="returnDate">예약 금액</label>
-						<div class="col-md-8"><fmt:formatNumber value="${carsVO.price}" pattern="#,###" />원</div>
+						<label class="col-xs-4" for="returnDate">예약 금액</label>
+						<div class="col-xs-8"><fmt:formatNumber value="${carsVO.price}" pattern="#,###" />원</div>
 					</div>
-					<c:if test="${!empty login}">
 						<div>
 							<button class="btn btn-default" type="button" id="bookingBtn" data-status="${totalCompanyCars > 0? '예약하기':'예약불가'}">${totalCompanyCars > 0? "예약하기":"예약불가"}</button>
 						</div>
-					</c:if>
 				</div>
 			</div>	
 		</form>
@@ -429,7 +432,7 @@ $(function(){
 		<c:if test="${companyVO.id eq login.id}">
 		
 			<div class="col-lg-12">
-				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardUpdate.do?carNo=${carsVO.carNo}&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">차량 정보 수정</button>
+				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardUpdate.do?carNo=${carsVO.carNo}&carInfoNo=${carBasicInfoVO.carInfoNo }&companyNo=${carsVO.companyNo }&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">차량 정보 수정</button>
 				
 				<c:if test="${!empty carInsuranceVO }">
 				<button class="btn btn-default" type="button" onclick="location='/carinsurance/carInsuranceUpdate.do?carNo=${carsVO.carNo}&carInfoNo=${carBasicInfoVO.carInfoNo }&companyNo=${carsVO.companyNo }&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">보험 상세 수정</button>
@@ -438,7 +441,8 @@ $(function(){
 				<button class="btn btn-default" type="button" onclick="location='/carinsurance/carInsuranceWrite.do?carNo=${carsVO.carNo}&companyNo=${carsVO.companyNo }'">보험 등록</button>
 				
 				</c:if>
-				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardDelete.do?carNo=${carsVO.carNo}'">차량 삭제</button>
+<%-- 				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardDelete.do?carNo=${carsVO.carNo}'">차량 삭제</button> --%>
+				<button class="btn btn-default" type="button" id="deleteBtn">차량 삭제</button>
 				<!-- if(id = carsVO.id)  일때만 보이도록-->
 				<button class="btn btn-default" type="button" onclick="location='/companycars/companyCarsList.do?carNo=${carsVO.carNo}&companyNo=${carsVO.companyNo }&carInfoNo=${carBasicInfoVO.carInfoNo }'">차량 번호판 리스트</button>
 			

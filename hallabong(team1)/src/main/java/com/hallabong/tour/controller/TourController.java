@@ -1,5 +1,7 @@
 package com.hallabong.tour.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hallabong.member.vo.LoginVO;
 import com.hallabong.tour.controller.TourController;
 import com.hallabong.tour.service.TourService;
+import com.hallabong.tour.vo.TourAttachVO;
 import com.hallabong.tour.vo.TourVO;
 import com.hallabong.util.pageobject.TourPageObject;
 import com.webjjang.util.file.FileUtil;
@@ -48,14 +53,26 @@ public class TourController {
 		return "tour/list";
 	}
 	
-	// 관광명소 글보기
+	// 관광명소 글보기, 글수정 폼
 	@GetMapping("/view.do")
-	public String view(long no, Model model, TourVO vo, HttpSession session) throws Exception {
+	public String view(@RequestParam("no") long no, Model model) throws Exception {
 		
 		log.info("관광명소 게시판 글보기");
 		model.addAttribute("vo", service.view(no));
 		
 		return "tour/view";
+	}
+	
+	// 글보기 첨부파일 확인
+	@GetMapping(value = "/getAttachList",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<TourAttachVO>> getAttachList(Long no) throws Exception {
+		ResponseEntity<List<TourAttachVO>> entity = null;
+		
+		entity = new ResponseEntity<List<TourAttachVO>>(service.agetAttachList(no), HttpStatus.OK);
+		
+		return entity;
 	}
 	
 	// 관광명소 글쓰기 폼
@@ -70,31 +87,67 @@ public class TourController {
 	// 관광명소 글쓰기 처리
 	@PostMapping("/write.do")
 	public String write(TourVO vo, HttpSession session, HttpServletRequest request,
-			int perPageNum) throws Exception {
+			int perPageNum, RedirectAttributes rttr) throws Exception {
 		
 		// 아이디 가져오기
 		String id = ((LoginVO)session.getAttribute("login")).getId();
 		vo.setId(id);
 		
-		// 관광명소 파일명을 찾아서 넣어 주는 것이 필요하다. - 중복이 되지 않는다. - 실제적으로 파일을 올려야 한다.
-		vo.setFileName(FileUtil.upload("/upload/image", vo.getImageFile(), request));
-		vo.setThumbnail(FileUtil.upload("/upload/thumbnail", vo.getImageFile(), request));
-		
+		// 썸넬 이미지
+		vo.setThumbnail(FileUtil.upload("/upload/tour", vo.getImageFile(), request));
+
 		log.info("관광명소 게시판 글쓰기 처리");
 		service.write(vo);
 		
-		// 관광명소가 업로드 되는 시간을 벌어서 기다리는 처리를 한다.
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
+		
 		Thread.sleep(2000);
 		
 		return "redirect:list.do?perPageNum=" + perPageNum;
 	}
+
+	// 관광명소 글수정 폼
+	@GetMapping("/update.do")
+	public String updateForm(long no, Model model) throws Exception {
+		
+		log.info("관광명소 게시판 글수정 폼");
+		model.addAttribute("vo", service.view(no));
+		
+		return "tour/update";
+	}
 	
-	// imageChange
+	// 관광명소 글수정 처리
+	@PostMapping("/update.do")
+	public String update(TourVO vo, TourPageObject pageObject, HttpServletRequest request) throws Exception {
+		
+		// 썸넬 이미지
+		vo.setThumbnail(FileUtil.upload("/upload/tour", vo.getImageFile(), request));
+
+		log.info("관광명소 게시판 글수정 처리");
+		service.update(vo);
+		
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
+		
+		Thread.sleep(2000);
+		
+		return "redirect:view.do?no=" + vo.getNo()
+			+ "&page=" + pageObject.getPage()
+			+ "&perPageNum=" + pageObject.getPerPageNum()
+			+ "&area=" + pageObject.getArea()
+			+ "&theme=" + pageObject.getTheme()
+			+ "&word=" + pageObject.getWord();
+	}
+	
+	// 썸네일 이미지 변경
 	@PostMapping("/imageChange.do")
 	public String imageChange(TourPageObject pageObject, TourVO vo, HttpServletRequest request) throws Exception {
 		
 		// 서버에 파일 업로드
-		vo.setFileName(FileUtil.upload("/upload/image", vo.getImageFile(), request));
+		vo.setThumbnail(FileUtil.upload("/upload/image", vo.getImageFile(), request));
 		
 		// DB에 수정한다.
 		service.imageChange(vo);
@@ -105,35 +158,7 @@ public class TourController {
 		// 원래 파일은 삭제한다.
 		FileUtil.remove(FileUtil.getRealPath("", vo.getDeleteName(), request));
 		
-		return "redirect:view.do?no=" + vo.getNo()
-			+ "&page=" + pageObject.getPage()
-			+ "&perPageNum=" + pageObject.getPerPageNum()
-			+ "&area=" + pageObject.getArea()
-			+ "&theme=" + pageObject.getTheme()
-			+ "&word=" + pageObject.getWord();
-	}
-
-	// updateForm - g
-	@GetMapping("/update.do")
-	public String updateForm(long no, Model model) throws Exception {
-		
-		log.info("관광명소 게시판 글수정 폼");
-		model.addAttribute("vo", service.view(no));
-		
-		return "tour/update";
-	}
-	
-	// update - p
-	@PostMapping("/update.do")
-	public String update(TourVO vo, TourPageObject pageObject) throws Exception {
-		
-		log.info("관광명소 게시판 글수정 처리");
-		service.update(vo);
-		
-		log.info(pageObject);
-		
-		// 검색 처리를 하면서 key, word를 확인해야 한다.
-		return "redirect:view.do?no=" + vo.getNo()
+		return "redirect:update.do?no=" + vo.getNo()
 			+ "&page=" + pageObject.getPage()
 			+ "&perPageNum=" + pageObject.getPerPageNum()
 			+ "&area=" + pageObject.getArea()
@@ -141,7 +166,7 @@ public class TourController {
 			+ "&word=" + pageObject.getWord();
 	}
 	
-	// delete - g
+	// 관광명소 글삭제
 	@GetMapping("/delete.do")
 	public String delete(TourVO vo, HttpServletRequest request, int perPageNum) throws Exception {
 		

@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 		
 		<!-- 비밀번호 찾기 -->
 		<select id="findPw" resultType="com.hallabong.member.vo.MemberVO">
-			select pw from member where id = #{id}
+			select pw from member where id = #{id} and tel = #{tel} and name = #{name}
 		</select>
 		
 		<!-- 비밀번호 변경  -->
@@ -65,20 +65,15 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 		  </update>
 		 
 		<!-- 정보 변경 -->
-			<update id="updateMember">
-			 update member set id = #{id}, email = #{email}, name = #{name}, tel = #{tel}
+			<update id="memberUpdate">
+			 update member set tel = #{tel}, name = #{name} , license = #{license}, hobby = #{hobby}, address = #{address}
 			 where id = #{id}
 			</update>
 			
-			<!-- 정보 변경 -->
-			<update id="exUpdateMember">
-			 update member set id = #{id}, email = #{email}, name = #{name}, tel = #{tel}
-			 where id = #{id}
-			</update>
 			
 		<!-- 마이페이지 -->
 			<select id="myPage" resultType="com.hallabong.member.vo.MemberVO">
-				select m.id, m.pw, m.email, m.name, m.tel, m.birth, m.gender, m.regDate, m.status, m.gradeNo, g.gradeName
+				select m.id, m.pw, m.email, m.name, m.tel, m.birth, m.gender, m.address, m.hobby, m.license, m.regDate, m.status, m.gradeNo, g.gradeName
 				from member m, grade g
 				where (id = #{id}) and (m.gradeNo= g.gradeNo)
 			</select>
@@ -111,14 +106,14 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 		</select>
 		
 		<!-- 등급 변경 -->
-		<update id="grade">
+		<update id="gradeModify">
 			update member set gradeNo = #{gradeNo}
 			where id = #{id}
 		</update>
 		
 		<!-- 회원 보기 -->
 		 <select id="view" resultType="com.hallabong.member.vo.MemberVO">
-		 	select m.id, m.pw, m.email, m.name, m.tel, m.birth, m.gender, m.regDate, m.status, m.gradeNo, g.gradeName
+		 	select m.id, m.pw, m.email, m.name, m.tel, m.birth, m.gender, m.address, m.hobby, m.license, m.regDate, m.status, m.gradeNo, g.gradeName
 				from member m, grade g
 				where (id = #{id}) and (m.gradeNo= g.gradeNo)
 		 </select>

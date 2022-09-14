@@ -67,11 +67,11 @@ jQuery(document).ready(function() {
 						<div class="list-group-item dataRow row" 
 						onclick="location='/rentcarboard/rentCarBoardView.do?carNo=${vo.carNo}&carInfoNo=${vo.carInfoNo }&companyNo=${vo.companyNo }&page=${pageObject.page}&perPageNum=${pageObject.perPageNum}&key=${pageObject.key}&word=${pageObject.word}'">
 						
-							<div data-carNo="${vo.carNo }" class="col-md-3">
+							<div data-carNo="${vo.carNo }" class="col-xs-3">
 								<img alt="차량 이미지" src="/upload/rentcarboard/${vo.realSavePath}/s_${vo.fileName}" 
 								width="100px">
 							</div>
-							<div data-carInfoNo="${vo.carInfoNo }" class="col-md-3">
+							<div data-carInfoNo="${vo.carInfoNo }" class="col-xs-3">
 								<ul>
 									<li>${vo.companyName}</li>
 									<li>${vo.carName }</li>
@@ -84,7 +84,7 @@ jQuery(document).ready(function() {
 									
 								</ul>
 							</div>
-							<div class="col-md-3 carOption" >
+							<div class="col-xs-3 carOption" >
 								<ul>
 									<li class="car_op">
 									<p>
@@ -120,7 +120,7 @@ jQuery(document).ready(function() {
 								</li>	
 								</ul>
 							</div>
-							<div class="col-md-3 text-right price" >
+							<div class="col-xs-3 text-right price" >
 								<span class="carPrice" style="align-self: center;"><fmt:formatNumber value="${vo.price }" pattern="#,###"/></span>원
 							</div>
 						</div><!-- //데이터 출력 -->

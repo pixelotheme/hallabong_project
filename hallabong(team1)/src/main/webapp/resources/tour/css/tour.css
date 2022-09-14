@@ -2,7 +2,7 @@
 
 /* list */
 .row{
-	margin:0!important;
+	margin:0 !important;
 }
 
 .dataRow{
@@ -102,7 +102,7 @@
 .tourList .caption p.name{
 	text-align:left;
 	font-size:18px !important;
-	margin:0 0 3px;
+	margin:0;
 }
 .tourList .caption p.name span{
 	display:none;
@@ -147,11 +147,11 @@
 .sub_title .subInfo ul li{
 	list-style:none;
 	float:left;
-	font-size:13px;
+	height:25px;
+	font-size:13px !important;
 	color:#FFF;
 	padding:4px 15px;
 	border-radius:50px;
-	font-weight:bold;
 }
 .sub_title .subInfo ul li:nth-child(1){
 	background:#F28F38;
@@ -224,3 +224,8 @@
 	line-height:23px;
 }
 .root_daum_roughmap{width:100%!important;}
+
+
+.uploadResult ul li{
+	list-style:none;
+}

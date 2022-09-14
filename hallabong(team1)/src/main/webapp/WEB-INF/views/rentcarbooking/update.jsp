@@ -7,12 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약 상세정보 작성</title>
+<title>예약 상세정보 수정</title>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
   
   <!-- datepicker -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -25,35 +25,6 @@
 
 <script type="text/javascript">
 $(function(){
-	
-	// 리스트버튼 클릭 이벤트 -> 글보기로 이동
-	$("#listBtn").on("click", function(){
-		// alert("글보기로 이동");
-		location = "list.do?"
-					+ "&page=" + "${param.page}"
-					+ "&perPageNum=" + "${param.perPageNum}"
-					+ "&key=" + "${param.key}"
-					+ "&word=" + "${param.word}";
-	});
-
-	// 글수정 버튼 이벤트
-	$("#updateBtn").on("click", function(){
-		// alert("글등록으로 이동");
-		location = "update.do?bookingNo=${vo.bookingNo}"
-		+ "&page=" + "${param.page}"
-		+ "&perPageNum=" + "${param.perPageNum}"
-		+ "&key=" + "${param.key}"
-		+ "&word=" + "${param.word}";
-	});
-	
-	// 삭제 버튼 이벤트
-	$("#deleteBtn").on("click", function(){
-		// alert("새로고침 클릭");
-		if(confirm("삭제?")){
-		location = "delete.do?bookingNo=${vo.bookingNo}&perPageNum=${param.perPageNum}";
-			}
-	});
-
 
 	//대여,반납일
 	$("#dateChange").on("change",function(){
@@ -69,7 +40,6 @@ $(function(){
 			alert("반납일을 선택해주세요")
 			return			
 			}
-//		var Date = {rentalDate : $("#rentalDate").val() , returnDate : $("#returnDate").val(), prePrice: $("#plusPrice").data("price")}
 		var Date = {rentalDate : $("#rentalDate").val() , returnDate : $("#returnDate").val(), prePrice: prePrice}
 		
 		alert(JSON.stringify(Date))
@@ -79,28 +49,27 @@ $(function(){
 			     url: '/rentcarboardajaxcontroller/totalPrice.do',
 			     data: JSON.stringify(Date),
 			     contentType: "application/json; charset=utf-8",
-//			     success: function (data,status, xhr) {
 			     success: function (data,status, xhr) {
 			        if (data) {
 						if(data.totalPrice == prePrice){
 							alert("대여,반납일을 다시선택해주세요")
 							}
 						else{
-							alert("성공 "+data.totalPrice);
+// 							alert("성공 "+data.totalPrice);
 							var ajaxPrice = data.totalPrice;
 
-							alert("천단위"+ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+// 							alert("천단위"+ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 							var formatPrice = ajaxPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							str = "<p>"+formatPrice+"</p>"
+							str = "<p>"+formatPrice+"원</p>"
 							$("#bookingPrice").html(str);
 							$("#totalPrice").attr("value", ajaxPrice)
 							}
 
-//			         $("#totalPrice").val(data);
 			        }
 			     },
 			     error: function (xhr,status, error){
-			    	  	alert("에러"+error);
+// 			    	  	alert("에러"+error);
+			    	  	alert("예약날짜를 다시 확인해주세요");
 			    	  }
 			   });//end of ajax
 	
@@ -160,7 +129,7 @@ $(function(){
 		 userEmail = userEmail.replace(regex, "");
 		 
 		 if(regEmail.test(userEmail) === false){
-				alert("이메일을 확인해주세요 (영문+숫자)")
+				alert("이메일을 확인해주세요 (test@test.com)")
 				$("#userEmail").val(userEmail);
 				return false
 			 }
@@ -174,14 +143,11 @@ $(function(){
 			};	
 
 		var regTel1 = /(\d{2,3}[ ,-]-?\d{2,4}[ ,-]-?\d{4})/; //00-
-// 		var regTel1 = /^(\d{0,2})(\d{0,3})(\d{0,4})$/g; //00-
-// 		var regTel2 = /^(\d{0,3})(\d{0,4})(\d{0,4})$/g;	// 000-
 		
 		var userTel = $("#userTel").val();
 		alert(regTel1.test(userTel));
-// 		alert(regTel2.test(userTel));
 		if(regTel1.test(userTel) === false){
-			alert("연락처를 입력")
+			alert("연락처를 입력해주세요")
 			return false;			
 
 			}
@@ -192,7 +158,7 @@ $(function(){
 
 
 	$("#cancelBtn").on("click",function(){
-		location="/rentcarboard/rentCarBoardView.do?carNo=${param.carNo}&carInfoNo=${param.carInfoNo}&companyNo=${param.companyNo}"
+		location="/rentcarbooking/view.do?bookingNo=${param.bookingNo}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}"
 		})
 	
 });
@@ -200,7 +166,10 @@ jQuery(document).ready(function() {
 
 //	   alert("로딩 완료"); 
 		//페이지 로드가 끝나면 value에 넣어주고 - selected 된 것을 바꿔준다
-	   $("#bookingStatus option[value=${bookingVO.bookingStatus}]").prop('selected','selected').change();
+		if("${login.gradeNo == 9 }"){
+		   $("#bookingStatus option[value=${bookingVO.bookingStatus}]").prop('selected','selected').change();
+			}
+	   
 	});	
 </script>
 </head>
@@ -209,7 +178,7 @@ jQuery(document).ready(function() {
 	<!-- 페이지 제목 줄 -->
 	<div class="row">
 		<div class="col-md-12">
-		<h2>예약 상세정보 작성</h2>
+		<h2>예약 상세정보 수정</h2>
 		</div>
 	</div>
 	<!-- /. 페이지 제목줄 끝 -->
@@ -217,7 +186,6 @@ jQuery(document).ready(function() {
 
 	
 	<!-- 데이터 표시 -->
-${vo }
 <!-- /.row -->
 <div class="row">
 	<!-- /.col-lg-12 차량 정보 표시 -->
@@ -249,7 +217,7 @@ ${vo }
 						<label>상품금액</label> <input class="form-control" value="<fmt:formatNumber value='${vo.prePrice }' pattern='#,###'/>" readonly="readonly"/>
 					</div>
 					<div class="form-group">
-						<label>최종금액</label> <input class="form-control" value="<fmt:formatNumber value='${vo.totalPrice }' pattern='#,###'/>"  readonly="readonly"/>
+						<label>최종금액</label> <input class="form-control" value="<fmt:formatNumber value='${bookingVO.totalPrice }' pattern='#,###'/>"  readonly="readonly"/>
 					</div>
 
 
@@ -274,13 +242,13 @@ ${vo }
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 					<div class="form-group">
-						<label>이름</label> <input class="form-control" name="name" readonly="readonly" />
+						<label>이름</label> <input class="form-control" name="name" readonly="readonly" value="${loginVO.name }"/>
 					</div>
 					<div class="form-group">
-						<label>이메일</label> <input class="form-control" name="email" readonly="readonly"/>
+						<label>이메일</label> <input class="form-control" name="email" readonly="readonly" value="${loginVO.email }"/>
 					</div>
 					<div class="form-group">
-						<label>휴대폰</label> <input class="form-control" name="tel" readonly="readonly" />
+						<label>휴대폰</label> <input class="form-control" name="tel" readonly="readonly" value="${loginVO.tel }"/>
 					</div>
 
 			</div>
@@ -335,25 +303,32 @@ ${vo }
 					</div>
 					
 					<div id="bookingPrice">
-						<fmt:formatNumber value="${vo.prePrice}" pattern="#,###" />
+						<fmt:formatNumber value="${bookingVO.totalPrice}" pattern="#,###" />
 					</div>
-					<!-- 관리자 권한일때만 수정가능 -->					
-					<div>
-					<label for="bookingStatus">예약 현황</label>
-						<select name="bookingStatus" id="bookingStatus" class="form-control">
-							<option value="예약">예약</option>
-							<option value="결제">결제</option>
-							<option value="대여">대여</option>
-							<option value="반납">반납</option>
-						</select>
-					
-					</div>
+					<!-- 관리자 권한일때만 수정가능 -->		
+					<c:if test="${login.gradeNo == 9 }">
+						<div>
+							<label for="bookingStatus">예약 현황</label>
+							<select name="bookingStatus" id="bookingStatus" class="form-control">
+								<option value="예약">예약</option>
+								<option value="결제">결제</option>
+								<option value="대여">대여</option>
+								<option value="반납">반납</option>
+							</select>
+						
+						</div>
+					</c:if>		
+					<c:if test="${login.gradeNo == 1 }">
+						<div>
+							<label for="bookingStatus">예약 현황</label>
+							<input class="form-control" id="bookingStatus" name="bookingStatus" value="${bookingVO.bookingStatus}" readonly="readonly">
+						</div>
+					</c:if>		
 				</div>
-					<button type="button" class="btn btn-default" id="submitBtn">예약수정</button>
+					<button type="button" class="btn btn-default" id="submitBtn">예약 수정</button>
 					<button type="reset" class="btn btn-default">새로고침</button>
+					<button type="button" class="btn btn-default" id="cancelBtn">수정 취소</button>
 				</form>
-
-				
 
 			</div>
 			<!-- /.panel-body -->

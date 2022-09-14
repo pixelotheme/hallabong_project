@@ -60,13 +60,11 @@ $(function(){
 			<form action="" method="post" id="formAction">
 				<input type="hidden" name="carNo" value="${param.carNo }">
 				<input type="hidden" name="companyNo" value="${param.companyNo}">
-<%-- 				<input type="hidden" name="companyCarsNo" value="${param.companyCarsNo}"> --%>
+				<input type="hidden" name="companyCarsNo" value="${param.companyCarsNo}">
 				<input type="hidden" name="carInfoNo" value="${param.carInfoNo}">
 				
 				<input type="hidden" name="page" value="${param.page}">
 				<input type="hidden" name="perPageNum" value="${param.perPageNum}">
-<%-- 				<input type="hidden" name="key" value="${param.key}"> --%>
-<%-- 				<input type="hidden" name="word" value="${param.word}"> --%>
 
 				<!-- /.row -->
 				<div class="row">
@@ -74,17 +72,13 @@ $(function(){
 					<div class="col-lg-12">
 						<div class="panel panel-default row">
 							<!-- 테이블의 소제목 -->
-							<div class="panel-heading">번호판 등록
-							<button id="licensePlatePlusbtn" type="button">번호판 입력 추가</button>
+							<div class="panel-heading">번호판 수정
+							
 							</div>
 							<!-- /.panel-heading -->
 							<div class="panel-body">
 							
 								<div id="licensePlateDiv" >
-									<div>
-										<label for="companyCarsNo">번호</label> 
-										<input name="companyCarsNo" id="companyCarsNo" value="${companyCarsVO.companyCarsNo}" readonly="readonly"  class="form-control licensePlate">
-									</div>
 									<div id="licensePlateDiv">
 										<label for="licensePlate">번호판</label> 
 										<input name="licensePlate" id="licensePlate" value="${companyCarsVO.licensePlate }"  class="form-control licensePlate">

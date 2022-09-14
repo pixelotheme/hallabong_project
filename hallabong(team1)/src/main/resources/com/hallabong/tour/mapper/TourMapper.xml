@@ -39,29 +39,58 @@
 	
 	<!-- 관광명소 게시판 글보기 -->
 	<select id="view" resultType="com.hallabong.tour.vo.TourVO">
-		select t.no, t.area, t.theme, t.name, m.id, t.fileName, t.address, t.content, t.tel, t.hours, t.map,
-		(select 'LIKED' from tourLike where no = 1 and id = 'test') likeNo,
-		(SELECT count(*) FROM tourLike WHERE no = 1) likeCnt
-		from tour t, member m
-		WHERE no = #{no} and (t.id = m.id)
+		select no, id, area, theme, name, thumbnail, address, content, tel, hours, roadMap,
+		(SELECT 'LIKED' FROM tourLike where tour.no = tourLike.no and id = 'test') likeNo,
+		(SELECT count(*) FROM tourLike where tour.no = tourLike.no) likeCnt
+		from tour
+		WHERE no = #{no}
 	</select>
-	
-	<!-- 관광명소 변경 -->
-	<update id="tourChange">
-		update tour set fileName = #{fileName}
-		where no = #{no}
-	</update>
 	
 	<!-- 관광명소 게시판 글작성 -->
 	<insert id="write">
-		INSERT INTO tour(no, id, area, theme, name, thumbnail, fileName, address, content, tel, hours, map) 
-		VALUES(tour_seq.nextval, #{id}, #{area}, #{theme}, #{name}, #{thumbnail}, #{fileName},
-		#{address}, #{content}, #{tel}, #{hours}, #{map})
+		INSERT INTO tour(no, id, area, theme, name, thumbnail, address, content, tel, hours, roadMap)
+		VALUES(tour_seq.nextval, #{id}, #{area}, #{theme}, #{name}, #{thumbnail},
+		#{address}, #{content}, #{tel}, #{hours}, #{roadMap})
+	</insert>
+	
+	<insert id="writeSelectKey">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select tour_seq.nextval from dual
+		</selectKey>
+		
+		INSERT INTO tour(no, id, area, theme, name, thumbnail, address, content, tel, hours, roadMap)
+		VALUES(#{no}, #{id}, #{area}, #{theme}, #{name}, #{thumbnail},
+		#{address}, #{content}, #{tel}, #{hours}, #{roadMap})
 	</insert>
 	
 	<!-- 관광명소 게시판 글수정 -->
 	<update id="update">
-		update tour set title = #{title}, content = #{content}
+		update tour set
+			area = #{area},
+			theme = #{theme},
+			name = #{name},
+			address = #{address},
+			thumbnail = #{thumbnail},
+			content = #{content},
+			tel = #{tel},
+			hours = #{hours},
+			roadMap = #{roadMap}
+		where no = #{no}
+	</update>
+	
+	<update id="updateSelectKey">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select tour_seq.nextval from dual
+		</selectKey>
+		
+		INSERT INTO tour(no, id, area, theme, name, thumbnail, address, content, tel, hours, roadMap)
+		VALUES(#{no}, #{id}, #{area}, #{theme}, #{name}, #{thumbnail},
+		#{address}, #{content}, #{tel}, #{hours}, #{roadMap})
+	</update>
+	
+	<!-- 관광명소 대표이미지 변경 -->
+	<update id="tourChange">
+		update tour set thumbnail = #{thumbnail}
 		where no = #{no}
 	</update>
 	

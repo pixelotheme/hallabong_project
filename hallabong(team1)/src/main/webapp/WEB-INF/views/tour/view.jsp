@@ -10,6 +10,9 @@
 <link rel="stylesheet" type="text/css" href="/resources/tour/css/tour.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script type="text/javascript" src="/resources/tour/js/tourAttachFunction.js"></script>
+<script type="text/javascript" src="/resources/tour/js/tourAttachEvent.js"></script>
+
 <style type="text/css">
 #imageChangeDiv{display:none;}
 .list-group-item strong{width:120px; display:inline-block;}
@@ -35,6 +38,8 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="container">
+	<input class="form-control" name="no" value="${vo.no }" readonly="readonly"
+   			id="no" data-no="${vo.no}" type="hidden">
 	<div class="sub_title">
 		<h2>${vo.name}</h2>
 		<div class="subInfo">
@@ -80,16 +85,18 @@ $(document).ready(function(){
 			</dl>
 		</div><!-- // summaryInfo -->
 		<div class="photoInfo">
-			<ul>
-				<li><img src="${vo.fileName}" alt="이미지" style="max-width:100%;"></li>
-			</ul>
+			<div class="uploadResult">
+				<ul>
+					
+				</ul>
+			</div>
 		</div><!-- // photoInfo -->
 		
 		<div class="info">
 			<h3>소개</h3>
 			<p>${vo.content}</p>
 			<h3>지도</h3>
-			<p>${vo.map}</p>
+			<p>${vo.roadMap}</p>
 		</div><!-- // info -->
 	</div><!-- // info_box -->
 	
@@ -97,8 +104,8 @@ $(document).ready(function(){
 	<div class="text-right">
 		<c:if test="${!empty login}">
 			<c:if test="${vo.id == login.id}">
-				<a href="update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}" class="btn btn-info">글수정</a>
-				<a href="delete.do?no=${vo.no}&deleteName=${vo.fileName}&perPageNum=${param.perPageNum}" class="btn btn-default" id="deleteBtn">글삭제</a>
+				<a href="update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&area=${param.area}&theme=${param.theme}&word=${param.word}" class="btn btn-info">글수정</a>
+				<a href="delete.do?no=${vo.no}&deleteName=${vo.thumbnail}&perPageNum=${param.perPageNum}" class="btn btn-default" id="deleteBtn">글삭제</a>
 			</c:if>
 		</c:if>
 				<a href="list.do?page=${param.page}&perPageNum=${param.perPageNum}&area=${param.area}&theme=${param.theme}&word=${param.word}" class="btn btn-default">목록</a>

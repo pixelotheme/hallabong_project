@@ -11,33 +11,20 @@ $(function(){
 	// 전역 변수에 값을 세팅한다.
 	// 파일명 리스트를 보여줄 ul 태그 선택
 	uploadResult = $(".uploadResult ul");
-	bno = $("#bno").data("bno");
+	no = $("#no").data("no");
 	
 	
 	// 처음에 문서가 로딩되면 바로 처리되는 함수 --------------------------------------------
 	(function(){
 		// 첨부파일 데이터를 불러오는 Ajax 처리 함수 적용
 
-		$.getJSON("/board/getAttachList", {bno : bno}, function(arr){
+		$.getJSON("/tour/getAttachList", {no : no}, function(arr){
 			console.log(arr);
 
 			// ul태그 안에 넣을 li태그를 작성해서 ul태그 안에 넣는다.
 			showUploadFile(arr);
 		});
 	})(); // 처음에 문서가 로딩되면 바로 처리되는 함수의 끝
-	
-	
-	// 큰 이미지를 둘러 싸고 있는 div를 클릭하면 안 보이게 하는 이벤트 처리 --------------------------
-	$(".bigPictureWrapper").on("click", function(e){
-		$(".bigPicture").animate({width:'0%', height:'0%'}, 1000);
-		setTimeout(
-			() => {
-					console.log("자동 실행");
-					$(this).hide();
-				},
-		1000);
-	}); // 큰이미지를 둘러 싸고 있는 div를 클릭하면 안보이게 하는 이벤트 처리 끝
-
 
 	// 첨부 파일(둘러싸고 있는 li tag)을 클릭하면 처리되는 이벤트 ------------------------------
 	$(".uploadResult").on("click", "li", function(){

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @RequestMapping("/rentcarboardajaxcontroller")
 @Log4j
+@Transactional
 public class RentCarBoardAjaxController {
 
 	@Autowired
@@ -162,7 +164,6 @@ public class RentCarBoardAjaxController {
 			
 			
 			log.info(totalPrice);
-			String strPrice = Long.toString(totalPrice);
 
 			map.put("totalPrice", totalPrice);
 			return	result == 1 ?

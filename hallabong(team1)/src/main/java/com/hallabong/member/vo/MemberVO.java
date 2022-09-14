@@ -23,8 +23,7 @@ public class MemberVO {
 	private String status;
 	private int gradeNo;
 	private String gradeName;
-	private String adress;
+	private String address;
 	private String license;
 	private String hobby;
-	private String place;
 }

@@ -130,6 +130,7 @@ function isEmailCorrect() {
 
 }
 
+
 function checkPhoneNum() {
     var isPhoneNum = /([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/;
 
@@ -142,6 +143,8 @@ function checkPhoneNum() {
     } else {
         error[7].style.display = "none";
     }
+      
+    
 
     
 }

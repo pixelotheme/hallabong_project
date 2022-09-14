@@ -25,6 +25,13 @@
 <script type="text/javascript" src="/resources/rentCar/form.js"></script>
 <script>
 var loginId = "${login.id}";
+
+$(function(){
+	$("#cancelBtn").on("click",function(){
+		location="/rentcarboard/rentCarBoardList.do?perPageNum=${param.perPageNum}"
+		})
+	
+})
 </script>
 
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentcarboard/writeFunc.js"></script>

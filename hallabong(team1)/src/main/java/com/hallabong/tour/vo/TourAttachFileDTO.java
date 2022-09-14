@@ -19,9 +19,9 @@ import lombok.Data;
 @Data
 public class TourAttachFileDTO {
 	
-	private String fileName; // 순수 파일명(uuid_ 가 포함.)
-	private String uploadPath; // 저장 위치 - yyyy/MM/dd
-	private String uuid; // uuid 문자열 - uuid_를 제거하면 업로드한 파일명이 나온다.
+	private String fileName;
+	private String uploadPath;
+	private String uuid;
 	private boolean image;
 	
 }

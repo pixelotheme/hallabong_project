@@ -43,18 +43,18 @@ $(function(){
 		if($("#InsurancePlus").data("plus") === 1){
 
 			if(!checkData(1)){
-				alert("입력다시")
+// 				alert("입력다시")
 				return false;
 				}
 			if(!checkData(2)){
-				alert("입력다시")
+// 				alert("입력다시")
 				return false;
 				}
 			checkValue = true;
 			}
 		else{
 			if(!checkData(1)){
-				alert("입력다시")
+// 				alert("입력다시")
 				return false;
 				}
 			checkValue = true;
@@ -65,13 +65,13 @@ $(function(){
 					//보험 번호가 비어있지않으면 비어있지않으면
 	// 				if(${!empty carInsuranceVO[1].insuranceNo} != null){
 					if(${!empty carInsuranceVO[1].insuranceNo}){
-						alert("인덱스 1 이 있다")
+// 						alert("인덱스 1 이 있다")
 						//2번째 값이 있다면 -> 보험번호에 인덱스 0 을 넣어준다 - 컨트롤러에서 강제로 넣어준다(무조건 배열 2개에 보험번호가 null 값은 아니게 된다)
 						insuranceNoCheck = ${carInsuranceVO[0].insuranceNo};
 						}
 					else{
 						//2번째 번호가 없으면 빈칸?
-						alert("인덱스 1 이 없다")
+// 						alert("인덱스 1 이 없다")
 						insuranceNoCheck = "";
 						}
 			
@@ -114,7 +114,7 @@ $(function(){
 				     success: function (data,status, xhr) {
 				        if (data) {
 				        	checkValue = false;
-				          alert("성공 "+data);
+// 				          alert("성공 "+data);
 				          location='/rentcarboard/rentCarBoardView.do?carNo='+carNo+'&carInfoNo='+carInfoNo
 				          +'&companyNo=${param.companyNo}&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }';
 				        }
@@ -126,22 +126,7 @@ $(function(){
 				   });//end of ajax
 			}//end of ajax if
 		})
-	
-	var topInsuranceNo = 0;
-	var bottomInsuranceNo = 0;
-	//위쪽 삭제버튼 눌렀을때 보험번호 가져와야한다
-	$("#deleteTop").on("click",function(){
-		var topInsuranceNo = ${carInsuranceVO[0].insuranceNo};
 
-		alert(topInsuranceNo);
-		deleteAjaxFunc(topInsuranceNo,0);
-		})
-	$("#deleteBottom").on("click",function(){
-		var bottomInsuranceNo = ${carInsuranceVO[1].insuranceNo};
-
-		alert(bottomInsuranceNo);
-		deleteAjaxFunc(0,bottomInsuranceNo);
-		})
 
 	function deleteAjaxFunc(topInsuranceNo,bottomInsuranceNo){
 
@@ -170,7 +155,7 @@ $(function(){
 			     contentType: "application/json; charset=utf-8",
 			     success: function (data,status, xhr) {
 			        if (data) {
-			          alert("성공 "+data);
+// 			          alert("성공 "+data);
 			          location='/rentcarboard/rentCarBoardView.do?carNo='+carNo+
 			          '&carInfoNo='+carInfoNo+'&companyNo=${param.companyNo}';
 			        }
@@ -181,7 +166,30 @@ $(function(){
 			   });//end of ajax
 
 			}
+	
+	var topInsuranceNo = 0;
+	var bottomInsuranceNo = 0;
+	//위쪽 삭제버튼 눌렀을때 보험번호 가져와야한다
+	$("#deleteTop").on("click",function(){
+		var topInsuranceNo = ${carInsuranceVO[0].insuranceNo};
 
+		alert(topInsuranceNo);
+		if(confirm("정말 삭제하시겠습니까?")){
+			deleteAjaxFunc(topInsuranceNo,0);
+			}
+		})
+	$("#deleteBottom").on("click",function(){
+		var bottomInsuranceNo = ${carInsuranceVO[1].insuranceNo};
+
+		alert(bottomInsuranceNo);
+		if(confirm("정말 삭제하시겠습니까?")){
+			deleteAjaxFunc(0,bottomInsuranceNo);
+			}
+		});
+
+	$("#cancelBtn").on("click", function(){
+		 location='/rentcarboard/rentCarBoardView.do?carNo=${param.carNo }&carInfoNo=${param.carInfoNo}&companyNo=${param.companyNo}';
+		})
 		
 })
 	

@@ -9,18 +9,14 @@
 <meta charset="UTF-8">
 <title>예약 상세정보 작성</title>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
 $(function(){
 	
-
-
-
-
 	
 	$("#accountTransfer").hide();
 	$("#creditCard").hide();
@@ -68,14 +64,13 @@ $(function(){
 
 		
 });
-// 		$("#paymentType").val("${param.paymentType}");
-		
-		jQuery(document).ready(function() {
 
-//		 	   alert("로딩 완료"); 
-				//페이지 로드가 끝나면 value에 넣어주고 - selected 된 것을 바꿔준다
-			   $("#paymentType option[value=${param.paymentType}]").prop('selected','selected').change();
-			});	
+jQuery(document).ready(function() {
+
+ 	  // alert("로딩 완료"); 
+		//페이지 로드가 끝나면 value에 넣어주고 - selected 된 것을 바꿔준다
+	   $("#paymentType option[value=${param.paymentType}]").prop('selected','selected').change();
+	});	
 </script>
 </head>
 <body>

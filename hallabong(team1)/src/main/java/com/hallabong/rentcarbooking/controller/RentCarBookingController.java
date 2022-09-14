@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hallabong.member.service.MemberService;
 import com.hallabong.member.vo.LoginVO;
+import com.hallabong.member.vo.MemberVO;
 import com.hallabong.rentcarboard.util.PageObjectCustom;
 import com.hallabong.rentcarbooking.domain.RentCarBookingVO;
 import com.hallabong.rentcarbooking.service.RentCarBookingService;
@@ -28,6 +30,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/rentcarbooking")
 @Log4j
+@Transactional
 public class RentCarBookingController {
 
 	@Autowired
@@ -45,7 +48,7 @@ public class RentCarBookingController {
 
 		log.info("list controller "+pageObject);
 		
-		model.addAttribute("list", service.list(pageObject));
+		model.addAttribute("rbList", service.list(pageObject));
 		model.addAttribute("pageObject", pageObject);
 		
 		return "rentcarbooking/list";
@@ -142,7 +145,7 @@ public class RentCarBookingController {
 	
 	//상세정보 수정(결제부분은 수정 안된다 , 관리자일때 예약상태 변경 가능)
 	@GetMapping("/update.do")
-	public String updateForm(RentCarBookingVO vo, Model model) throws Exception{
+	public String updateForm(RentCarBookingVO vo, Model model,HttpSession session) throws Exception{
 		
 		log.info("예약 등록 폼 ------------------" + vo);
 		
@@ -158,12 +161,13 @@ public class RentCarBookingController {
 		//회사이름,차량이름, , 연료 ,보험종류, 기존가격(prePrice 로 들어온다) - db에서 가져오기로 vo에 각 no 담아둠
 		model.addAttribute("vo", basicVO);
 		
-		
+		//가져올정보 추가로 회원 id 에 맞는 이름,이메일, 휴대폰 - id 값을 넣어줘야함
+		LoginVO loginVO = (LoginVO) session.getAttribute("login");		
 		//가져올정보 추가로 회원 id 에 맞는 이름,이메일, 휴대폰
 		
 		//예약한 정보 가져오기
 		model.addAttribute("bookingVO", service.view(vo.getBookingNo()));
-		
+		model.addAttribute("loginVO", msiService.view(loginVO.getId()));
 		
 		return "rentcarbooking/update";
 		

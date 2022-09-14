@@ -9,12 +9,22 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
-
+<script type="text/javascript">
+$(function(){
+	$("#deleteBtn").on("click", function(){
+		
+		if(confirm("정말 삭제하시겠습니까?")){
+			location='/companycars/companyCarsDelete.do?companyCarsNo=${companyCarsVO.companyCarsNo }&carNo=${companyCarsVO.carNo}&companyNo=${companyCarsVO.companyNo }&carInfoNo=${param.carInfoNo }&perPageNum=${param.perPageNum }';
+				}
+	})
+	
+})
+</script>
 
 <title>렌트카 리스트</title>
 </head>
@@ -46,7 +56,8 @@
 
 
 		<button class="btn btn-default" type="button"onclick="location='/companycars/companyCarsUpdate.do?companyCarsNo=${companyCarsVO.companyCarsNo }&carNo=${companyCarsVO.carNo}&companyNo=${companyCarsVO.companyNo }&carInfoNo=${param.carInfoNo }&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">번호판 수정</button>
-		<button class="btn btn-default" type="button"onclick="location='/companycars/companyCarsDelete.do?companyCarsNo=${companyCarsVO.companyCarsNo }&carNo=${companyCarsVO.carNo}&companyNo=${companyCarsVO.companyNo }&carInfoNo=${param.carInfoNo }&perPageNum=${param.perPageNum }'">번호판 삭제</button>
+<%-- 		<button class="btn btn-default" type="button"onclick="location='/companycars/companyCarsDelete.do?companyCarsNo=${companyCarsVO.companyCarsNo }&carNo=${companyCarsVO.carNo}&companyNo=${companyCarsVO.companyNo }&carInfoNo=${param.carInfoNo }&perPageNum=${param.perPageNum }'">번호판 삭제</button> --%>
+		<button class="btn btn-default" type="button" id="deleteBtn">번호판 삭제</button>
 		<button class="btn btn-default" type="button" onclick="location='/companycars/companyCarsList.do?carNo=${companyCarsVO.carNo}&companyNo=${companyCarsVO.companyNo }&carInfoNo=${param.carInfoNo }&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">차량 번호판 리스트</button>
 
 

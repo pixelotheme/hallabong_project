@@ -40,16 +40,14 @@ public interface MemberMapper {
 	public MemberVO findPw(MemberVO vo);
 	
 	// 비밀번호 변경
-	public int updatePw(MemberVO vo);
+	public int changePw(MemberVO vo);
 	
 	// 내정보 보기
 	public MemberVO myPage(LoginVO vo);
 	
 	// 회원정보 수정
-	public int updateMember(MemberVO vo);
+	public int memberUpdate(MemberVO vo);
 	
-	// 회원 정보 추가 입력
-	public int exUpdateMember (MemberVO vo);
 	
 	// 회원 탈퇴
 	public int memberWithdraw(MemberVO vo);
@@ -66,7 +64,7 @@ public interface MemberMapper {
 	public Long getTotalRow(PageObject pageObject);
 	
 	// 회원 등급 변경
-	public int grade(MemberVO vo);
+	public int gradeModify(MemberVO vo);
 	
 	// 회원 보기
 	public MemberVO view(String id);	

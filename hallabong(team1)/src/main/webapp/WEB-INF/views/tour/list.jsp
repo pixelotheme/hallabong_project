@@ -108,7 +108,7 @@ function themeChange() {
 			</div>
 		</div>
 		<!-- 이미지 데이터 한 개 표시 끝 -->
-		<c:if test="${vs.count % 4 == 0 && vs.count != pageObject.perPageNum }">
+		<c:if test="${vs.count % 3 == 0 && vs.count != pageObject.perPageNum }">
 			${"</div>"}
 			${"<div class='row'>"}
 		</c:if>

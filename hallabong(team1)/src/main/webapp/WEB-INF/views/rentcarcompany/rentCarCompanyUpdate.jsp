@@ -5,13 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>렌트카 회사 수정</title>
+<meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/addressForWrite.js"></script>
 <script type="text/javascript" src="/resources/rentCar/rentCarJS/rentCarCompany/telForWrite.js"></script>
@@ -26,13 +26,15 @@ $(function(){
 
 //회사 삭제
 	$("#deleteBtn").on("click", function(){
+		
 			alert(companyNo)
-		location='companyDelete.do?companyNo='+companyNo;
+			if(confirm("정말 삭제하시겠습니까?")){
+			location='companyDelete.do?companyNo='+companyNo;
+				}
 		})
 //리스트로 돌아가기
 		$("#cancelBtn").on("click", function(){
-			history.back();
-// 		location='/rentcarcompany/rentCarCompanyList.do?';
+		location='/rentcarcompany/rentCarCompanyList.do?page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}';
 		
 		})
 		

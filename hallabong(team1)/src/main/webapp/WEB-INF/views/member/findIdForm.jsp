@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>아이디 찾기</title>
 
+<link href="/resources/css/style.css" rel="stylesheet"/>
 
 </head>
 <body>
@@ -29,7 +30,6 @@
 						</div>
 					<div class="login-btn-wrap">
 						<button type="submit" class="find-btn">아이디 찾기</button>
-<!-- 						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">Cancel</button> -->
 					</div>
 				</div>
 			</section>
