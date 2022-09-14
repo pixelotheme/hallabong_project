@@ -1,2 +1,2 @@
-
-spring/
+/hallabong(team1)/src/main/webapp/WEB-INF/spring/root-context.xml
+/hallabong(team1)/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml
