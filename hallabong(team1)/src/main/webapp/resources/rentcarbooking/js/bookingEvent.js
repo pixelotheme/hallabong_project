@@ -76,7 +76,7 @@ $(function(){
 			return false;			
 
 			}
-
+		bookingSendMail();
 		$("#actionForm").submit();
 		
 		})

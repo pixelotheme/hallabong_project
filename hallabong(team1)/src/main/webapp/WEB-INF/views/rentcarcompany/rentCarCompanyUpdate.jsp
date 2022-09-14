@@ -42,7 +42,7 @@ $(function(){
 //수정시 아이디비교
 		$("#submitBtn").on("click", function(){
 			// "test" 자리에 로그인 아이디 넣어주면된다
-			alert("${login.id}");
+// 			alert("${login.id}");
 			if($("#id").val() == "${login.id}"){
 				
 				$("#updateForm").submit();

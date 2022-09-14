@@ -103,7 +103,7 @@ $(function(){
 		
 					];
 	
-			alert(JSON.stringify(carInsuranceVOList))
+// 			alert(JSON.stringify(carInsuranceVOList))
 	//{ carInsuranceVOList : JSON.stringify(carInsuranceVOList) } 이렇게 넘겼다가 하루종일 못넘김 ;;
 			   $.ajax({
 				     method: 'post',
@@ -133,7 +133,7 @@ $(function(){
 			
 			carNo = "${param.carNo }";
 			carInfoNo = "${param.carInfoNo}";	
-			alert("111111")
+// 			alert("111111")
 					let carInsuranceVOList = [
 				{
 					insuranceNo : topInsuranceNo,
@@ -145,7 +145,7 @@ $(function(){
 	
 				];
 
-		alert(JSON.stringify(carInsuranceVOList))
+// 		alert(JSON.stringify(carInsuranceVOList))
 //{ carInsuranceVOList : JSON.stringify(carInsuranceVOList) } 이렇게 넘겼다가 하루종일 못넘김 ;;
 		   $.ajax({
 			     method: 'post',
@@ -173,7 +173,7 @@ $(function(){
 	$("#deleteTop").on("click",function(){
 		var topInsuranceNo = ${carInsuranceVO[0].insuranceNo};
 
-		alert(topInsuranceNo);
+// 		alert(topInsuranceNo);
 		if(confirm("정말 삭제하시겠습니까?")){
 			deleteAjaxFunc(topInsuranceNo,0);
 			}
@@ -181,7 +181,7 @@ $(function(){
 	$("#deleteBottom").on("click",function(){
 		var bottomInsuranceNo = ${carInsuranceVO[1].insuranceNo};
 
-		alert(bottomInsuranceNo);
+// 		alert(bottomInsuranceNo);
 		if(confirm("정말 삭제하시겠습니까?")){
 			deleteAjaxFunc(0,bottomInsuranceNo);
 			}

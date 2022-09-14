@@ -51,7 +51,7 @@
 					<div class="panel panel-default row">
 						<!-- 테이블의 소제목 -->
 						<div class="panel-heading">번호판 등록
-						<button id="licensePlatePlusbtn" type="button">번호판 입력 추가</button>
+						<button id="licensePlatePlusbtn" type="button" class="btn btn-default">번호판 입력 추가</button>
 						</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
@@ -74,9 +74,9 @@
 			<!--/. row -->				
 				
 			<div>
-				<button type="button" id="submitBtn">등록</button>
-				<button type="button" id="resetBtn">새로입력</button>
-				<button type="button" id="cancelBtn">취소</button>
+				<button type="button" id="submitBtn" class="btn btn-default">등록</button>
+				<button type="button" id="resetBtn" class="btn btn-default">새로입력</button>
+				<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
 			</div>
 			</form>
 			

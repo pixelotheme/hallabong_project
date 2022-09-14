@@ -76,7 +76,7 @@ $(function(){
 		
 					];
 	
-			alert(JSON.stringify(carInsuranceVOList))
+//			alert(JSON.stringify(carInsuranceVOList))
 	//{ carInsuranceVOList : JSON.stringify(carInsuranceVOList) } 이렇게 넘겼다가 하루종일 못넘김 ;;
 			   $.ajax({
 				     method: 'post',
@@ -87,7 +87,7 @@ $(function(){
 				     success: function (data,status, xhr) {
 				        if (data) {
 				        	checkValue = false;
-				          alert("성공 "+data);
+//				          alert("성공 "+data);
 				          location='/rentcarboard/rentCarBoardList.do';
 				        }
 				     },

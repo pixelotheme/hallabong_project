@@ -42,7 +42,7 @@ $(function(){
 			}
 		var Date = {rentalDate : $("#rentalDate").val() , returnDate : $("#returnDate").val(), prePrice: prePrice}
 		
-		alert(JSON.stringify(Date))
+// 		alert(JSON.stringify(Date))
 
 		$.ajax({
 			     method: 'post',

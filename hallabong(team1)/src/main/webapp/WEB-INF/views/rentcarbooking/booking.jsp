@@ -31,8 +31,26 @@ $(function(){
 		$("#userEmail").val("${loginVO.email}");
 		$("#userTel").val("${loginVO.tel}");
 		})
+
 	
 });
+
+function bookingSendMail(){
+	const email = $("#loginEmail").val(); // 이메일 주소값 얻어오기!
+	console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+	
+	$.ajax({
+		type : 'get',
+		url : "/bookingMail/mailCheck.do", // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+		data: { 
+			email
+			},
+		success : function (data) {
+			console.log("data : " +  data);
+			alert('예약메일 발송')
+		}			
+	}); // end ajax	
+}
 
 </script>
 </head>
@@ -107,7 +125,7 @@ $(function(){
 						<label>이름</label> <input class="form-control"  readonly="readonly" value="${loginVO.name }" />
 					</div>
 					<div class="form-group">
-						<label>이메일</label> <input class="form-control" readonly="readonly" value="${loginVO.email }"/>
+						<label>이메일</label> <input class="form-control" readonly="readonly" value="${loginVO.email }" id="loginEmail"/>
 					</div>
 					<div class="form-group">
 						<label>휴대폰</label> <input class="form-control"readonly="readonly" value="${loginVO.tel }"/>
@@ -151,6 +169,7 @@ $(function(){
 					</div>
 					<div class="form-group">
 						<label>휴대폰</label> <input class="form-control" name="userTel" id="userTel" maxlength="13" data-ut=""/>
+						
 					</div>
 					<div class="form-group">
 						<label>면허번호</label> <input class="form-control" name="drivingLicense" id="drivingLicense" data-ul=""/>

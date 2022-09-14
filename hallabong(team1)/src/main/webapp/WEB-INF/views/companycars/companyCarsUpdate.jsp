@@ -96,9 +96,9 @@ $(function(){
 				
 				
 			<div>
-				<button type="submit" id="submitBtn">수정</button>
-				<button type="reset">새로입력</button>
-				<button type="button" id="cancelBtn">취소</button>
+				<button type="submit" id="submitBtn" class="btn btn-default">수정</button>
+				<button type="reset" class="btn btn-default">새로입력</button>
+				<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
 			</div>
 			</form>
 			

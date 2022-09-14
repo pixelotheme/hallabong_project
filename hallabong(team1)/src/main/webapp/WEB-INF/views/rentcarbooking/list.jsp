@@ -148,12 +148,7 @@ $(function(){
 	
 	<!-- 페이지 처리, 버튼  -->
 	<div class="row">
-		<div class="col-md-4">
-			<div class="btn-group" style="padding: 20px;">
-			  <button type="button" class="btn btn-default" id="writeBtn">등록</button>
-			</div>
-		</div>
-		<div class="col-md-8 pull-right text-right">
+		<div class="col-md-12 pull-right text-right">
 			<pageNav:rentCarPageNav listURI="list.do" pageObject="${pageObject }"/>
 		</div>
 	</div>
