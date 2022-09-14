@@ -59,7 +59,7 @@ $(function(){
 		
 		});
 	//가격 변환
-	$("#price").change(function(){
+	$("#price").blur(function(){
 		var price = $("#price").val();
 		var regex = /[^0-9]/g;	
 		price = price.replace(regex, "")
@@ -69,7 +69,7 @@ $(function(){
 		$("#price").val(price);
 		})
 	//대여가능(만)나이
-	$("#rentAge").change(function(){
+	$("#rentAge").blur(function(){
 		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
 
 		var rentAge = $("#rentAge").val();
@@ -78,7 +78,7 @@ $(function(){
 				
 		})	
 // 	대여가능 운전 경력
-	$("#rentExperience").change(function(){
+	$("#rentExperience").blur(function(){
 		var regex = /[^0-9]/g;				// 숫자가 아닌 문자열을 선택하는 정규식
 
 		var rentExperience = $("#rentExperience").val();

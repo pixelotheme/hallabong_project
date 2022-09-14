@@ -21,7 +21,7 @@ $(function(){
 	
 
 	//보험금가격 변환
-	$("#insurancePrice1").change(function(){
+	$("#insurancePrice1").blur(function(){
 		var insurancePrice = $("#insurancePrice1").val();
 		var regex = /[^0-9]/g;
 
@@ -32,7 +32,7 @@ $(function(){
 		$("#insurancePrice1").val(insurancePrice);
 		})
 	//보상한도가격 변환
-	$("#compensation1").change(function(){
+	$("#compensation1").blur(function(){
 		var compensation = $("#compensation1").val();
 		var regex = /[^0-9]/g;
 
@@ -62,7 +62,7 @@ $(function(){
 		})
 
 	//보험금가격 변환
-	$("#insurancePrice2").change(function(){
+	$("#insurancePrice2").blur(function(){
 		var insurancePrice = $("#insurancePrice2").val();
 		var regex = /[^0-9]/g;
 
@@ -73,7 +73,7 @@ $(function(){
 		$("#insurancePrice2").val(insurancePrice);
 		})
 	//보상한도가격 변환
-	$("#compensation2").change(function(){
+	$("#compensation2").blur(function(){
 		var compensation = $("#compensation2").val();
 		var regex = /[^0-9]/g;
 
