@@ -18,7 +18,7 @@ $(function(){
 	        changeYear:true,
 	        yearRange:"2020:2022",
 	        showOn:"both",
-//	        buttonImage:"../img/ico/calendar.gif",
+//	        buttonImage:"../img/ico/calendar.gif", 
 	        buttonImage:"../resources/rentCar/noimage.png",
 	        buttonImageOnly:true,
 	        dateFormat: 'yy-mm-dd',
