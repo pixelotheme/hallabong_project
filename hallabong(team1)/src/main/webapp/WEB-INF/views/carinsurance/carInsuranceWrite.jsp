@@ -20,6 +20,13 @@
 .row{
 	display: grid;
 }
+#buttonDiv{
+padding-top: 15px;
+}
+#plusBtn{
+padding-bottom: 15px;
+
+}
 </style>
 <script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
 <script type="text/javascript" src="/resources/rentCar/form.js"></script>
@@ -86,9 +93,10 @@
 			</div>
 			<!--/. row -->
 			
-			
+			<div id="plusBtn">
 			<button  class="btn btn-default" id="InsurancePlusBtn" type="button">보험 내용 추가</button>
 			<button  class="btn btn-default" id="InsurancePlusBtnClose" type="button">보험 내용 추가 닫기</button>
+			</div>
 			
 						<!-- /.row -->
 			<div class="row" id="InsurancePlus" data-plus="">
@@ -138,7 +146,7 @@
 			
 			
 			
-			<div>
+			<div id="buttonDiv">
 				<button class="btn btn-default" type="button" id="submitBtn">등록</button>
 				<button class="btn btn-default" type="button" id="resetBtn">새로입력</button>
 				<button class="btn btn-default" type="button" id="cancelBtn">취소</button>

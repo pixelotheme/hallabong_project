@@ -20,13 +20,17 @@
 	background: #eee;
 	cursor: pointer;
 }
+.refNo{
+	display: none;
+}
 </style>
 <script type="text/javascript">
 $(function(){
 	$(".dataRow").click(function(){
 		var no = $(this).find(".no").text();
-		// alert(no);
+		var refno = $(this).find(".refNo").text();
 		location = "view.do?no=" + no
+				+ "&refNo=" + refno
 				+ "&page=${pageObject.page}"
 				+ "&perPageNum=${pageObject.perPageNum}"
 				+ "&key=${pageObject.key}"
@@ -83,9 +87,12 @@ $().ready(function () {
 			</tr>
 			<c:forEach items="${list }" var="vo">
 			<tr class="dataRow">
-				<td class="no" style="font-size: 14px;">${vo.no }</td>
-				<td style="font-size: 14px;">${vo.title } 
-						<span class="badge" style="font-size: 10px;">${vo.cnt }</span>
+				<td class="no">${vo.no }</td>
+				<td class="refNo">${vo.refNo }</td>
+				<td>${vo.title } 
+				<c:if test="${vo.cnt > 0 }">
+						<span class="badge">${vo.cnt }</span>
+						</c:if>
 				</td>
 				<td style="font-size: 14px;">${vo.id }</td>
 				<td style="font-size: 14px;"><fmt:formatDate value="${vo.writeDate }" pattern="yyyy-MM-dd"/></td>

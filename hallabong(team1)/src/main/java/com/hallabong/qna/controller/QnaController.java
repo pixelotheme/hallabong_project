@@ -1,5 +1,11 @@
 package com.hallabong.qna.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hallabong.member.vo.LoginVO;
 import com.hallabong.qna.service.QnaService;
@@ -22,6 +29,21 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class QnaController {
 
+	@RequestMapping(value = "/favicon.ico", method = RequestMethod.GET)
+
+	public void favicon( HttpServletRequest request, HttpServletResponse reponse ) {
+
+	try {
+
+	  reponse.sendRedirect("/resources/favicon.ico");
+
+	} catch (IOException e) {
+
+	  e.printStackTrace();
+
+	}
+
+	}
 	@Autowired
 	@Qualifier("QnaServiceImpl")
 	private QnaService service;
@@ -61,12 +83,19 @@ public class QnaController {
 	
 	// 질문 / 답변 보기(QNA 글 보기)
 	@GetMapping("/view.do")
-	public String view(long no, Model model) throws Exception{
+	public String view(long no, long refNo, Model model) throws Exception{
 		
-		QnaVO vo = service.view(no);
-		vo.setContent(vo.getContent().replace("\n", "<br>"));
+		log.info("no ----------------------" + no);
+		// list = new ArrayList<QnaVO>();
+		log.info("refNo ----------------------" + refNo);
 		
-		model.addAttribute("vo", vo);
+		List<QnaVO> list = service.view(no, refNo);
+		log.info("no111 ----------------------" + no);
+		// ((QnaVO) vo).setContent(((QnaVO) vo).getContent().replace("\n", "<br>"));
+		
+		log.info("vovo ----------------------" + list);
+		model.addAttribute("list", list);
+		log.info("no2222 ----------------------" + no);
 		
 		Thread.sleep(1000);
 		return "qna/view";
@@ -74,9 +103,9 @@ public class QnaController {
 	
 	// 답변하기 폼
 	@GetMapping("/answer.do")
-	public String answerForm(long no, Model model) throws Exception {
+	public String answerForm(long no, Model model, long refNo) throws Exception {
 		
-		model.addAttribute("vo", service.view(no));
+		model.addAttribute("vo", service.view(no, refNo));
 		
 		Thread.sleep(1000);
 		return "qna/answer";
@@ -102,10 +131,10 @@ public class QnaController {
 	
 	// 수정 폼
 	@GetMapping("/update.do")
-	public String updateForm(long no, Model model) throws Exception {
+	public String updateForm(long no, Model model, long refNo) throws Exception {
 		
 		// DB에서 데이터 가져오기
-		model.addAttribute("vo", service.view(no));
+		model.addAttribute("vo", service.view(no, refNo));
 		
 		Thread.sleep(1000);
 		return "qna/update";

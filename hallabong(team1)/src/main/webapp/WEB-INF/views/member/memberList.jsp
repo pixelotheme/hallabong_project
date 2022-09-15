@@ -32,7 +32,7 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
 		$(".formGradeNo").val([gradeNo]);
 	});
 
-	$(".formGradeModifyBtn").click(function(){
+	$("#formGradeModifyBtn").click(function(){
 
 		var gradeNo = $(".gradeNo:checked").val();
 
@@ -50,7 +50,6 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
 		
 	});
 
-	
 	
 });
 </script>
@@ -91,13 +90,6 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
 		</c:forEach>
 		<!-- 데이터가 있는 만큼 반복이 되어 지는 끝 부분  !-->
 	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="8">
-				<a href="../main.do" class="btn btn-default">메인 페이지</a>
-			</td>
-		</tr>
-	</tfoot>
 </table>
 		<pageObject:pageNav listURI="memberList.do" pageObject="${pageObject }" />
 </div>
@@ -107,45 +99,46 @@ $(function(){ // jquery에서 익명함수를 전달해서 저장해놨다가 Do
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-   <!-- Modal content  --> 
+    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">등급 수정</h4>
       </div>
       <div class="modal-body">
+        <p>
         	<form action="gradeModify.do" method="post" id="gradeModifyForm">
         		<div class="form-group">
         			<label for="id">아이디</label>
         			<input name="id" id="formId" readonly="readonly" class="form-control"/>
         		</div>
-        		
         		<div>
         			<div><label>등급</label></div>
+        			<label class="radio-inline">
+        				<input type="radio" name="gradeNo" value="1"
+        				 class="formGradeNo">일반</label>
         			<label class="radio-inline">
         				<input type="radio" name="gradeNo" value="2"
         				 class="formGradeNo">탈퇴</label>
         			<label class="radio-inline">
         				<input type="radio" name="gradeNo" value="3"
         				 class="formGradeNo">휴면</label>
-        			<label class="radio-inline">
-        				<input type="radio" name="gradeNo" value="1"
-        				 class="formGradeNo">일반</label>
-        			<label class="radio-inline">
-        				<input type="radio" name="gradeNo" value="9"
-        				 class="formGradeNo">관리자</label>
+					<label class="radio-inline">
+						<input type="radio" name="gradeNo" value="9"
+						 class="formGradeNo">관리자</label>
         		</div>
-        	</form>  
-           
+        	</form>
+        </p>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-default" >변경</button>
+        <button type="submit" class="btn btn-default" id="formGradeModifyBtn">변경</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
       </div>
     </div>
+
   </div>
- </div>  
-<!-- </div> -->
+  
+</div>
 
 </body>
 </html>

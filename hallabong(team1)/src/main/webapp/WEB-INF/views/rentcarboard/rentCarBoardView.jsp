@@ -430,8 +430,7 @@ $(function(){
 		
 		<!--회사 등록된 아이디와  관리자아이디가 같을 때만 보이게 한다 -->
 		<c:if test="${companyVO.id eq login.id}">
-		
-			<div class="col-lg-12">
+			<div class="col-lg-12" style="padding-top: 15px">
 				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardUpdate.do?carNo=${carsVO.carNo}&carInfoNo=${carBasicInfoVO.carInfoNo }&companyNo=${carsVO.companyNo }&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">차량 정보 수정</button>
 				
 				<c:if test="${!empty carInsuranceVO }">
@@ -441,7 +440,7 @@ $(function(){
 				<button class="btn btn-default" type="button" onclick="location='/carinsurance/carInsuranceWrite.do?carNo=${carsVO.carNo}&companyNo=${carsVO.companyNo }'">보험 등록</button>
 				
 				</c:if>
-<%-- 				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardDelete.do?carNo=${carsVO.carNo}'">차량 삭제</button> --%>
+	<%-- 				<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardDelete.do?carNo=${carsVO.carNo}'">차량 삭제</button> --%>
 				<button class="btn btn-default" type="button" id="deleteBtn">차량 삭제</button>
 				<!-- if(id = carsVO.id)  일때만 보이도록-->
 				<button class="btn btn-default" type="button" onclick="location='/companycars/companyCarsList.do?carNo=${carsVO.carNo}&companyNo=${carsVO.companyNo }&carInfoNo=${carBasicInfoVO.carInfoNo }'">차량 번호판 리스트</button>

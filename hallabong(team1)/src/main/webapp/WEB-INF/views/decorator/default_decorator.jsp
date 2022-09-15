@@ -67,7 +67,7 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <ul class="navbar-nav ml-auto py-0">
                         <li><a href="/" class="nav-item nav-link active">Home</a></li>
-                        <li><a href="/hotel/list.do" class="nav-item nav-link">호텔</a></li>
+                        <li><a href="/business/list.do" class="nav-item nav-link">호텔</a></li>
                         <li><a href="/rentcarboard/rentCarBoardList.do" class="nav-item nav-link">렌트카</a></li>
                         <li><a href="/diner/list.do" class="nav-item nav-link">맛집</a></li>
                         <li><a href="/tour/list.do" class="nav-item nav-link">관광명소</a></li>

@@ -24,6 +24,7 @@ $(function(){
 		
 		
 	$("#submitBtn").on("click",function(){
+		if(confirm("등록하시겠습니까?")){
 		var checkValue = false;
 //		alert("data-plus : " + $("#InsurancePlus").data("plus"));
 				
@@ -100,7 +101,8 @@ $(function(){
 			}//end of ajax if
 			else{
 				
-				}
+				}//end of checkValue
+			}//end of confirm
 		})
 
 		
@@ -195,7 +197,9 @@ $(function(){
 				
 		})
 	$("#cancelBtn").on("click",function(){
-		
+		if(perPageNum < 1 ){
+			perPageNum = 10;
+		}
 		location='/rentcarboard/rentCarBoardList.do?perPageNum='+perPageNum;
 				
 		})

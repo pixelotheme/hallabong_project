@@ -8,13 +8,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <meta charset="UTF-8">
 
-
+<style type="text/css">
+#searchForm{
+padding-bottom: 15px;
+}
+</style>
 
 <title>렌트카 회사 리스트</title>
 </head>
@@ -22,7 +22,7 @@
 <div class="container">
 
 					<!-- 검색 시작 -->
-		<form class="form-inline">
+		<form class="form-inline" id="searchForm">
 			<!-- 검색 key -->
 			<div class="input-group">
 				<select class="form-control" name="key" id="key">
@@ -82,9 +82,6 @@
 		</table>
 <c:if test="${login.gradeNo == 9 }">
 	<button class="btn btn-default" type="button" onclick="location='/rentcarcompany/rentCarCompanyWrite.do?perPageNum=${pageObject.perPageNum}'">회사등록</button>
-<!-- 	<button type="button" onclick="location='/rentcarcompany/rentCarCompanyUpdate.do'">회사정보 수정</button> -->
-	
-<!-- 	<button type="button" onclick="location='/rentcarboard/rentCarWrite.do'">차량등록</button> -->
 	<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardList.do'">렌트카 리스트</button>
 	<!-- 페이징 처리 -->
 </c:if>		

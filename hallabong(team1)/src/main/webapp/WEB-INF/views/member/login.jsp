@@ -13,7 +13,6 @@
 <body>
 <div class="main">
 
-
 <form action="login.do" method="post">
 <section class="login-wrap">
 	<div class="form-group login-id-wrap">

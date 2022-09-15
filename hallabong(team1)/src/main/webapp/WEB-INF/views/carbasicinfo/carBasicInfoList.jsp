@@ -13,6 +13,14 @@
 
 <meta charset="UTF-8">
 <title>차량 기본정보 리스트</title>
+
+<style type="text/css">
+#searchForm{
+padding-bottom: 15px;
+}
+</style>
+
+
 <script type="text/javascript">
 $(function(){
 	
@@ -24,7 +32,7 @@ $(function(){
 <div class="container">
 
 					<!-- 검색 시작 -->
-		<form class="form-inline">
+		<form class="form-inline" id="searchForm">
 			<!-- 검색 key -->
 			<div class="input-group">
 				<select class="form-control" name="key" id="key">

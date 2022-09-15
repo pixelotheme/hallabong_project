@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+
+<mapper namespace="com.hallabong.business.mapper.BusinessMapper">
+<!-- 	// list -->
+	<!-- 	public List<BusinessVO> list(PageObject pageObject) throws Exception; -->
+	<select id="list" resultType="com.hallabong.business.vo.BusinessVO">
+		select no, id, area, name, content, bus_tel, bus_mail, bus_address, fileName
+		from(
+			select rownum rnum, no, id, area, name, content, bus_tel, bus_mail, bus_address, fileName
+			from(
+				select no, id, area, name, content, bus_tel, bus_mail, bus_address, fileName
+				from business
+				<include refid="search" />
+				order by no desc
+			)
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	<!-- 	// 전체 데이터 개수 -->
+	<!-- 	public long getTotalRow(PageObject pageObject) throws Exception; -->
+	<select id="getTotalRow" resultType="long">
+		select count(*)
+		from business
+		<include refid="search" />
+	</select>
+	
+	<sql id="search">
+		<!-- 검색을 해야할 때(word가 비어있지 않을 때) where문을 붙인다. -->
+		<if test="word != null and word != ''">
+			<!-- or, like -->
+			where 1=0
+				<if test="area.indexOf('서귀포시'.toString()) >= 0">
+					or title like ${"'%" + word + "%'"}
+				</if>
+				
+		</if>
+	</sql>
+	
+	<!-- 	// view -->
+	<!-- 	public BusinessVO view(long no) throws Exception; -->
+ 	<select id="view" resultType="com.hallabong.business.vo.BusinessVO">
+		select b.no, m.id, b.area, b.name, b.content, b.bus_tel, b.bus_mail, b.bus_address, b.fileName
+		from business b, member m
+		where no = #{no} and (b.id = m.id)
+	</select>
+	
+	
+	<!-- 	// imageChange 처리 -->
+	<!-- 	public int imageChange(Business vo) throws Exception; -->
+	 <update id="imageChange">
+		update business set fileName = #{fileName}
+		where no = #{no}
+	</update>
+	
+	
+	<!-- 	// write처리 -->
+	<!-- 	public int write(BusinessVO vo) throws Exception; -->
+	<insert id="write">
+		insert into business(no, id, area, name, content, bus_tel, bus_maile, bus_address, fileName)
+		values(Business_seq.nextval, #{id}, #{area}, #{name}, #{content}, #{bus_tel}, #{bus_mail}, #{bus_address}, #{fileName} )
+	</insert>
+	<!-- 	// update처리 -->
+	<!-- 	public int update(BusinessVO vo) throws Exception; -->
+	<update id="update">
+		update business set title = #{title}, content = #{content}
+		where no = #{no}
+	</update>
+	<!-- 	// delete 처리 -->
+	<!-- 	public int delete(long no) throws Exception; -->
+	<delete id="delete">
+		delete from business
+		where no = #{no}
+	</delete>
+
+</mapper>

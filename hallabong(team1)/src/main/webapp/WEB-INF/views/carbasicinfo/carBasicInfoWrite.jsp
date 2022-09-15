@@ -9,7 +9,14 @@
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+<style type="text/css">
+#buttonDiv{
+padding-top: 15px;
+}
+</style>
 <!-- 정규표현식 -->
+
 <script type="text/javascript" src="/resources/rentCar/regEx.js"></script>
 <script type="text/javascript" src="/resources/rentCar/form.js"></script>
 
@@ -59,15 +66,14 @@ var perPageNum = "${param.perPageNum}";
 			
 			<div>
 				<label for="uploadFile">사진</label> 
-				<input type="file" name="uploadFile" multiple="multiple" class="btn btn-default">
+				<input type="file" name="uploadFile" class="btn btn-default">
 			</div>
-			
-			<div>
+
+		<div id="buttonDiv">
 				<button class="btn btn-default" type="button" class="btn btn-default" id="submitBtn">등록</button>
 				<button class="btn btn-default" type="reset"class="btn btn-default">새로입력</button>
 				<button class="btn btn-default" type="button" id="cancelBtn"class="btn btn-default">취소</button>
-			</div>
-		
+		</div>
 		</form>
 		
 		

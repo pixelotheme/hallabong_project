@@ -1,5 +1,6 @@
 package com.hallabong.tour.controller;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,7 +44,7 @@ public class TourController {
 	
 	// 관광명소 리스트
 	@GetMapping("/list.do")
-	public String list(TourPageObject pageObject, Model model) throws Exception {
+	public String list(TourPageObject pageObject, Model model, HttpServletRequest request) throws Exception {
 		
 		log.info("관광명소 게시판 리스트");
 		
@@ -55,7 +58,7 @@ public class TourController {
 	
 	// 관광명소 글보기, 글수정 폼
 	@GetMapping("/view.do")
-	public String view(@RequestParam("no") long no, Model model) throws Exception {
+	public String view(long no, Model model) throws Exception {
 		
 		log.info("관광명소 게시판 글보기");
 		model.addAttribute("vo", service.view(no));
@@ -120,7 +123,7 @@ public class TourController {
 	
 	// 관광명소 글수정 처리
 	@PostMapping("/update.do")
-	public String update(TourVO vo, TourPageObject pageObject, HttpServletRequest request) throws Exception {
+	public String update(TourVO vo, TourPageObject pageObject, HttpServletRequest request, int areaUrl, int themeUrl) throws Exception {
 		
 		// 썸넬 이미지
 		vo.setThumbnail(FileUtil.upload("/upload/tour", vo.getImageFile(), request));
@@ -134,35 +137,13 @@ public class TourController {
 		
 		Thread.sleep(2000);
 		
+		pageObject.setWord(URLEncoder.encode(pageObject.getWord(), "UTF-8"));
+		
 		return "redirect:view.do?no=" + vo.getNo()
 			+ "&page=" + pageObject.getPage()
 			+ "&perPageNum=" + pageObject.getPerPageNum()
-			+ "&area=" + pageObject.getArea()
-			+ "&theme=" + pageObject.getTheme()
-			+ "&word=" + pageObject.getWord();
-	}
-	
-	// 썸네일 이미지 변경
-	@PostMapping("/imageChange.do")
-	public String imageChange(TourPageObject pageObject, TourVO vo, HttpServletRequest request) throws Exception {
-		
-		// 서버에 파일 업로드
-		vo.setThumbnail(FileUtil.upload("/upload/image", vo.getImageFile(), request));
-		
-		// DB에 수정한다.
-		service.imageChange(vo);
-		
-		// 관광명소가 업로드 되는 시간을 벌어서 기다리는 처리를 한다.
-		Thread.sleep(2000);
-		
-		// 원래 파일은 삭제한다.
-		FileUtil.remove(FileUtil.getRealPath("", vo.getDeleteName(), request));
-		
-		return "redirect:update.do?no=" + vo.getNo()
-			+ "&page=" + pageObject.getPage()
-			+ "&perPageNum=" + pageObject.getPerPageNum()
-			+ "&area=" + pageObject.getArea()
-			+ "&theme=" + pageObject.getTheme()
+			+ "&area=" + areaUrl
+			+ "&theme=" + themeUrl
 			+ "&word=" + pageObject.getWord();
 	}
 	
@@ -183,9 +164,9 @@ public class TourController {
 
 	
 	// 좋아요 처리
-	@PostMapping(value = {"/like.do"}, 
-	consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE},
-	produces = {"application/text; charset=utf-8"})
+	@RequestMapping(value = {"/like.do"}, method = {RequestMethod.GET, RequestMethod.POST},
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE},
+		produces = {"application/text; charset=utf-8"})
 	public ResponseEntity<String> like(@RequestBody TourVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
 	
 		log.info("like().vo : " + vo);
@@ -195,12 +176,12 @@ public class TourController {
 		log.info(result);
 		
 		 return new ResponseEntity<String>
-		 ("좋아요 등록 완료!",HttpStatus.OK);
+		 ("좋아요!",HttpStatus.OK);
 
 	}
 
 	// 좋아요 취소
-	@PostMapping(value = {"/unlike.do"}, 
+	@RequestMapping(value = {"/unlike.do"}, method = {RequestMethod.GET, RequestMethod.POST},
 			consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE},
 			produces = {"application/text; charset=utf-8"})
 	public ResponseEntity<String> unlike(@RequestBody TourVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
@@ -216,15 +197,17 @@ public class TourController {
 		log.info(id);
 		
 		
-		int result = service.unlike(vo);
+		int result =  service.unlike(vo);
 		// 전달되는 데이터의 선언
-		String msg = "좋아요 취소 되었습니다.";
+		String msg = "좋아요가 취소 되었습니다.";
 		HttpStatus status = HttpStatus.OK;
 		log.info(result);
 		if(result == 0) {
-			msg = "좋아요 취소 실패 - 좋아요가 되어있는지 확인해주세요.";
+			msg = "좋아요 처리 실패";
 		}
 		log.info("unlike().msg: " + msg);
 		return new ResponseEntity<String>(msg, status);
+		
+		
 	}
 }

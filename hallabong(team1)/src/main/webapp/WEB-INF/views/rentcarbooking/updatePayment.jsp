@@ -95,7 +95,10 @@ jQuery(document).ready(function() {
 					<form action="" method="post" id="paymentForm">
 					<input type="hidden" value="${vo.bookingNo }" name="bookingNo" />
 					<input type="hidden" name="page" value="${param.page}">
-					<input type="hidden" name="perPageNum" value="${param.perPageNum}">			
+					<input type="hidden" name="perPageNum" value="${param.perPageNum}">		
+					<c:if test="${!empty param.mypage}">
+						<input type="hidden" value="${param.mypage}" name="mypage">
+					</c:if>	
 					
 						<div class="form-group">
 							<label>결제종류</label>

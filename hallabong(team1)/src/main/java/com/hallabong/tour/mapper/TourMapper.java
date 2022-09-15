@@ -15,9 +15,6 @@ public interface TourMapper {
 	// view
 	public TourVO view(long no) throws Exception;
 	
-	// imageChange 처리
-	public int imageChange(TourVO vo) throws Exception;
-	
 	// write 처리
 	public int write(TourVO vo) throws Exception;
 	public long writeSelectKey(TourVO vo) throws Exception;

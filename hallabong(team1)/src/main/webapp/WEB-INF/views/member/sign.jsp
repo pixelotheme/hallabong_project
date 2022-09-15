@@ -99,7 +99,7 @@
 			
 			$.ajax({
 				type : 'get',
-				url : "/mail/mailCheck.do", // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+				url : "/mail/mailCheck.do",
 				data: { 
 					email
 					},

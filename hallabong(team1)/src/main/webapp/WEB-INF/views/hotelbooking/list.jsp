@@ -33,18 +33,20 @@
 		        <th>인원수</th>
 		        <th>체크인/체크아웃</th>
 		        <th>예약현황</th>
+		         <c:if test="${!empty login && login.gradeNo == 9 }">
 		        <th>아이디</th>
+		        </c:if>
 		      </tr>
 		    </thead>
 		   <c:forEach items="${list }" var="vo">
 		    <tbody >
 		      <tr class="dataRow hotelbooking"> 
 		        <td class="no">${vo.hbno }</td>
-		       <c:forEach items="${roomlist }" var="roomvo"> 
-			        <td>${roomvo.ro_name }</td>
-			        <td>${roomvo.ro_people}명</td>
+<%-- 		       <c:forEach items="${roomlist }" var="roomvo">  --%>
+			        <td>${roomvo.ro_name }베니키아호텔-싱글스탠다드룸</td>
+			        <td>${roomvo.ro_people}3명</td>
 			        <td>2022.09.05~2022.09.08</td>
-		        </c:forEach>
+<%-- 		        </c:forEach> --%>
 		        <td>${vo.progress }
 		        <img class="img-fluid mx-auto"  
 		        src="/resources/img/hotelbooking/check.png" style="width: 30px; height: 30px;"> 
@@ -59,7 +61,7 @@
 		 
 		  </div>
       </div> 
-      <div><a href="write.do?perPageNum=${pageObject.perPageNum }" class="btn btn-default">등록</a></div>       
+      <div><a href="write.do?ro_no=03&perPageNum=${pageObject.perPageNum }" class="btn btn-default">등록</a></div>       
     </div>
     <!-- Service End -->
 

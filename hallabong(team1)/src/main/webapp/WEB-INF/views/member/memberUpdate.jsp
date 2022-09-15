@@ -172,8 +172,8 @@ function execPostCode() {
 					<h3 class="join_title">
 						<label for="gender">성별</label>
 					</h3>
-					<span class="box gender_code" style="background:#eee;"> <input type="text" id="gender"
-						name="gender" class="int" value="${vo.gender }" readonly style="background:#eee;">
+					<span class="box gender_code"> <input type="text" id="gender"
+						name="gender" class="int" value="${vo.gender }">
 					</span> 
 					<span class="error_next_box">필수 정보입니다.</span>
 				</div>
@@ -235,26 +235,22 @@ function execPostCode() {
 				
 				<div>
 					<label for="license">운전 면허 종류</label>
-					<span class="box int_license" style="border-bottom: 100px;">
-						<input name="license" type="radio" value="1종 보통" > 1종 보통
-						<input name="license" type="radio" value="1종 대형" > 1종 대형
-						<input name="license" type="radio" value="2종 오토" > 2종 오토 
-						<input name="license" type="radio" value="2종 수동" > 2종 수동
-						<input name="license" type="radio" value="2종 소형" > 2종 소형			
-						<input name="license" type="radio" value="2종 원동기" > 2종 원동기			
+					<span class="box int_license" >
+						<input name="license" type="radio" value="1종 보통" name="license"> 1종 보통
+						<input name="license" type="radio" value="1종 대형" name="license"> 1종 대형
+						<input name="license" type="radio" value="2종 오토" name="license" checked="checked"> 2종 오토 
+						<input name="license" type="radio" value="2종 수동" name="license"> 2종 수동
+						<input name="license" type="radio" value="2종 소형" name="license"> 2종 소형			
+						<input name="license" type="radio" value="2종 원동기" name="license"> 2종 원동기			
 					</span> 
 					<span class="error_next_box"></span>							
 				</div>
-		</div>
-			
+		</div>			
 					<div class="btn_area">
 					<button id="btnJoin">
 						<span>수정하기</span>
 					</button>
-				</div>
-				
-		
-			
+				</div>		
 	</form>
 
 			</div>

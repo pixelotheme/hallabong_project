@@ -8,13 +8,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>렌트카 리스트</title>
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <meta charset="UTF-8">
+<title>렌트카 리스트</title>
 
+<style type="text/css">
+#searchForm{
+padding-bottom: 15px;
+}
+</style>
 
 <link rel="stylesheet" href="/resources/rentCar/rentCarCSS/rentcarboard/list.css">
 
@@ -34,7 +35,7 @@ jQuery(document).ready(function() {
 <div class="container">
 
 					<!-- 검색 시작 -->
-		<form class="form-inline">
+		<form class="form-inline" id="searchForm">
 			<div class="row">
 			
 				<!-- 검색 key -->

@@ -9,6 +9,7 @@ public class HotelBookingVO {
 	
 	private long hbno;
 	private String id;
+	private String name, tel, email;
 	private String userName, userTel, userEmail;
 	private String payOption, payType;
 	private long confirmNo;

@@ -38,15 +38,15 @@ $(function() {
 					<th>지역</th>
 					<td>
 						<select name="region" id="region" required="required">
-							<option value="0">전체</option>
-							<option value="1">제주 모슬포/화순</option>
-							<option value="2">제주 서귀포시내</option>
-							<option value="3">제주 성산/우도</option>
-							<option value="4">제주 제주시내</option>
-							<option value="5">제주 중문단지</option>
-							<option value="6">제주 표선/성읍</option>
-							<option value="7">제주 한림/애월</option>
-							<option value="8">제주 함덕/김녕</option>
+							<option value="전체">전체</option>
+							<option value="제주 모슬포/화순">제주 모슬포/화순</option>
+							<option value="제주 서귀포시내">제주 서귀포시내</option>
+							<option value="제주 성산/우도">제주 성산/우도</option>
+							<option value="제주 제주시내">제주 제주시내</option>
+							<option value="제주 중문단지">제주 중문단지</option>
+							<option value="제주 표선/성읍">제주 표선/성읍</option>
+							<option value="제주 한림/애월">제주 한림/애월</option>
+							<option value="제주 함덕/김녕">제주 함덕/김녕</option>
 						</select>
 					</td>
 				</tr>
@@ -54,19 +54,19 @@ $(function() {
 					<th>음식 종류</th>
 					<td>
 						<select name="kind" id="kind" required="required">
-					<option value="0">전체</option>
-					<option value="1">한식</option>
-					<option value="2">분식</option>
-					<option value="3">양식</option>
-					<option value="4">해산물</option>
-					<option value="5">회/스시</option>
-					<option value="6">세계음식</option>
-					<option value="7">뷔페</option>
-					<option value="8">디저트</option>
-					<option value="9">카페</option>
-					<option value="10">술집</option>
-					<option value="11">브런치</option>
-					<option value="12">치킨</option>
+					<option value="전체">전체</option>
+					<option value="한식">한식</option>
+					<option value="분식">분식</option>
+					<option value="양식">양식</option>
+					<option value="해산물">해산물</option>
+					<option value="회/스시">회/스시</option>
+					<option value="세계음식">세계음식</option>
+					<option value="뷔페">뷔페</option>
+					<option value="디저트">디저트</option>
+					<option value="카페">카페</option>
+					<option value="술집">술집</option>
+					<option value="브런치">브런치</option>
+					<option value="치킨">치킨</option>
 						</select>
 					</td>
 				</tr>
@@ -77,10 +77,6 @@ $(function() {
 				<tr>
 					<th>연락처</th>
 					<td><input name="tel" class="form-control" value="${vo.tel }" required="required"></td>
-				</tr>
-				<tr>
-					<th>음식 종류</th>
-					<td><input name="foodType" class="form-control" value="${vo.foodType }"></td>
 				</tr>
 				<tr>
 					<th>가격대</th>

@@ -4,12 +4,12 @@
 <mapper namespace ="com.hallabong.diner.mapper.DinerMapper">
 
 	<select id="list" resultType="com.hallabong.diner.vo.DinerVO">
-		select no, region, kind, name, image, introduce
+		select no, region, kind, name, image, introduce, hit
 		from (
-		select rownum rnum, no, region, kind, name, image, introduce
+		select rownum rnum, no, region, kind, name, image, introduce, hit
 		from (
-		select no, region, kind, name, image, introduce
-		from diner
+		select no, region, kind, name, image, introduce, hit
+		from diner 
 		<include refid="search" />
 		order by no desc
 		)
@@ -19,91 +19,36 @@
 	<select id="getTotalRow" resultType="Long">
 		select count(*) from diner
 		<include refid="search"/>
+		
 	</select>
 	
 	<sql id="search">
-		<if test="word != null and word != ''">
-		where 1=0
-			<if test="key.indexOf('1'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('2'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('3'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('4'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('5'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('6'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('7'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('8'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('EV'.toString()) >= 0">
-				or region like ${"'%" + word + "%'"}
-			</if>
-			</if>
+	<if test="word != null and word != ''">
+			<!-- or, like -->
+			where 1=0
+				<if test="key.indexOf('r'.toString()) >= 0">
+					or region like ${"'%" + word + "%'"}
+				</if>
 			
-			<if test="word != null and word != ''">
-		where 1=0
-			<if test="key.indexOf('1'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
+				<if test="key.indexOf('k'.toString()) >= 0">
+					or kind like ${"'%" + word + "%'"}
+				</if>
+			
+				<if test="key.indexOf('n'.toString()) >= 0">
+					or name like ${"'%" + word + "%'"}
+				</if>
 			</if>
-			<if test="key.indexOf('2'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('3'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('4'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('5'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('6'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('7'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('8'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('9'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('10'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('11'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('12'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			<if test="key.indexOf('EV'.toString()) >= 0">
-				or kind like ${"'%" + word + "%'"}
-			</if>
-			</if>
-	</sql>
+			</sql>
 	
-<!-- 	<select id="view" resultType="com.hallabong.diner.vo.DinerVO"> -->
-<!-- 		select no, region, kind, name, address, tel, foodType, price, image, content, hours, park -->
+
 	
-<!-- 	</select> -->
+ 	<select id="view" resultType="com.hallabong.diner.vo.DinerVO">
+		select no, region, kind, name, address, tel, price, image, content, hours, park, hit
+		from diner
+		where no = #{no}
 	
-	
-	
+	</select>
+
 	<update id="increase">
 		update diner
 		set hit = hit + 1
@@ -111,9 +56,21 @@
 	</update>
 	
 		<insert id="write">
-		insert into image(no, region, kind, name, address, tel, foodType, price, introduce, image, content, park, hours)
-		values (image_seq.nextval, #{region}, #{kind}, #{name}, #{address}, #{tel}, #{foodType}, #{price}, #{introduce}, #{image}, #{content}, #{park}, #{hours})
+		insert into diner(no, region, kind, name, address, tel, price, introduce, image, content, park, hours, id)
+		values (diner_seq.nextval, #{region}, #{kind}, #{name}, #{address}, #{tel}, #{price}, #{introduce}, #{image}, #{content}, #{park}, #{hours}, #{id})
 	</insert>
+	
+	<update id="update">
+		update diner set region = #{region}, kind = #{kind}, name = #{name}, address = #{address}, tel = #{tel},
+		price = #{price}, introduce = #{introduce}, image = #{image}, content = #{content}, park = #{park}, hours = #{hours}
+		where no = #{no}
+		
+	</update>
+	
+	<delete id="delete">
+		delete from diner
+		where no = #{no}
+	</delete>
 	
 
 

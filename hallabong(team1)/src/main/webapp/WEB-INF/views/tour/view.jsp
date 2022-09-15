@@ -12,25 +12,21 @@
 
 <script type="text/javascript" src="/resources/tour/js/tourAttachFunction.js"></script>
 <script type="text/javascript" src="/resources/tour/js/tourAttachEvent.js"></script>
-
-<style type="text/css">
-#imageChangeDiv{display:none;}
-.list-group-item strong{width:120px; display:inline-block;}
-#imageChangeDivShowBtn{margin-top:15px;}
-.chat > li:hover {background:#f0f0f0; cursor:pointer;}
-</style>
+<script type="text/javascript" src="/resources/tour/js/like.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#imageChangeDivShowBtn").click(function(){
-		$("#imageChangeDiv").show();
+	$("#updateBtn").click(function(){
+		location = "update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}"
+			+"&area=${param.area}&theme=${param.theme}&word=${param.word}";
 	});
-	$("#cancelBtn").click(function(){
-		$("#imageChangeDiv").hide();
-	});
-
 	$("#deleteBtn").click(function(){
-		return confirm("정말 삭제하시겠습니까?");
+		if(confirm("정말 삭제하시겠습니까?"))
+			{ location = "delete.do?no=${vo.no}&deleteName=${vo.thumbnail}&perPageNum=${param.perPageNum}"; }
+	});
+	$("#listBtn").click(function(){
+		location = "list.do?page=${param.page}&perPageNum=${param.perPageNum}"
+			+ "&area=${param.area}&theme=${param.theme}&word=${param.word}";
 	});
 });
 </script>
@@ -38,14 +34,19 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="container">
-	<input class="form-control" name="no" value="${vo.no }" readonly="readonly"
+	<input type="hidden" name="page" value="${pageObject.page}">
+	<input type="hidden" name="perPageNum" value="${pageObject.perPageNum}">
+	<input type="hidden" name="word" value="${pageObject.word}">
+	<input type="hidden" name="del" value="${vo.thumbnail}">
+	<input class="form-control" name="no" value="${vo.no}" readonly="readonly"
    			id="no" data-no="${vo.no}" type="hidden">
-	<div class="sub_title">
-		<h2>${vo.name}</h2>
+   	<input class="login" id="login" value="${vo.id}" type="hidden">
+   	<div class="sub_title">
+		<h2 id="viewShopNo">${vo.name}</h2>
 		<div class="subInfo">
 			<ul>
-				<li>${vo.area}</li>
-				<li>${vo.theme}</li>
+				<li>${vo.areaName}</li>
+				<li>${vo.themeName}</li>
 			</ul>
 		</div>
 	</div><!-- // sub_title -->
@@ -54,21 +55,17 @@ $(document).ready(function(){
 		<!-- 좋아요 부분 -->
 		<c:if test="${empty login}"> 
 			<!-- 로그인을 하지 않은 경우 - 좋아요와 상관이 없음 -->
-			<i class="fa fa-heart-o" style="font-size:30px; color:grey;" data-toggle="tooltip" title="로그인후에 사용하실 수 있습니다.">좋아요</i>
+			<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like">좋아요</i></button>
 		</c:if>
 		<c:if test="${!empty login}">
 			<!--  로그인을 한 경우 -->
 			<c:if test="${empty vo.likeNo}">
 			<!-- 만약 로그인을 한 경우 likeNo가 비어있다면 좋아요를 누를 수 있다.-->
-				<a href="like.do">
-					<i class="fa fa-heart-o" style="font-size:30px;" data-toggle="tooltip" title="클릭하여 좋아요를 할 수 있습니다.">좋아요</i>
-				</a>
+				<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like">좋아요</i></button>
 			</c:if>
 			<c:if test="${!empty vo.likeNo}">
 				<!-- 만약 로그인을 한 경우 myLiked가 비어있지 않다면 좋아요를 취소할 수 있다.-->
-				<a href="unlike.do">
-				<i class="fa fa-heart-o" style="font-size:30px; color:blue;" data-toggle="tooltip" title="클릭하여 좋아요를 할 수 있습니다.">취소</i>
-				</a>
+				<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like">취소</i></button>
 			</c:if>
 		</c:if>
 		<div class="likeText">
@@ -103,12 +100,12 @@ $(document).ready(function(){
 	
 	<div class="text-right">
 		<c:if test="${!empty login}">
-			<c:if test="${vo.id == login.id}">
-				<a href="update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&area=${param.area}&theme=${param.theme}&word=${param.word}" class="btn btn-info">글수정</a>
-				<a href="delete.do?no=${vo.no}&deleteName=${vo.thumbnail}&perPageNum=${param.perPageNum}" class="btn btn-default" id="deleteBtn">글삭제</a>
+			<c:if test="${!empty login && login.gradeNo == 9 }">
+				<button id="updateBtn" class="btn btn-info">글수정</button>
+				<button id="deleteBtn" class="btn btn-default">글삭제</button>
 			</c:if>
 		</c:if>
-				<a href="list.do?page=${param.page}&perPageNum=${param.perPageNum}&area=${param.area}&theme=${param.theme}&word=${param.word}" class="btn btn-default">목록</a>
+				<button id="listBtn" class="btn btn-default">글목록</button>
 	</div>
 </div><!-- //container -->
 </body>

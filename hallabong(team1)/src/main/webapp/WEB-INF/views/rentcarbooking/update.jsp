@@ -145,7 +145,7 @@ $(function(){
 		var regTel1 = /(\d{2,3}[ ,-]-?\d{2,4}[ ,-]-?\d{4})/; //00-
 		
 		var userTel = $("#userTel").val();
-		alert(regTel1.test(userTel));
+// 		alert(regTel1.test(userTel));
 		if(regTel1.test(userTel) === false){
 			alert("연락처를 입력해주세요")
 			return false;			
@@ -189,7 +189,7 @@ jQuery(document).ready(function() {
 <!-- /.row -->
 <div class="row">
 	<!-- /.col-lg-12 차량 정보 표시 -->
-	<div class="col-lg-6">
+	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<!-- 테이블의 소제목 -->
 			<div class="panel-heading">차량 정보</div>
@@ -263,6 +263,9 @@ jQuery(document).ready(function() {
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<form method="post" id="actionForm">
+				<c:if test="${!empty param.mypage}">
+				<input type="hidden" value="${param.mypage}" name="mypage">
+				</c:if>
 				
 				<input type="hidden" value="${bookingVO.bookingNo }" name="bookingNo">
 				<input type="hidden" value="${bookingVO.carNo }" name="carNo">

@@ -15,61 +15,85 @@
 
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <script type="text/javascript">
-	$(function() {
-		$(".dataRow").click(
-				function() {
-					var no = $(this).find(".no").text();
-					location = "view.do?no=" + no + "&page=${pageObject.page}"
-							+ "&perPageNum=${pageObject.perPageNum}"
+	$(function(){
+		$(".dataRow").on("click", function(){
+			// alert("보기로 이동");
+				var no = $(this).data("no");
+					location = "view.do?no=" + no + "&inc=1" + "&page=${pageObject.page}"
+ 							+ "&perPageNum=${pageObject.perPageNum}"
 							+ "&key=${pageObject.key}"
 							+ "&word=${pageObject.word}"
 				});
 
 			var key = "${pageObject.key}";
-			if(!key) key = "EV";
+			if(!key) key = "rkn";
 			$("#key").val(key);
-	})
+
+	});
+
+// 	function regionChange() {
+// 		var select = document.getElementById("region").options[document.getElementById("region").selectedIndex].value;
+// 		if(select != 0) {
+// 			location = "list.do?page=${pageObject.page}&perPageNum=${pageObject.perPageNum}&key=${pageObject.key}&word=${pageObject.word}";
+// 		}
+// 	}
+// 	function kindChange() {
+// 		var select1 = document.getElementById("kind").options[document.getElementById("kind").selectedIndex].value;
+// 		if(select1 != 0) {
+// 			location = "list.do?page=${pageObject.page}&perPageNum=${pageObject.perPageNum}&key=${pageObject.key}&word=${pageObject.word}"
+// 					 ;
+// 		}
+// 	}
 </script>
 </head>
 <body>
 	<div class="container">
-		<h2>맛집 리스트</h2>
+	<h1 style="text-align: center;">맛집 리스트</h1> 
+
+		<!--  가운데 정렬 -->
+<!-- 		<div>			 -->
+<!-- 			<form action="list.do"> -->
+<!-- 				페이지 정보를 다시 그대로 보냄 -->
+<!-- 				<input name="page" type="hidden" value="1"> -->
+<%-- 				<input name="perPageNum" type="hidden" value="${pageObject.perPageNum }"> --%>
+
+<%-- 						<input type="hidden" name="perPageNum" value="${pageObject.perPageNum }"> --%>
 		<form class="form-inline">
 			<div class="input-group">
 				<select class="form-control" name="key" id="key">
-					<option value="EV">전체</option>
-					<option value="1">제주 모슬포/화순</option>
-					<option value="2">제주 서귀포시내</option>
-					<option value="3">제주 성산/우도</option>
-					<option value="4">제주 제주시내</option>
-					<option value="5">제주 중문단지</option>
-					<option value="6">제주 표선/성읍</option>
-					<option value="7">제주 한림/애월</option>
-					<option value="8">제주 함덕/김녕</option>
+					<option value="r">지역</option>
+					<option value="k">종류</option>
+					<option value="n">이름</option>
+					<option value="rk">지역/종류</option>	
+					<option value="rn">지역 /이름</option>
+					<option value="kn">종류/이름</option>
+					<option value="rkn">전체</option>
 				</select>
 			</div>
-			<div class="input-group">
-				<select class="form-control" name="key2" id="key2">
-					<option value="EV">전체</option>
-					<option value="1">한식</option>
-					<option value="2">분식</option>
-					<option value="3">양식</option>
-					<option value="4">해산물</option>
-					<option value="5">회/스시</option>
-					<option value="6">세계음식</option>
-					<option value="7">뷔페</option>
-					<option value="8">디저트</option>
-					<option value="9">카페</option>
-					<option value="10">술집</option>
-					<option value="11">브런치</option>
-					<option value="12">치킨</option>
-				</select>
-			</div>
+<!-- 			<div class="input-group"> -->
+<!-- 				<select class="form-control" name="kind" id="kind" onchange = "kindChange()"> -->
+<!-- 					<option value="A">전체</option> -->
+<!-- 					<option value="B">한식</option> -->
+<!-- 					<option value="C">분식</option> -->
+<!-- 					<option value="D">양식</option> -->
+<!-- 					<option value="E">해산물</option> -->
+<!-- 					<option value="F">회/스시</option> -->
+<!-- 					<option value="G">세계음식</option> -->
+<!-- 					<option value="H">뷔페</option> -->
+<!-- 					<option value="I">디저트</option> -->
+<!-- 					<option value="J">카페</option> -->
+<!-- 					<option value="K">술집</option> -->
+<!-- 					<option value="L">브런치</option> -->
+<!-- 					<option value="M">치킨</option> -->
+<!-- 				</select> -->
+<!-- 			</div> -->
 			
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Search"
-					name="word" value="${pageObject.word }">
+					name="word" id="word" value="${pageObject.word }">
 				<div class="input-group-btn">
 					<button class="btn btn-default" type="submit">
 						<i class="glyphicon glyphicon-search"></i>
@@ -77,7 +101,7 @@
 				</div>
 			</div>
 		</form>
-
+		
 		<!-- 한줄 시작 -->
 		<div class="row">
 			<c:forEach items="${list }" var="vo" varStatus="vs">
@@ -89,15 +113,15 @@
 							<div>${vo.name }</div>
 							<div class="regionKind">${vo.region }-${vo.kind }</div>
 							<div>${vo.introduce }</div>
-							<div>${vo.hit }							
+							<br>
+							<div><p><span class="glyphicon glyphicon-eye-open" style="padding-right: 5px;"></span> ${vo.hit}</p>							
 							</div>
 						</div>
 
 					</div>
 				</div>
 				<!-- 이미지 데이터 한개 표시 끝 -->
-				<c:if
-					test="${vs.count % 4 == 0 && vs.count != pageObject.perPageNum }">
+				<c:if test="${vs.count % 4 == 0 && vs.count != pageObject.perPageNum }">
 					${"</div>" }
 					${"<div class='row'>" }
 		</c:if>
@@ -108,9 +132,8 @@
 			<pageNav:pageNav listURI="list.do" pageObject="${pageObject }" />
 		</div>
 
-		<div>
 			<a href="write.do?perPageNum=${pageObject.perPageNum }"
-				class="btn btn-info">등록</a>
+				class="btn btn-default">등록</a>
 		</div>
 	</div>
 

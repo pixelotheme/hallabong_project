@@ -46,6 +46,11 @@ $(function(){
 		
 		$("#licensePlate").val(licensePlate.replace(reg, ""))
 		})
+	$("#submitBtn").on("click", function(){
+		if(confirm("수정하시겠습니까?")){
+		$("#formAction").submit();
+			}
+		})
 
 })
 	
@@ -96,7 +101,7 @@ $(function(){
 				
 				
 			<div>
-				<button type="submit" id="submitBtn" class="btn btn-default">수정</button>
+				<button type="button" id="submitBtn" class="btn btn-default">수정</button>
 				<button type="reset" class="btn btn-default">새로입력</button>
 				<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
 			</div>

@@ -48,7 +48,7 @@ public class RoomController {
 		public ResponseEntity<Map<String, Object>> list(PageObject pageObject, Long ro_no) throws Exception{
 			// 페이지에 맞는 list 데이터 가져오기
 			List<RoomVO> list = (List<RoomVO>) service.list(ro_no);
-			
+			log.info("객실 리스트입니다.-------------------------------"+ro_no);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("pageObject", pageObject);
 			map.put("list", list);
@@ -56,6 +56,12 @@ public class RoomController {
 			log.info(map);
 			
 			return new ResponseEntity<>(map, HttpStatus.OK);
+		}
+		
+		//view
+		@GetMapping("/view.do")
+		public String view() {
+			return "room/view";
 		}
 		
 		// write
@@ -82,7 +88,7 @@ public class RoomController {
 			// 이미지가 업로드 되는 시간을 벌어서 기다리는 처리를 한다.
 			Thread.sleep(2000);
 			
-			return "redirect:view.do?no=" + vo.getBus_no() 
+			return "redirect:view.do?no=" + vo.getNo() 
 			+ "&page=" + pageObject.getPage()
 			+ "&perPageNum=" + pageObject.getPerPageNum()
 			+ "&key=" + pageObject.getKey()

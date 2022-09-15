@@ -18,8 +18,8 @@ public class TourPageObject {
 	
 	// 검색에 필요한 변수 선언
 	private String word;
-	private String area;
-	private String theme;
+	private int area;
+	private int theme;
 	
 	// 공지 분류 (기간) 를 적용시키는 변수 - period
 	// pre : 현재공지, old : 지난공지 , res : 예약공지, all : 전체공지 
@@ -78,8 +78,6 @@ public class TourPageObject {
 		if(strPerPageNum != null && !strPerPageNum.equals("")) pageObject.setPerPageNum(Integer.parseInt(strPerPageNum));
 		
 		// 검색을 위한 데이터 전달
-		pageObject.setArea(request.getParameter("area"));
-		pageObject.setTheme(request.getParameter("theme"));
 		pageObject.setWord(request.getParameter("word"));
 		
 		// PageObject - 확인
@@ -105,8 +103,6 @@ public class TourPageObject {
 		if(strPerPageNum != null && !strPerPageNum.equals("")) pageObject.setPerPageNum(Integer.parseInt(strPerPageNum));
 		
 		// 검색을 위한 데이터 전달
-		pageObject.setArea(request.getParameter("area"));
-		pageObject.setTheme(request.getParameter("theme"));
 		pageObject.setWord(request.getParameter("word"));
 		
 		// PageObject - 확인
@@ -117,19 +113,19 @@ public class TourPageObject {
 		return pageObject;
 	}
 	
-	public String getTheme() {
+	public int getTheme() {
 		return theme;
 	}
 
-	public void setTheme(String theme) {
+	public void setTheme(int theme) {
 		this.theme = theme;
 	}
 
-	public String getArea() {
+	public int getArea() {
 		return area;
 	}
 
-	public void setArea(String area) {
+	public void setArea(int area) {
 		this.area = area;
 	}
 

@@ -35,22 +35,30 @@ $(function(){
 			<span data-carInfoNo="${companyCarsVO.companyNo }"></span>
 		</div>
 		<!-- grid 를 사용한다면 class="col-md-2" 으로 할경우 깨짐 row 를 속성으로 넣어줘야 안깨진다 -->
-			<ul class="list-group">
+			<ul class="list-group ">
 		
-				<li class="list-group-item">
-					<label>번호</label><strong id="no">${companyCarsVO.companyCarsNo}</strong>
+				<li class="list-group-item row">
+					<div class="col-md-3">
+						<label>번호</label>
+					</div>
+					<div class="col-md-9">
+						<strong id="no" >${companyCarsVO.companyCarsNo}</strong>
+					</div>
 				</li>
 		
-				<li class="list-group-item">
-				<label>번호판</label>${companyCarsVO.licensePlate }
+				<li class="list-group-item row">
+				<div class="col-md-3"><label>번호판</label></div>
+				<div class="col-md-9">${companyCarsVO.licensePlate }</div>
 				</li>
 		
-				<li class="list-group-item">
-				<label>예약 현황</label>${companyCarsVO.booking == 1? "예약 불가":"예약 가능" }
+				<li class="list-group-item row">
+				<div class="col-md-3"><label>예약 현황</label></div>
+				<div class="col-md-9">${companyCarsVO.booking == 1? "예약 불가":"예약 가능" }</div>
 				</li>
 		
-				<li class="list-group-item">
-				<label>예약자</label>${companyCarsVO.consumerId != null? companyCarsVO.consumerId:"예약자가 없습니다" }
+				<li class="list-group-item row">
+				<div class="col-md-3"><label>예약자</label></div>
+				<div class="col-md-9">${companyCarsVO.consumerId != null? companyCarsVO.consumerId:"예약자가 없습니다" }</div>
 				</li>
 			</ul>	
 

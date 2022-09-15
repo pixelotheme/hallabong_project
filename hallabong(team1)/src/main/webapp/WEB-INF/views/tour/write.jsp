@@ -203,29 +203,29 @@ $(function(){
 		<div class="form-group">
 			<label for="area">지역 선택</label>
 			<select name="area" id="area">
-				<option value="제주시">제주시</option>
-				<option value="애월읍">애월읍</option>
-				<option value="한림읍">한림읍</option>
-				<option value="한경면">한경면</option>
-				<option value="대정읍">대정읍</option>
-				<option value="안덕면">안덕면</option>
-				<option value="서귀포시">서귀포시</option>
-				<option value="남원읍">남원읍</option>
-				<option value="표선면">표선면</option>
-				<option value="성산읍">성산읍</option>
-				<option value="구좌읍">구좌읍</option>
-				<option value="조천읍">조천읍</option>
+				<option value="1">제주시</option>
+				<option value="2">애월읍</option>
+				<option value="3">한림읍</option>
+				<option value="4">한경면</option>
+				<option value="5">대정읍</option>
+				<option value="6">안덕면</option>
+				<option value="7">서귀포시</option>
+				<option value="8">남원읍</option>
+				<option value="9">표선면</option>
+				<option value="10">성산읍</option>
+				<option value="11">구좌읍</option>
+				<option value="12">조천읍</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="theme">테마 선택</label>
 			<select name="theme" id="theme">
-				<option value="체험관광">체험관광</option>
-				<option value="휴양관광">휴양관광</option>
-				<option value="역사문화">역사문화</option>
-				<option value="박물관/기념관">박물관/기념관</option>
-				<option value="드라마">드라마</option>
-				<option value="전통시장">전통시장</option>
+				<option value="1">체험관광</option>
+				<option value="2">휴양관광</option>
+				<option value="3">역사문화</option>
+				<option value="4">박물관/기념관</option>
+				<option value="5">드라마</option>
+				<option value="6">전통시장</option>
 			</select>
 		</div>
 		<div class="form-group">

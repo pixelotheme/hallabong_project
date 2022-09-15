@@ -2,6 +2,8 @@ package com.hallabong.qna.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hallabong.qna.vo.QnaVO;
 import com.webjjang.util.PageObject;
 
@@ -16,7 +18,7 @@ public interface QnaMapper {
 		public int write(QnaVO vo) throws Exception;
 		
 		// QNA 글 보기
-		public QnaVO view(long no) throws Exception;
+		public List<QnaVO> view(@Param("no") long no, @Param("refNo") long refNo) throws Exception;
 		
 		// 답변하기
 		public int answer(QnaVO vo) throws Exception;

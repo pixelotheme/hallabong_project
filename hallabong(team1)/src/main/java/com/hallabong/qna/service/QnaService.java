@@ -14,7 +14,7 @@ public interface QnaService {
 	public int write(QnaVO vo) throws Exception;
 	
 	// QNA 글 보기
-	public QnaVO view(long no) throws Exception;
+	public List<QnaVO> view(long no, long refNo) throws Exception;
 	
 	// 답변하기
 	public int answer(QnaVO vo) throws Exception;

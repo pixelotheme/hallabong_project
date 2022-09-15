@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.hallabong.diner.mapper.ReplyMapper">
+
+	<!--  댓글 리스트 -->
+	<select id="getListWithPaging" resultType="com.hallabong.diner.vo.ReplyVO">
+	<![CDATA[
+		SELECT rno, no, reply, id, replyDate, updateDate, star
+		FROM (
+		    SELECT /*+ INDEX_DESC(diner_reply diner_reply_rno_pk) */
+		        rownum rn, rno, no, reply, id, replyDate, updateDate, star
+		        FROM diner_reply
+		        WHERE no = #{no}
+		        AND rno > 0
+		        AND ROWNUM <= #{pageObject.page} * #{pageObject.perPageNum}
+		) WHERE rn > (#{pageObject.page} - 1) * #{pageObject.perPageNum}
+	]]>
+	</select>
+
+	<!-- 해당 글번호 댓글의 전체 데이터 개수 가져오기 -->
+	<select id="getCountByNo" resultType="Long">
+		<![CDATA[
+			select count(rno)
+			from diner_reply
+			where no = #{no}
+		]]>
+	</select>
+
+	<!-- 댓글 등록 -->
+	<insert id="insert">
+		insert into diner_reply(rno, no, reply, id, star)
+		values(diner_reply_seq.nextval, #{no}, #{reply}, #{id}, #{star})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="update">
+		update diner_reply
+		set
+			reply = #{reply},
+			star = #{star},
+			updateDate = sysdate
+		where rno = #{rno}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete">
+		delete from diner_reply
+		where rno = #{rno}
+	</delete>
+</mapper>

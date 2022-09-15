@@ -7,7 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>호텔예약 상세보기</title>
+<title>호텔예약 접수</title>
+<script type="text/javascript">
+ 
+</script>
+
+<script type="text/javascript" src="/resources/hotelbooking/js/hbookingEvent.js"></script>
 </head>
 <body>
 
@@ -27,6 +32,9 @@
     </div>
     <!-- Header End -->
     <h2>호텔예약등록</h2>
+    <form method="post">
+	<input name="perPageNum" value="${param.perPageNum }" type="hidden">
+	
     <div class="container-fluid booking mt-5 pb-5">
         <div class="container pb-5">
             <div class="bg-light shadow" style="padding: 30px;">
@@ -49,13 +57,14 @@
 							 <div class="col-lg-5">
  									<div class="bg-white p-4">
 						               <div class="d-flex mb-2">
-						                   <h2 class="mb-3">제주신라호텔 </h2>
-						                   <h4 class="mb-4">디럭스</h4>
+						                   <h2 class="mb-3" name="ro_no">03 </h2>
+						                   <h2 class="mb-3">아이진호텔 </h2>
+						                   <h4 class="mb-4">스위트룸</h4>
 						               </div>
 						              <table class="table table-borderless">
 									      <tr>
 									        <th style=" width:30%;">체크인-체크아웃</th>
-									        <td>2022.09.05~2022.09.07</td>
+									        <td>2022.10.05~2022.10.07</td>
 									      </tr>
 									      <tr>
 									        <th>인원</th>
@@ -76,11 +85,9 @@
    				</div>
 			</div>
 			<!-- bg-light shadow 끝 -->
-	
 		</div>
-		
 		<!-- container pb-5끝 -->
-												<!-- 예약자 정보 -->
+				<!-- 예약자 정보 -->
 			<div class="container pb-5">
 	          <div class="bg-light shadow" style="padding: 30px;">
 				  <div class="row align-items-center" style="min-height: 30px;">
@@ -88,12 +95,13 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<h5>예약자 정보</h5>
+								 
 								<div class="bg-white p-4 row" >
                                     <div class="d-flex mb-2 col-sm-1">
                                         <h5 class="text-uppercase " >성함</h5>
                                     </div>
                                     <div class="col-sm-2">
-                                    <p class="h5 m-0" >${vo.getName }</p>
+                                    <p class="h5 m-0"  >${vo.name }</p>
                                     </div>
                                     <div class="d-flex mb-2 col-sm-1">
                                         <h5 class="text-uppercase " >전화번호</h5>
@@ -131,7 +139,8 @@
                                         <h5 class="text-uppercase " >성함</h5>
                                     </div>
                                     <div class="col-sm-2">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
+                                    <input type="text" class="form-control p-4" id="userName" 
+                                    	name="userName"  placeholder="Your Name"
                                         required="required" data-validation-required-message="Please enter your name" />
                                     <p class="help-block text-danger"></p>
                                     </div>
@@ -139,7 +148,8 @@
                                         <h5 class="text-uppercase " >전화번호</h5>
                                     </div>
                                     <div class="col-sm-3">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
+                                    <input type="text" class="form-control p-4" id="userTel" 
+                                    	name="userTel"	placeholder="Your Tel"
                                         required="required" data-validation-required-message="Please enter your name" />
                                     <p class="help-block text-danger"></p>
                                     </div>
@@ -147,7 +157,8 @@
                                         <h5 class="text-uppercase " >이메일</h5>
                                     </div>
                                     <div class="col-sm-3">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
+                                    <input type="text" class="form-control p-4" id="userEamil" 
+                                    	name="userEmail"	placeholder="Your Name"
                                         required="required" data-validation-required-message="Please enter your name" />
                                     <p class="help-block text-danger"></p>
                                     </div>
@@ -320,17 +331,17 @@
 					<!-- 스크롤 끝 -->
 					
 					</div>
-					<form style="heigth:20px;">
+					<div class="container pb-5" style="heigth:20px;">
 					  <div class="custom-control custom-radio custom-control-inline">
-					    <input type="radio" class="custom-control-input" id="customRadio" name="example" value="customEx">
+					    <input type="radio" class="custom-control-input" id="customRadio" name="checkbox" value="customEx">
 					    <label class="custom-control-label" for="customRadio">동의합니다.</label>
 					  </div>
 					  <div class="custom-control custom-radio custom-control-inline">
-					    <input type="radio" class="custom-control-input" id="customRadio2" name="example" value="customEx">
+					    <input type="radio" class="custom-control-input" id="customRadio2" name="checkbox" value="customEx">
 					    <label class="custom-control-label" for="customRadio2">동의하지 않습니다.</label>
 					  </div>
-					</form>
 					</div>
+				</div>
 				<!-- 이용약관 끝 -->
 				
 				<!-- 결제정보 -->
@@ -346,54 +357,54 @@
                                         <h5 class="text-uppercase " >결제방법</h5>
                                     </div>
                                     <div class="col-sm-2">
-	                                    <select class="custom-select px-4" style="height: 47px;">
-	                                        <option selected="">신용카드</option>
-	                                        <option value="2">무통장입금</option>
+	                                    <select class="custom-select px-4" 
+			                                   name="payOption" id="pay1"   style="height: 47px;">
+	                                        <option selected="selected">선택하세요</option>
+	                                        <option id="card" value="c">신용카드</option>
+	                                        <option id="bank" value="b">무통장입금</option>
 	                                    </select>
                                     </div>
                                     <div class="d-flex mb-2 col-sm-2">
                                         <h5 class="text-uppercase " >종류</h5>
                                     </div>
                                     <div class="col-sm-2">
-                                   		<select class="custom-select px-4" style="height: 47px;">
-	                                        <option selected="">국민카드</option>
-	                                        <option value="1">롯데카드</option>
-	                                        <option value="1">현대카드</option>
-	                                        <option value="1">삼성카드</option>
-	                                        <option value="1">기타</option>
-	                                    </select>
-                                   		<select class="custom-select px-4" style="height: 47px;">
-	                                        <option selected="">국민은행</option>
-	                                        <option value="2">우리은행</option>
-	                                        <option value="2">농협은행</option>
-	                                        <option value="2">신한은행</option>
+                                   		<select class="custom-select px-4 cardType"  id="pay2" name="payType" style="height: 47px;">
+	                                        <option ></option>
 	                                    </select>
                                     </div>
                                     <div class="d-flex mb-2 col-sm-2">
-                                        <h5 class="text-uppercase " >승인번호</h5>
+                                        <h5 class="text-uppercase ">승인번호</h5>
                                     </div>
                                     <div class="col-sm-2">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
+                                    <input type="text" class="form-control p-4" id="confirmNo" placeholder="숫자4자리"  name="confirmNo"
                                         required="required" data-validation-required-message="Please enter your name" />
                                     <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
+                                <!-- bg-white p-4 row 끝 -->
 							</div>
-						</div>
+							<!-- col-lg-12 끝 -->
+							</div>
+							<!-- row 끝 -->
 						</div>
 						</div>
 						<!-- row align-items-center 끝 -->
 						</div>
 					<!-- bg-light shadow 끝 -->
 				</div>
-				
 				<!-- 결제정보끝 -->
+				
+				<!-- 접수버튼 -->
 				<div class="container pb-5">
 				  <div class="text-right">
-                     <button class="btn btn-primary py-3 px-4" type="submit" id="writeButton">예약접수</button>
+                     <button class="btn btn-primary py-3 px-4" type="submit" id="writeBtn">예약접수</button>
+                     <button class="btn btn-primary py-3 px-4" type="submit" id="cancelBtn">뒤로가기</button>
                  </div>
                 </div>
+                <!-- 접수버튼끝 -->
+          
 	</div>
+	</form>
 
 </body>
 </html>

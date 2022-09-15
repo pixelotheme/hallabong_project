@@ -7,17 +7,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-<!-- <script -->
-<!-- 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<!-- <script -->
-<!-- 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <title>렌트카 수정</title>
 <style type="text/css">
 .row{
 	display: grid;
+}
+#buttonDiv{
+padding-top: 15px;
+}
+#plusBtn{
+padding-bottom: 15px;
+
 }
 </style>
 
@@ -36,95 +36,91 @@ $(function(){
 
 	$("#InsurancePlus").show();
 	
-				
 		//2번째 가 없을때 에러나는상황
 	$("#submitBtn").on("click",function(){
-		var checkValue = false;
-		if($("#InsurancePlus").data("plus") === 1){
-
-			if(!checkData(1)){
-// 				alert("입력다시")
-				return false;
-				}
-			if(!checkData(2)){
-// 				alert("입력다시")
-				return false;
-				}
-			checkValue = true;
-			}
-		else{
-			if(!checkData(1)){
-// 				alert("입력다시")
-				return false;
-				}
-			checkValue = true;
-			}
-		
-		if(checkValue == true){
-			var insuranceNoCheck = "";
-					//보험 번호가 비어있지않으면 비어있지않으면
-	// 				if(${!empty carInsuranceVO[1].insuranceNo} != null){
-					if(${!empty carInsuranceVO[1].insuranceNo}){
-// 						alert("인덱스 1 이 있다")
-						//2번째 값이 있다면 -> 보험번호에 인덱스 0 을 넣어준다 - 컨트롤러에서 강제로 넣어준다(무조건 배열 2개에 보험번호가 null 값은 아니게 된다)
-						insuranceNoCheck = ${carInsuranceVO[0].insuranceNo};
-						}
-					else{
-						//2번째 번호가 없으면 빈칸?
-// 						alert("인덱스 1 이 없다")
-						insuranceNoCheck = "";
-						}
+		if(confirm("수정하시겠습니까?")){
 			
-					var carNo = "${param.carNo }";
-					var carInfoNo = "${param.carInfoNo}";
-					var regex = /[^0-9]/g;
-				let carInsuranceVOList = [
-					{
-						category : $("#category1").val(),
-						insuranceNo : insuranceNoCheck,
-						insurancePrice : $("#insurancePrice1").val().replace(regex, ""),
-						insuranceAge :$("#insuranceAge1").val().replace(regex, ""),
-						insuranceExperience :$("#insuranceExperience1").val().replace(regex, ""),
-						compensation :$("#compensation1").val().replace(regex, ""),
-						customerCharge :$("#customerCharge1").val(),
-						carNo : "${param.carNo }"
-					}
-					,
-					{
-						category : $("#category2").val(),
-						insuranceNo : ${carInsuranceVO[1].insuranceNo},
-					insurancePrice : $("#insurancePrice2").val().replace(regex, ""),
-					insuranceAge :$("#insuranceAge2").val().replace(regex, ""),
-					insuranceExperience :$("#insuranceExperience2").val().replace(regex, ""),
-					compensation :$("#compensation2").val().replace(regex, ""),
-					customerCharge :$("#customerCharge2").val(),
-					carNo : "${param.carNo }"
-					} 
-		
-					];
+			var checkValue = false;
+			if($("#InsurancePlus").data("plus") === 1){
 	
-// 			alert(JSON.stringify(carInsuranceVOList))
-	//{ carInsuranceVOList : JSON.stringify(carInsuranceVOList) } 이렇게 넘겼다가 하루종일 못넘김 ;;
-			   $.ajax({
-				     method: 'post',
-				     url: '/rentcarboardajaxcontroller/updateCarInsurance.do',
-				     traditional: true,
-				     data: JSON.stringify(carInsuranceVOList),
-				     contentType: "application/json; charset=utf-8",
-				     success: function (data,status, xhr) {
-				        if (data) {
-				        	checkValue = false;
-// 				          alert("성공 "+data);
-				          location='/rentcarboard/rentCarBoardView.do?carNo='+carNo+'&carInfoNo='+carInfoNo
-				          +'&companyNo=${param.companyNo}&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }';
-				        }
-				     },
-				     error: function (xhr,status, error){
-				    	 checkValue = false;
-				    	  	alert("에러"+error);
-				    	  }
-				   });//end of ajax
-			}//end of ajax if
+				if(!checkData(1)){
+	// 				alert("입력다시")
+					return false;
+					}
+				if(!checkData(2)){
+	// 				alert("입력다시")
+					return false;
+					}
+				checkValue = true;
+				}
+			else{
+				if(!checkData(1)){
+	// 				alert("입력다시")
+					return false;
+					}
+				checkValue = true;
+				}
+			
+			if(checkValue == true){
+				var insuranceNoCheck = "";
+						if(${!empty carInsuranceVO[1].insuranceNo}){
+							insuranceNoCheck = ${carInsuranceVO[0].insuranceNo};
+							}
+						else{
+							//2번째 번호가 없으면 빈칸?
+	// 						alert("인덱스 1 이 없다")
+							insuranceNoCheck = "";
+							}
+				
+						var carNo = "${param.carNo }";
+						var carInfoNo = "${param.carInfoNo}";
+						var regex = /[^0-9]/g;
+					let carInsuranceVOList = [
+						{
+							category : $("#category1").val(),
+							insuranceNo : insuranceNoCheck,
+							insurancePrice : $("#insurancePrice1").val().replace(regex, ""),
+							insuranceAge :$("#insuranceAge1").val().replace(regex, ""),
+							insuranceExperience :$("#insuranceExperience1").val().replace(regex, ""),
+							compensation :$("#compensation1").val().replace(regex, ""),
+							customerCharge :$("#customerCharge1").val(),
+							carNo : "${param.carNo }"
+						}
+						,
+						{
+							category : $("#category2").val(),
+							insuranceNo : ${carInsuranceVO[1].insuranceNo},
+						insurancePrice : $("#insurancePrice2").val().replace(regex, ""),
+						insuranceAge :$("#insuranceAge2").val().replace(regex, ""),
+						insuranceExperience :$("#insuranceExperience2").val().replace(regex, ""),
+						compensation :$("#compensation2").val().replace(regex, ""),
+						customerCharge :$("#customerCharge2").val(),
+						carNo : "${param.carNo }"
+						} 
+			
+						];
+		
+				   $.ajax({
+					     method: 'post',
+					     url: '/rentcarboardajaxcontroller/updateCarInsurance.do',
+					     traditional: true,
+					     data: JSON.stringify(carInsuranceVOList),
+					     contentType: "application/json; charset=utf-8",
+					     success: function (data,status, xhr) {
+					        if (data) {
+					        	checkValue = false;
+	// 				          alert("성공 "+data);
+					          location='/rentcarboard/rentCarBoardView.do?carNo='+carNo+'&carInfoNo='+carInfoNo
+					          +'&companyNo=${param.companyNo}&page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }';
+					        }
+					     },
+					     error: function (xhr,status, error){
+					    	 checkValue = false;
+					    	  	alert("에러"+error);
+					    	  }
+					   });//end of ajax
+				}//end of ajax if
+			}
 		})
 
 
@@ -190,7 +186,10 @@ $(function(){
 	$("#cancelBtn").on("click", function(){
 		 location='/rentcarboard/rentCarBoardView.do?carNo=${param.carNo }&carInfoNo=${param.carInfoNo}&companyNo=${param.companyNo}';
 		})
-		
+
+	$("#reloadBtn").on("click", function(){
+		location.reload();
+		})
 })
 	
 </script>
@@ -215,7 +214,7 @@ $(function(){
 					<div class="panel panel-default row">
 						<!-- 테이블의 소제목 -->
 						<div class="panel-heading">등록할 회사, 차량
-						 <button type="button" id="deleteTop">${(carInsuranceVO[0].category == '일반자차')? '일반자차':'고급자차'} 삭제</button>
+						 <button type="button" id="deleteTop" class="btn btn-default">${(carInsuranceVO[0].category == '일반자차')? '일반자차':'고급자차'} 삭제</button>
 						</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body form-group">	
@@ -263,9 +262,10 @@ $(function(){
 			
 			
 <!-- 			<div id="InsurancePlus"> -->
-			<button  class="btn btn-default" id="InsurancePlusBtn" type="button">보험 내용 추가</button>
-			<button  class="btn btn-default" id="InsurancePlusBtnClose" type="button">보험 내용 추가 닫기</button>
-			
+			<div id="plusBtn">
+				<button  class="btn btn-default" id="InsurancePlusBtn" type="button">보험 내용 추가</button>
+				<button  class="btn btn-default" id="InsurancePlusBtnClose" type="button">보험 내용 추가 닫기</button>
+			</div>
 						<!-- /.row -->
 			<div class="row" id="InsurancePlus" data-plus="1">	
 				<!-- /.row -->
@@ -275,7 +275,7 @@ $(function(){
 						<div class="panel panel-default row">
 							<!-- 테이블의 소제목 -->
 							<div class="panel-heading">등록할 회사, 차량
-							 <button type="button" id="deleteBottom">${(carInsuranceVO[1].category == '일반자차')? '일반자차':'고급자차'}삭제</button>
+							 <button type="button" id="deleteBottom" class="btn btn-default">${(carInsuranceVO[1].category == '일반자차')? '일반자차':'고급자차'}삭제</button>
 							</div>
 							<!-- /.panel-heading -->
 							<div class="panel-body form-group">			
@@ -319,9 +319,9 @@ $(function(){
 				<!--/. row -->	
 			
 					
-			<div>
-				<button class="btn btn-default" type="button" id="submitBtn">등록</button>
-				<button class="btn btn-default" type="reset">새로입력</button>
+			<div id="buttonDiv">
+				<button class="btn btn-default" type="button" id="submitBtn">수정</button>
+				<button class="btn btn-default" type="button" id="reloadBtn">새로입력</button>
 				<button class="btn btn-default" type="button" id="cancelBtn">취소</button>
 			</div>
 		<!-- 

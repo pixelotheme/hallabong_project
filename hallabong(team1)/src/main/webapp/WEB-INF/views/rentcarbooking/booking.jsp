@@ -46,8 +46,8 @@ function bookingSendMail(){
 			email
 			},
 		success : function (data) {
-			console.log("data : " +  data);
-			alert('예약메일 발송')
+// 			console.log("data : " +  data);
+// 			alert('예약메일 발송')
 		}			
 	}); // end ajax	
 }

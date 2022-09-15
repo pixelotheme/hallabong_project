@@ -75,7 +75,7 @@ $(function(){
 		  	
 					<!-- 이미지바꾸기 -->
 			
-							<img alt="차량 이미지" src="/upload/rentcarboard/${carFileUploadVO.realSavePath}/s_${carFileUploadVO.fileName}" width="100px">
+					<img alt="차량 이미지" src="/upload/rentcarboard/${carFileUploadVO.realSavePath}/s_${carFileUploadVO.fileName}" width="100px">
 												
 					<form action="carBasicInfoImageDelete.do" method="post" enctype="multipart/form-data" id="imageDeleteForm">
 						<div class="form-group">

@@ -15,30 +15,33 @@ $(function(){
 			});
 
 		$("#submitBtn").on("click", function(){
-			if(9 != loginGradeNo){
-				alert("관리자 아이디로 로그인해주세요");
+				if(confirm("수정하시겠습니까?")){
+					
 				
-				return null;
-				}
-			else{
-				event.preventDefault();
-					if(!checkData()){
-						return false;
+					if(9 != loginGradeNo){
+						alert("관리자 아이디로 로그인해주세요");
+						
+						return null;
 						}
 					else{
-						var regex = /[^0-9]/g;
-						//input 태그 hidden으로 집어넣어줄 예정 - 가격, 대여가능나이, 대여가능 운정 경력
-						var carCapacity = $("#carCapacity").val();
-						carCapacity = carCapacity.replace(regex, "");
-		
-						var str = '<input type="hidden" name="carCapacity"  value="'+carCapacity+'" />';
-		
-						
-						
-						$("#actionForm").append(str)
-						$("#actionForm").submit();
+						event.preventDefault();
+							if(!checkData()){
+								return false;
+								}
+							else{
+								var regex = /[^0-9]/g;
+								//input 태그 hidden으로 집어넣어줄 예정 - 가격, 대여가능나이, 대여가능 운정 경력
+								var carCapacity = $("#carCapacity").val();
+								carCapacity = carCapacity.replace(regex, "");
+				
+								var str = '<input type="hidden" name="carCapacity"  value="'+carCapacity+'" />';
+				
+								
+								
+								$("#actionForm").append(str)
+								$("#actionForm").submit();
+								}
 						}
-				}
-			
+				}// end of confirm
 			});
 });

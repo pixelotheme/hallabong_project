@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hallabong.member.service.MemberService;
 import com.hallabong.member.vo.LoginVO;
@@ -25,6 +26,7 @@ import com.hallabong.rentcarboard.util.PageObjectCustom;
 import com.hallabong.rentcarbooking.domain.RentCarBookingVO;
 import com.hallabong.rentcarbooking.service.RentCarBookingService;
 
+import lombok.Builder.Default;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -139,7 +141,7 @@ public class RentCarBookingController {
 		service.writePayment(vo);
 		
 		
-		return "redirect:list.do";
+		return "redirect:/rentcarboard/rentCarBoardList.do";
 	}
 	
 	
@@ -174,7 +176,7 @@ public class RentCarBookingController {
 	}
 	//예약 보기 수정 처리
 	@PostMapping("/update.do")
-	public String update(RentCarBookingVO vo, PageObjectCustom pageObject) throws Exception{
+	public String update(RentCarBookingVO vo, PageObjectCustom pageObject,@RequestParam(value = "mypage", defaultValue = "0") int mypage) throws Exception{
 		
 		log.info("예약 수정 처리------------------"+vo);
 		
@@ -195,6 +197,7 @@ public class RentCarBookingController {
 		+"&perPageNum="+pageObject.getPerPageNum()
 		+"&key="+pageObject.getKey()
 		+"&word="+pageObject.getWord()
+		+"&mypage="+mypage
 		;
 		
 	}	
@@ -210,7 +213,7 @@ public class RentCarBookingController {
 	}
 	
 	@PostMapping("/updatePayment.do")
-	public String updatePayment(RentCarBookingVO vo, PageObjectCustom pageObject) throws Exception {
+	public String updatePayment(RentCarBookingVO vo, PageObjectCustom pageObject, @RequestParam(value = "mypage", defaultValue = "0")int mypage) throws Exception {
 		log.info(vo);
 		service.updatePayment(vo);
 		
@@ -219,7 +222,9 @@ public class RentCarBookingController {
 				+"&page="+pageObject.getPage()
 				+"&perPageNum="+pageObject.getPerPageNum()
 				+"&key="+pageObject.getKey()
-				+"&word="+pageObject.getWord();
+				+"&word="+pageObject.getWord()
+				+"&mypage="+mypage
+				;
 	}
 		
 	

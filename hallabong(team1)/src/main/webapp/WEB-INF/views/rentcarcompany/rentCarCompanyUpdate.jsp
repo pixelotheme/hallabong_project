@@ -43,13 +43,15 @@ $(function(){
 		$("#submitBtn").on("click", function(){
 			// "test" 자리에 로그인 아이디 넣어주면된다
 // 			alert("${login.id}");
-			if($("#id").val() == "${login.id}"){
-				
-				$("#updateForm").submit();
-				}
-			else{
-				alert("수정 권한이없습니다")
-				}
+			if(confirm("수정하시겠습니까?")){
+				if($("#id").val() == "${login.id}"){
+					
+					$("#updateForm").submit();
+					}
+				else{
+					alert("수정 권한이없습니다")
+					}
+				};
 		})
 
 
@@ -62,13 +64,18 @@ jQuery(document).ready(function() {
 })
 
 </script>
+<style type="text/css">
+#zipBtn{
+margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
 	<div class="container">
-	<h2>렌트카 회사 등록</h2>
-			<div>
+	<h2>렌트카 회사 수정</h2>
+			<div class="form-group">
 			회사
-				<select name="companyNo" id="companySelect">
+				<select name="companyNo" id="companySelect" class="form-control">
 						<option selected="selected">회사 선택</option>
 					<c:forEach items="${companyVO }" var="company">
 						<option value="${company.companyNo }" >${company.companyName }</option>
@@ -76,7 +83,9 @@ jQuery(document).ready(function() {
 				</select>
 			</div>
 	
+	
 		<form method="post" id="updateForm">
+		
 				<input type="hidden" name="page" value="${param.page}">
 				<input type="hidden" name="perPageNum" value="${param.perPageNum}">
 <!-- 		<input type="hidden" value="" id="updateCompanyNo" name="companyNo"> -->
@@ -104,23 +113,22 @@ jQuery(document).ready(function() {
 			</div>
 			<div class="input-group">
 				<!--  주소 api 쓰기-->
-<!-- 				<label for="address"></label> -->
 				<p>    우편번호 : <input name="zipcode" id="zipcode" readonly size="10" class="form-control" placeholder="우편변호">
-				    <input type="button" onclick="daumZipCode()" value="우편번호 찾기"> </p>
+				   <input type="button" onclick="daumZipCode()" value="우편번호 찾기" id="zipBtn"> </p>
 				    주소 : <input name="streetAdr" id="streetAdr" size="60" class="form-control" placeholder="주소"><br>
 				    상세주소 : <input name="detailAdr" id="detailAdr" class="form-control" placeholder="상세주소">
 			</div>		
-			<div>
-				<button class="btn btn-default" type="button" id="submitBtn">수정</button>
-				<button class="btn btn-default" type="reset">새로입력</button>
-				<button class="btn btn-default" type="button" id="deleteBtn">회사 삭제</button>
-				<button class="btn btn-default" type="button" id="cancelBtn">취소, 리스트</button>
-			</div>
 		
 		</form>
 		
 		
 		
+			<div style="padding-top: 10px">
+				<button class="btn btn-default" type="button" id="submitBtn">수정</button>
+				<button class="btn btn-default" type="reset">새로입력</button>
+				<button class="btn btn-default" type="button" id="deleteBtn">회사 삭제</button>
+				<button class="btn btn-default" type="button" id="cancelBtn">취소, 리스트</button>
+			</div>
 	</div>
 </body>
 </html>

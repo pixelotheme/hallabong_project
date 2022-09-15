@@ -229,3 +229,8 @@
 .uploadResult ul li{
 	list-style:none;
 }
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+	background-color: #F28F38 !important;
+    border-color: #F28F38 !important;
+}

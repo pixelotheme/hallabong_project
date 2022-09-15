@@ -48,7 +48,7 @@ $(function(){
 		if(regName.test(userName) === false){
 			alert("이름 입력 2~10 이내 공백 제외");
 			return false;
-			}	
+			};
 			
 		 var userEmail = $("#userEmail").val();
 		 userEmail = userEmail.replace(regex, "");
@@ -57,7 +57,17 @@ $(function(){
 				alert("이메일을 확인해주세요 (영문+숫자)")
 				$("#userEmail").val(userEmail);
 				return false
-			 }
+			 };
+
+
+		var regTel1 = /(\d{2,3}[ ,-]-?\d{2,4}[ ,-]-?\d{4})/; //00-
+		var userTel = $("#userTel").val();
+		if(regTel1.test(userTel) === false){
+			alert("연락처를 입력")
+			return false;			
+
+			};
+			
 		var drivingLicense = $("#drivingLicense").val();
 
 		if(regexLicense.test(drivingLicense) === false){
@@ -66,16 +76,6 @@ $(function(){
 			return false;
 			
 			};	
-
-		var regTel1 = /(\d{2,3}[ ,-]-?\d{2,4}[ ,-]-?\d{4})/; //00-
-		
-		var userTel = $("#userTel").val();
-		alert(regTel1.test(userTel));
-		if(regTel1.test(userTel) === false){
-			alert("연락처를 입력")
-			return false;			
-
-			}
 		bookingSendMail();
 		$("#actionForm").submit();
 		

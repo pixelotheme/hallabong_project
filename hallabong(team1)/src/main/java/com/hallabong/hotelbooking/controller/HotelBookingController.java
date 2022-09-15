@@ -33,22 +33,21 @@ public class HotelBookingController {
 	@Inject
 	private RoomService roomServiceImpl;
 	
+	
+	
 	@GetMapping("/list.do")
-	public String list(PageObject pageObject, Model model, HttpServletRequest request, Long ro_no) throws Exception{
+	public String list(PageObject pageObject, Model model, HttpServletRequest request) throws Exception{
 		
 		
 		// 세션 로그인  정보 가져오기
 		HttpSession session = request.getSession();
 		LoginVO id = (LoginVO) session.getAttribute("login");
 		
-//		String ronoStr = request.getParameter("ro_no");
-//		long ro_no = Long.parseLong(ronoStr);
-		
-		log.info("호텔예약 리스트 입니다." + ro_no +"/////"   + id);
+		log.info("호텔예약 리스트 입니다." );
 		
 		model.addAttribute("list", service.list(pageObject));
 		model.addAttribute("pageObject", pageObject);
-		model.addAttribute("roomlist",roomServiceImpl.list(ro_no)); 
+	//	model.addAttribute("roomlist",roomServiceImpl.list(ro_no)); 
 		
 		return "hotelbooking/list";
 	} 
@@ -56,25 +55,28 @@ public class HotelBookingController {
 	@GetMapping("/view.do")
 	public String view(long hbno, Model model) throws Exception{
 		
-		log.info("호텔예약 상세보기 입니다.");
-		model.addAttribute("vo", service.view(hbno));
+		log.info("호텔예약 상세보기 입니다.-------------" + hbno);
 	
+		model.addAttribute("vo", service.view(hbno));
+		
 		return "hotelbooking/view";
 	} 
 	
 	@GetMapping("/write.do")
-	public String writeForm(HttpServletRequest request) throws Exception{
+	public String writeForm(HotelBookingVO vo) throws Exception{
+		log.info("호텔예약 등록폼 입니다.==================");
 		
-		log.info("호텔예약 등록폼 입니다.");
-		HttpSession session = request.getSession();
-		LoginVO id = (LoginVO) session.getAttribute("login");
+		
+		//model.addAttribute("roomview",roomServiceImpl.view(ro_no)); 
 		return "hotelbooking/write";
 	} 
 	
 	@PostMapping("/write.do")
-	public String write(HotelBookingVO vo, int perPageNum) throws Exception{
-		
-		log.info("호텔예약 등록 입니다.");
+	public String write( HotelBookingVO vo, HttpSession session,int perPageNum, Model model) throws Exception{
+		vo.setId(((LoginVO)session.getAttribute("login")).getId());
+		vo.setRo_no(3);		
+		log.info("호텔예약 등록 입니다.-----------------");
+		//model.addAttribute("roomlist",roomServiceImpl.list(ro_no)); 
 		service.write(vo);
 		return "redirect:list.do?perPageNum=" + perPageNum;
 	}

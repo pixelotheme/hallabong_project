@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hallabong.hotelbooking.service.HotelBookingService;
 import com.hallabong.member.service.MailSendService;
 import com.hallabong.member.service.MemberService;
 import com.hallabong.member.vo.LoginVO;
 import com.hallabong.member.vo.MemberVO;
+import com.hallabong.rentcarboard.util.PageObjectCustom;
+import com.hallabong.rentcarbooking.service.RentCarBookingService;
 import com.webjjang.util.PageObject;
 
 import lombok.extern.log4j.Log4j;
@@ -43,6 +46,14 @@ public class MemberController {
 	@Autowired
 	@Qualifier("msi")
 	private MemberService service;
+	
+	@Autowired
+	@Qualifier("hotelBookingServiceImpl")
+	private HotelBookingService HBservice;
+	
+	@Autowired
+	@Qualifier("bookingService")
+	private RentCarBookingService RBservice;
 	
 
 	// 로그인 폼
@@ -181,12 +192,17 @@ public class MemberController {
 		
 		// 마이페이지
 		@GetMapping("/myPage.do")
-		public String myPage(HttpServletRequest request, Model model) throws Exception {
+		public String myPage(HttpServletRequest request, Model model, PageObject pageObject, PageObjectCustom pageObjectCustom) throws Exception {
 			
 			// 세션에서 로그인 가져오기
 			HttpSession session = request.getSession();
 			log.info("로그인 정보 " + session.getAttribute("login"));
 			LoginVO id = (LoginVO) session.getAttribute("login");
+			
+			model.addAttribute("list", HBservice.list(pageObject));
+			model.addAttribute("pageObject", pageObject);
+			
+			model.addAttribute("rbList", RBservice.list(pageObjectCustom));
 			
 			// 로그인이 되어 있지 않으면 로그인 폼으로 이동
 			if(id == null) {

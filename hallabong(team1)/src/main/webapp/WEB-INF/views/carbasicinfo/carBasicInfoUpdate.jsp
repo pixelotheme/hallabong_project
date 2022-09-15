@@ -80,16 +80,16 @@ $(function(){
 			
 			<div>
 				<label for="license">사진</label> 
-				<input type="file" name="uploadFile" multiple="multiple" class="btn btn-default">
+				<input type="file" name="uploadFile" class="btn btn-default">
 			</div>
 			
 			<div>
 			
 			<label>기존 이미지</label>
 			
-				<img alt="차량 이미지가 없습니다" src="/upload/${carFileUploadVO.realSavePath}/s_${carFileUploadVO.fileName}" width="100px">
+				<img alt="차량 이미지가 없습니다" src="/upload/rentcarboard/${carFileUploadVO.realSavePath}/s_${carFileUploadVO.fileName}" width="100px">
 				<c:if test="${!empty carFileUploadVO.orgFileName}">
-				<p>${carFileUploadVO.orgFileName }[${carFileUploadVO.fileSize}]</p>
+				<p>${carFileUploadVO.orgFileName }</p>
 				</c:if>
 
 				<c:if test="${!empty carFileUploadVO.orgFileName }">
@@ -100,7 +100,7 @@ $(function(){
 			
 			
 			<div>
-				<button type="button" class="btn btn-default" id="submitBtn">등록</button>
+				<button type="button" class="btn btn-default" id="submitBtn">수정</button>
 				<button type="reset" class="btn btn-default">새로입력</button>
 				<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
 			</div>

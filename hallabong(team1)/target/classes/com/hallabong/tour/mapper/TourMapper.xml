@@ -5,14 +5,15 @@
 
 	<!-- 관광명소 게시판 리스트 -->
 	<select id="list" resultType="com.hallabong.tour.vo.TourVO">
-		select no, area, theme, name, thumbnail, likeCnt
+		select no, area, theme, areaName, themeName, name, thumbnail, likeCnt
 		from(
-			select rownum rnum, no, area, theme, name, thumbnail, likeCnt
+			select rownum rnum, no, area, theme, areaName, themeName, name, thumbnail, likeCnt
 			from(
-				select no, area, theme, name, thumbnail,
-				(SELECT count(*) FROM tourLike where tour.no = tourLike.no)likeCnt
-				from tour
-				<include refid="search" />
+				SELECT t.no, t.area, t.theme, ta.areaName, tt.themeName, t.name, t.thumbnail,
+		        (SELECT count(*) FROM tourLike where t.no = tourLike.no)likeCnt
+		        FROM tour t, tourArea ta, tourTheme tt
+		        WHERE <include refid="search" />
+		        t.area = ta.no AND t.theme = tt.no
 				order by no desc
 			)
 		) where rnum between #{startRow} and #{endRow}
@@ -20,30 +21,35 @@
 	
 	<!-- 전체 데이터 개수 -->
 	<select id="getTotalRow" resultType="long">
-		select count(*) from tour
-		<include refid="search" />
+		select count(t.no) FROM tour t, tourArea ta, tourTheme tt
+		WHERE <include refid="search" />
+		t.area = ta.no AND t.theme = tt.no
 	</select>
 	
 	<!-- 게시판 검색 -->
 	<sql id="search">
-		<if test="word != null and word != ''">
-			where 1=0
-				<if test="area.indexOf('제주시'.toString()) >= 0">
-					or name like ${"'%" + word + "%'"}
+		<trim prefix="(" suffix=") and" prefixOverrides="and">
+			<!-- <if test="word != null and word != ''"> -->
+				<if test="area != null and area != ''">
+					and t.area like ${"'%" + area + "%'"}
 				</if>
-				<if test="area.indexOf('조천읍'.toString()) >= 0">
-					or name like ${"'%" + word + "%'"}
+				<if test="theme != null and theme != ''">
+					and t.theme like ${"'%" + theme + "%'"}
 				</if>
-		</if>
+				<if test="word != null and word != ''">
+					and t.name like ${"'%" + word + "%'"}
+				</if>
+			<!-- </if> -->
+		</trim>
 	</sql>
 	
 	<!-- 관광명소 게시판 글보기 -->
 	<select id="view" resultType="com.hallabong.tour.vo.TourVO">
-		select no, id, area, theme, name, thumbnail, address, content, tel, hours, roadMap,
-		(SELECT 'LIKED' FROM tourLike where tour.no = tourLike.no and id = 'test') likeNo,
-		(SELECT count(*) FROM tourLike where tour.no = tourLike.no) likeCnt
-		from tour
-		WHERE no = #{no}
+		select t.no, m.id, t.area, t.theme, ta.areaName, tt.themeName, t.name, t.thumbnail, t.address, t.content, t.tel, t.hours, t.roadMap,
+		(SELECT 'LIKED' FROM tourLike where t.no = tourLike.no and t.id = m.id) likeNo,
+		(SELECT count(*) FROM tourLike where t.no = tourLike.no) likeCnt
+		from tour t, tourArea ta, tourTheme tt, member m
+		WHERE (t.no = #{no}) and (t.area = ta.no AND t.theme = tt.no AND t.id = m.id)
 	</select>
 	
 	<!-- 관광명소 게시판 글작성 -->
@@ -65,33 +71,10 @@
 	
 	<!-- 관광명소 게시판 글수정 -->
 	<update id="update">
-		update tour set
-			area = #{area},
-			theme = #{theme},
-			name = #{name},
-			address = #{address},
-			thumbnail = #{thumbnail},
-			content = #{content},
-			tel = #{tel},
-			hours = #{hours},
-			roadMap = #{roadMap}
-		where no = #{no}
-	</update>
-	
-	<update id="updateSelectKey">
-		<selectKey keyProperty="no" order="BEFORE" resultType="long">
-			select tour_seq.nextval from dual
-		</selectKey>
-		
-		INSERT INTO tour(no, id, area, theme, name, thumbnail, address, content, tel, hours, roadMap)
-		VALUES(#{no}, #{id}, #{area}, #{theme}, #{name}, #{thumbnail},
-		#{address}, #{content}, #{tel}, #{hours}, #{roadMap})
-	</update>
-	
-	<!-- 관광명소 대표이미지 변경 -->
-	<update id="tourChange">
-		update tour set thumbnail = #{thumbnail}
-		where no = #{no}
+		update tour set area = #{area}, theme = #{theme}, name = #{name},
+			thumbnail = #{thumbnail}, address = #{address}, content = #{content},
+			tel = #{tel}, hours = #{hours}, roadMap = #{roadMap}
+		WHERE no = #{no}
 	</update>
 	
 	<!-- 관광명소 게시판 글삭제 -->
@@ -109,7 +92,7 @@
 	<!-- 관광명소 좋아요 취소 -->
 	<delete id="unlike">
 		delete from tourLike
-		where id = #{id} and no = #{likeNo}
+		where id = #{id} and likeNo = #{likeNo}
 	</delete>
 	
 </mapper>

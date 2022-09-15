@@ -3,13 +3,13 @@ package com.hallabong.business.service;
 import java.util.List;
 
 import com.hallabong.business.vo.BusinessVO;
-import com.webjjang.util.PageObject;
+import com.hallabong.util.businesspageobject.BusinessPageObject;
 
 public interface BusinessService {
 	// list
-		public List<BusinessVO> list(PageObject pageObject) throws Exception;
+		public List<BusinessVO> list(BusinessPageObject pageObject) throws Exception;
 		// view
-		public BusinessVO view(long bus_no) throws Exception;
+		public BusinessVO view(long no) throws Exception;
 		
 		// imageChange 처리
 		public int imageChange(BusinessVO vo) throws Exception;
@@ -18,6 +18,7 @@ public interface BusinessService {
 		// update처리
 		public int update(BusinessVO vo) throws Exception;
 		// delete 처리
-		public int delete(long bus_no) throws Exception;
+		public int delete(long no) throws Exception;
+		
 
 }

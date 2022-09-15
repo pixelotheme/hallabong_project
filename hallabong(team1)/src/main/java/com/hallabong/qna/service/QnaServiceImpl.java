@@ -36,11 +36,12 @@ public class QnaServiceImpl implements QnaService{
 
 	// QNA 보기
 	@Override
-	public QnaVO view(long no) throws Exception {
+	public List<QnaVO> view(long no, long refNo) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.view(no);
+		
+		return mapper.view(no, refNo);
 	}
-
+	
 	// 답변하기
 	@Override
 	public int answer(QnaVO vo) throws Exception {
@@ -48,7 +49,7 @@ public class QnaServiceImpl implements QnaService{
 		
 		vo.setOrdNo(vo.getOrdNo() + 1);
 		vo.setLevNo(vo.getLevNo() + 1);
-		vo.setParentNo(vo.getNo());
+		vo.setParentNo(vo.getParentNo() + 1);
 		
 		// 순서 번호 1증가
 		mapper.increaseOrdNo(vo);
@@ -69,5 +70,6 @@ public class QnaServiceImpl implements QnaService{
 		// TODO Auto-generated method stub
 		return mapper.delete(no);
 	}
+
 
 }

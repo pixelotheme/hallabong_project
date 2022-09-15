@@ -13,10 +13,14 @@
 <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <meta charset="UTF-8">
-
-
-
 <title>차량 번호판 리스트</title>
+
+<style type="text/css">
+#searchForm{
+padding-bottom: 15px;
+}
+</style>
+
 <script type="text/javascript">
 $(function(){
 	
@@ -30,7 +34,7 @@ $("#key").val("${empty(pageObject.key)?'P':pageObject.key}");
 <div class="container">
 
 					<!-- 검색 시작 -->
-		<form class="form-inline">
+		<form class="form-inline" id="searchForm">
 			<input type="hidden" name="carNo" value="${param.carNo }">
 			<input type="hidden" name="companyNo" value="${param.companyNo }">
 			<input type="hidden" name="carInfoNo" value="${param.carInfoNo }">

@@ -25,8 +25,8 @@ $(function(){
 			+ "&theme=${pageObject.theme}"
 			+ "&word=${pageObject.word}";
 			
-		$("#area").val(${pageObject.area }).prop("selected", true);
-		$("#theme").val(${pageObject.theme }).prop("selected", true);
+		$("#area").val(${pageObject.area}).prop("selected", true);
+		$("#theme").val(${pageObject.theme}).prop("selected", true);
 	});
 });
 
@@ -52,32 +52,35 @@ function themeChange() {
 	
 	<!-- 검색 부분 -->
 	<form class="form-inline">
+		<input name="page" type="hidden" value="${pageObject.page}">
+		<input name="perPageNum" type="hidden" value="${pageObject.perPageNum }">
+		
 		<div class="input-group" id="area_select">
 			<select name="area" id="area" class="form-control" onchange="areaChange()">
-				<option value="">지역 전체</option>
-				<option value="제주시" ${(pageObject.area == '제주시')? "selected":""}>제주시</option>
-				<option value="애월읍" ${(pageObject.area == '애월읍')? "selected":""}>애월읍</option>
-				<option value="한림읍" ${(pageObject.area == '한림읍')? "selected":""}>한림읍</option>
-				<option value="한경면" ${(pageObject.area == '한경면')? "selected":""}>한경면</option>
-				<option value="대정읍" ${(pageObject.area == '대정읍')? "selected":""}>대정읍</option>
-				<option value="안덕면" ${(pageObject.area == '안덕면')? "selected":""}>안덕면</option>
-				<option value="서귀포시" ${(pageObject.area == '서귀포시')? "selected":""}>서귀포시</option>
-				<option value="남원읍" ${(pageObject.area == '남원읍')? "selected":""}>남원읍</option>
-				<option value="표선면" ${(pageObject.area == '표선면')? "selected":""}>표선면</option>
-				<option value="성산읍" ${(pageObject.area == '성산읍')? "selected":""}>성산읍</option>
-				<option value="구좌읍" ${(pageObject.area == '구좌읍')? "selected":""}>구좌읍</option>
-				<option value="조천읍" ${(pageObject.area == '조천읍')? "selected":""}>조천읍</option>
+				<option value="0">지역 전체</option>
+				<option value="1" ${(pageObject.area == 1)? "selected":""}>제주시</option>
+				<option value="2" ${(pageObject.area == 2)? "selected":""}>애월읍</option>
+				<option value="3" ${(pageObject.area == 3)? "selected":""}>한림읍</option>
+				<option value="4" ${(pageObject.area == 4)? "selected":""}>한경면</option>
+				<option value="5" ${(pageObject.area == 5)? "selected":""}>대정읍</option>
+				<option value="6" ${(pageObject.area == 6)? "selected":""}>안덕면</option>
+				<option value="7" ${(pageObject.area == 7)? "selected":""}>서귀포시</option>
+				<option value="8" ${(pageObject.area == 8)? "selected":""}>남원읍</option>
+				<option value="9" ${(pageObject.area == 9)? "selected":""}>표선면</option>
+				<option value="10" ${(pageObject.area == 10)? "selected":""}>성산읍</option>
+				<option value="11" ${(pageObject.area == 11)? "selected":""}>구좌읍</option>
+				<option value="12" ${(pageObject.area == 12)? "selected":""}>조천읍</option>
 			</select>
 		</div>
 		<div class="input-group" id="theme_select">
 			<select name="theme" id="theme" class="form-control" onchange="themeChange()">
-				<option value="">테마 전체</option>
-				<option value="체험관광" ${(pageObject.theme == '체험관광')? "selected":""}>체험관광</option>
-				<option value="휴양관광" ${(pageObject.theme == '휴양관광')? "selected":""}>휴양관광</option>
-				<option value="역사문화" ${(pageObject.theme == '역사문화')? "selected":""}>역사문화</option>
-				<option value="박물관/기념관" ${(pageObject.theme == '박물관/기념관')? "selected":""}>박물관/기념관</option>
-				<option value="드라마" ${(pageObject.theme == '드라마')? "selected":""}>드라마</option>
-				<option value="전통시장" ${(pageObject.theme == '전통시장')? "selected":""}>전통시장</option>
+				<option value="0">테마 전체</option>
+				<option value="1" ${(pageObject.theme == 1)? "selected":""}>체험관광</option>
+				<option value="2" ${(pageObject.theme == 2)? "selected":""}>휴양관광</option>
+				<option value="3" ${(pageObject.theme == 3)? "selected":""}>역사문화</option>
+				<option value="4" ${(pageObject.theme == 4)? "selected":""}>박물관/기념관</option>
+				<option value="5" ${(pageObject.theme == 5)? "selected":""}>드라마</option>
+				<option value="6" ${(pageObject.theme == 6)? "selected":""}>전통시장</option>
 			</select>
 		</div>
 		<div class="input-group" id="search_input">
@@ -100,8 +103,8 @@ function themeChange() {
 			</div>
 			<div class="caption">
 				<ul>
-					<li>${vo.area}</li>
-					<li>${vo.theme}</li>
+					<li>${vo.areaName}</li>
+					<li>${vo.themeName}</li>
 				</ul>
 				<p class="name"><span class="no">${vo.no}</span>${vo.name}</p>
 				<p class="likeCnt"><i class="fa fa-heart"></i> ${vo.likeCnt}</p>
@@ -116,10 +119,8 @@ function themeChange() {
 	</div><!-- //row -->
 	
 	<div class="text-right">
-		<c:if test="${!empty login}">
-			<c:if test="${login.gradeNo == 9 }">
-				<a href="write.do?perPageNum=${pageObject.perPageNum}" class="btn btn-info">등록</a>
-			</c:if>
+		<c:if test="${!empty login && login.gradeNo == 9 }">
+			<a href="write.do?perPageNum=${pageObject.perPageNum}" class="btn btn-info">등록</a>
 		</c:if>
 	</div>
 	<div class="text-center">

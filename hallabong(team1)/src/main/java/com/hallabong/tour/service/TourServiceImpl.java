@@ -74,16 +74,7 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public int update(TourVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		int result = (int) mapper.updateSelectKey(vo);
-		
-		if(vo.getAttachList()!=null && vo.getAttachList().size() > 0)
-			// 첨부파일이 있는 만큼 for문을 돌린다.
-			vo.getAttachList().forEach(attach -> {
-				attach.setNo(vo.getNo());
-				attachMapper.insert(attach);
-			});
-		
-		return result;
+		return mapper.update(vo);
 	}
 
 	// 글삭제

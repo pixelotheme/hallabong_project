@@ -29,22 +29,23 @@
 	
 	<!-- 	// view -->
 	<select id="view" resultType="com.hallabong.hotelbooking.vo.HotelBookingVO">
-		select hbno, id, userName, userTel, userEmail, payOption, payDay, payType, confirmNo,
-		bookingDate, progress, ro_no
-		from hotel_booking
-		where hbno = #{hbno} 
+		select hb.hbno, m.id, m.name, m.tel, m.email, hb.userName, hb.userTel, hb.userEmail, hb.payOption, hb.payDay, 
+        hb.payType, hb.confirmNo,
+		hb.bookingDate, hb.progress
+		from hotel_booking hb, member m
+		where hbno = #{hbno} and m.id = hb.id
 	</select>
 	
 	<!-- 	// write처리 -->
 	<insert id="write">
-		insert into hotel_booking(hbno, userName, userTel, userEmail, payOtpion, payType, confirmNo)
-		values(hotel_booking_seq.nextval, #{userName}, #{userTel}, #{userEmail},#{payOtpion},#{payType},
-		#{confirmNo})
+		insert into hotel_booking(hbno, userName, userTel, userEmail, payOption, payType, confirmNo)
+		values(hotel_booking_seq.nextval,  #{userName}, #{userTel}, #{userEmail},#{payOption},#{payType},
+		#{confirmNo}) 
 	</insert>
 	<!-- 	// update처리 -->
 	<update id="update">
-		update hotel_booking set userName = #{userName}, userTel = #{userTel}, userEmail = #{userEmail},
-		payOtpion = #{payOtpion}, payType = #{payType}, confirmNo = #{confirmNo}
+		update hotel_booking set userName = #{userName}, userTel = #{userTel}, userEmail = #{userEmail}
+		
 		where hbno = #{hbno}
 	</update>
 	<!-- 	// delete 처리 -->

@@ -9,11 +9,17 @@
 <meta charset="UTF-8">
 <title>렌트카 예약 리스트</title>
 
+
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
+<style type="text/css">
+.list-group-item{
+	margin-bottom: 1px;
+}
+</style>
 <script type="text/javascript">
 $(function(){
 
@@ -82,40 +88,15 @@ $(function(){
 		</c:if>
 	<!-- 데이터 표시 -->
 	
-	<div class="row">
+	<div class="row rowDiv">
 		<div class="col-md-12">
 			<!-- 데이터 들어가는공간 -->
 			<div class="list-group">
-				<c:forEach items="${rbList }" var="vo">
 					<c:if test="${login.gradeNo == 9 }">
+						<c:forEach items="${rbList }" var="vo">
 					
-						<div class="list-group-item dataRow row">
-							<div class="col-md-3">
-								<span class="bookingNo">${vo.bookingNo }</span>
-							</div>
-							<div class="col-md-3">
-								<strong> ${vo.companyName }</strong>
-								<span class="badge pull-right">${vo.carName }</span>
-							</div>
-							<div class="col-md-3">
-								<span>
-									<fmt:formatDate value="${vo.rentalDate }" pattern="yyyy-MM-dd"/>
-									~ <fmt:formatDate value="${vo.returnDate }" pattern="MM-dd"/>
-								</span>
-							</div>
-							<div class="col-md-3">
-								<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
-	
-								<span>${vo.bookingStatus }</span>
-								<span>예약자 - ${vo.consumerId }</span>
-								
-							</div>
-						</div><!-- //데이터 출력 -->
-					</c:if>
-					<c:if test="${login.gradeNo == 1}">
-						<c:if test="${login.id == vo.consumerId }">
-							<div class="list-group-item dataRow row">
-								<div class="col-md-3">
+							<div class="list-group-item dataRow">
+								<div class="col-md-2">
 									<span class="bookingNo">${vo.bookingNo }</span>
 								</div>
 								<div class="col-md-3">
@@ -132,14 +113,42 @@ $(function(){
 									<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
 		
 									<span class="badge">${vo.bookingStatus }</span>
-									<span>[예약자 - ${vo.consumerId }]</span>
+									<span>예약자 - ${vo.consumerId }</span>
 									
 								</div>
-							</div><!-- //데이터 출력 -->						
+							</div><!-- //데이터 출력 -->
+						</c:forEach>
+					</c:if>
+					<c:if test="${login.gradeNo == 1}">
+							<c:forEach items="${rbList }" var="vo">
+					
+						<c:if test="${login.id == vo.consumerId }">
+							<div class="list-group-item dataRow row">
+								<div class="col-md-2">
+									<span class="bookingNo">${vo.bookingNo }</span>
+								</div>
+								<div class="col-md-3">
+									<strong> ${vo.companyName }</strong>
+									<span class="badge pull-right">${vo.carName }</span>
+								</div>
+								<div class="col-md-3">
+									<span>
+										<fmt:formatDate value="${vo.rentalDate }" pattern="yyyy-MM-dd"/>
+										~ <fmt:formatDate value="${vo.returnDate }" pattern="MM-dd"/>
+									</span>
+								</div>
+								<div class="col-md-3">
+									<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
+		
+									<span class="badge">${vo.bookingStatus }</span>
+									<span >[예약자 - ${vo.consumerId }]</span>
+									
+								</div>
+							</div>//데이터 출력						
 						</c:if>
 					
+						</c:forEach>
 					</c:if>
-				</c:forEach>
 			</div>			
 		</div>
 	</div>

@@ -21,6 +21,8 @@
 		<pattern>/rentcarcompany/*</pattern>
 		<pattern>/rentcarbooking/*</pattern>
 		<pattern>/hotelbooking/*</pattern>
+		<pattern>/hotelbookingdate/*</pattern>
+		<pattern>/room/*</pattern>
 	</decorator>
 	
 	<!-- 게시판의 대한 요청 레이아웃 선언 -->

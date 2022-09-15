@@ -36,7 +36,8 @@ $(function(){
 		+ "&page=" + "${param.page}"
 		+ "&perPageNum=" + "${param.perPageNum}"
 		+ "&key=" + "${param.key}"
-		+ "&word=" + "${param.word}";
+		+ "&word=" + "${param.word}"
+		+ "&mypage="+"${param.mypage}";
 	});
 	
 	// 삭제 버튼 이벤트
@@ -143,7 +144,13 @@ $(function(){
 			  <button type="button" class="btn btn-default" id="updateBtn">수정</button>
 			  <button type="button" class="btn btn-default" id="deleteBtn">예약취소</button>
 			</c:if>
+			
+			<c:if test="${param.mypage == 1 }">
+			  <button type="button" class="btn btn-default" onclick="location='/member/myPage.do'">마이페이지</button>
+			</c:if>
+			<c:if test="${param.mypage != 1 }">
 			  <button type="button" class="btn btn-default" id="listBtn">리스트</button>
+			</c:if>
 			</div>
 		</div>
 	</div>

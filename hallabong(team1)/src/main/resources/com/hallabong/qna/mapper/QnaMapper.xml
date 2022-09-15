@@ -4,11 +4,11 @@
 <mapper namespace="com.hallabong.qna.mapper.QnaMapper">
 
 	<select id="list" resultType="com.hallabong.qna.vo.QnaVO">
-		select no, title, id, writeDate, cnt
+		select no, refNo, title, id, writeDate, cnt
 		from (
-			select rownum rnum, no, title, id, writeDate, cnt
+			select rownum rnum, no, refNo, title, id, writeDate, cnt
 			from (
-				select no, title, id, writeDate,
+				select no, refNo, title, id, writeDate,
 					(select count(*) from qna qc where q.no = qc.refNo) - 1 cnt
 				from qna q
 				where levNo = 0
@@ -24,15 +24,20 @@
 
 	<insert id="write">
 		insert into qna(no, title, content, id, refNo, ordNo, levNo, parentNo)
-		values(qna_seq.nextval, #{title}, #{content}, #{id}, qna_seq.nextval, 1, 0, null)
+		values(qna_seq.nextval, #{title}, #{content}, #{id}, qna_seq.nextval, 1, 0, 1)
 	</insert>
 	
 	<select id="view" resultType="com.hallabong.qna.vo.QnaVO">
-		select no, title, content, id, writeDate, refNo, ordNo, levNo
+
+		select no, title, content, id, writeDate, refNo, parentNo, ordNo
 		from qna
-		where no = #{no}
+		WHERE refNo = #{refNo}
+		order by ordNo
 	</select>
-	
+<!-- 	<select id="getTotalRows" resultType="long"> -->
+<!-- 		select count(*) from qna -->
+<!-- 		where levNo = #{levNo} -->
+<!-- 	</select> -->
 	
 	<insert id="answer">
 		insert into qna(no, title, content, id, refNo, ordNo, levNo, parentNo)

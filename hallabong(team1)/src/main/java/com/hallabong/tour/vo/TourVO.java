@@ -11,7 +11,8 @@ public class TourVO {
 	
 	private long no;
 	private String id;
-	private String area, theme;
+	private int area, theme;
+	private String areaName, themeName;
 	private String name;
 	private String address;
 	private String content;

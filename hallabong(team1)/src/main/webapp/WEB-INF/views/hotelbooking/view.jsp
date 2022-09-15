@@ -8,6 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>호텔예약 상세보기</title>
+
+<script type="text/javascript" src="/resources/hotelbooking/js/hbookingEvent.js"></script>
+<script type="text/javascript">
+ var page = "${param.page}";
+ var perPageNum = "${param.perPageNum}";
+ var key = "${param.key}";
+ var word = "${param.word}";
+ var hbno = "${vo.hbno }";
+</script>
+
 </head>
 <body>
 
@@ -26,7 +36,7 @@
         </div>
     </div>
     <!-- Header End -->
-    <h2>호텔예약상세보기</h2>
+    <h2>호텔예약수정하기</h2>
     <div class="container-fluid booking mt-5 pb-5">
         <div class="container pb-5">
             <div class="bg-light shadow" style="padding: 30px;">
@@ -49,8 +59,8 @@
 							 <div class="col-lg-5">
  									<div class="bg-white p-4">
 						               <div class="d-flex mb-2">
-						                   <h2 class="mb-3">제주신라호텔 </h2>
-						                   <h4 class="mb-4">디럭스</h4>
+						                   <h2 class="mb-3">베니키아호텔 </h2>
+						                   <h4 class="mb-4">싱글스탠다드룸</h4>
 						               </div>
 						              <table class="table table-borderless">
 									      <tr>
@@ -59,11 +69,11 @@
 									      </tr>
 									      <tr>
 									        <th>인원</th>
-									        <td>2명</td>
+									        <td>3명</td>
 									      </tr>
 									      <tr>
 									        <th>금액</th>
-									        <td>1,250,000원</td>
+									        <td>90,000원</td>
 									      </tr>
 									  </table>
 						           </div>
@@ -88,27 +98,30 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<h5>예약자 정보</h5>
+<%-- 					 <c:forEach items="${list}" var="vo">  --%>
 								<div class="bg-white p-4 row" >
                                     <div class="d-flex mb-2 col-sm-1">
                                         <h5 class="text-uppercase " >성함</h5>
                                     </div>
                                     <div class="col-sm-2">
-                                    <p class="h5 m-0" >라이언</p>
+                                    <p class="h5 m-0" >${vo.name}</p>
                                     </div>
                                     <div class="d-flex mb-2 col-sm-1">
                                         <h5 class="text-uppercase " >전화번호</h5>
                                     </div>
                                     <div class="col-sm-3">
-                                    <p class="h5 m-0" >010-1111-2222</p>
+                                    <p class="h5 m-0" >${vo.tel }</p>
                                     </div>
                                     <div class="d-flex mb-2 col-sm-2">
                                         <h5 class="text-uppercase " >이메일</h5>
                                     </div>
                                     <div class="col-sm-3">
-                                    <p class="h5 m-0" >lo@naver.com</p>
+                                    <p class="h5 m-0" >${vo.email }</p>
                                     </div>
                                 </div>
+<%--                                 </c:forEach> --%>
 							</div>
+							<!--  col-lg-12  끝-->
 						</div>
 						</div>
 						</div>
@@ -154,7 +167,59 @@
 						</div>
 					<!-- bg-light shadow 끝 -->
 				</div>
+				<!-- 사용자 정보 끝 -->
+			<!-- 결제정보 -->
+			<div class="container pb-5">
+	          <div class="bg-light shadow" style="padding: 30px;">
+				  <div class="row align-items-center" style="min-height: 60px;">
+					 <div class="col-md-12">
+						<div class="row">
+							<div class="col-lg-12">
+								<h5>결제 정보</h5>
+								<div class="bg-white p-4 row" >
+                                    <div class="d-flex mb-2 col-sm-1">
+                                        <h5 class="text-uppercase " >결제방법</h5>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    <p class="h5 m-0" >${vo.payOption }</p>
+                                    </div>
+                                    <div class="d-flex mb-2 col-sm-1">
+                                        <h5 class="text-uppercase " >결제종류</h5>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    <p class="h5 m-0" >${vo.payType }</p>
+                                    </div>
+                                    <div class="d-flex mb-2 col-sm-1">
+                                        <h5 class="text-uppercase " >결제금</h5>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    <p class="h5 m-0" >90,000원</p>
+                                    </div>
+                                    <div class="d-flex mb-2 col-sm-1">
+                                        <h5 class="text-uppercase " >결제일</h5>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    <p class="h5 m-0" ><fmt:formatDate value="${vo.payDay}" pattern="yyyy-MM-dd"/></p>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						</div>
+						</div>
+						<!-- row align-items-center 끝 -->
+						</div>
+					<!-- bg-light shadow 끝 -->
+				</div>
 				<!-- 예약자 정보 끝 -->
+				<!-- 접수버튼 -->
+				<div class="container pb-5">
+				  <div class="text-right">
+                     <button class="btn btn-primary py-3 px-4" type="submit" id="updateBtn">예약수정</button>
+                     <button class="btn btn-primary py-3 px-4" type="submit" id="deleteBtn">예약취소</button>
+                     <button class="btn btn-primary py-3 px-4" type="submit" id="cancelBtn">뒤로가기</button>
+                 </div>
+                </div>
+                <!-- 접수버튼끝 -->
 				
 	</div>
 

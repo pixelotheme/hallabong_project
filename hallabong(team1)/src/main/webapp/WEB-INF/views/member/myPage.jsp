@@ -10,7 +10,30 @@
 <meta charset="UTF-8">
 <title>내 정보 보기</title>
 
+<style type="text/css">
+.list-group-item{
+	margin-bottom: 1px;
+}
+</style>
+
 <script type="text/javascript">
+
+$(function(){
+
+	$(".RCdata").on("click", function(){
+		// alert("글보기로 이동");
+		var bookingNo = $(this).find(".bookingNo").text();
+		location = "/rentcarbooking/view.do?bookingNo="+bookingNo
+		+ "&page=" + 1
+		+ "&perPageNum=" + 10
+		+ "&key=" + ""
+		+ "&word=" + ""
+		+ "&mypage="+1
+		;
+				
+	});
+
+})
 
 </script>
 
@@ -77,14 +100,77 @@
 		<!-- 관리자 메뉴 -->
 				<a href="../member/memberList.do" class="btn btn-default">회원리스트</a>
 				</c:if>
-				<a href="../hotelbooking/list.do" class="btn btn-success" style="">호텔  예약 목록</a>
-				<a href="../rentcarbooking/list.do" class="btn btn-success">렌트카  예약 목록</a>	
+				<a href="../hotelbooking/list.do" class="btn btn-success" style="">호텔  예약 목록</a>	
 			</td>
 		</tr>
 	</tfoot>	
+</table>
+<%@include file="../hotelbooking/list.jsp" %>
+
+<div class="row">
+	<h2>렌터카 예약 목록</h2>
+		<div class="col-md-12">
+			<!-- 데이터 들어가는공간 -->
+			<div class="list-group">
+				<c:forEach items="${rbList }" var="vo">
+					<c:if test="${login.gradeNo == 9 }">
+					
+						<div class="list-group-item RCdata row">
+							<div class="col-md-3">
+								<span class="bookingNo">${vo.bookingNo }</span>
+							</div>
+							<div class="col-md-3">
+								<strong> ${vo.companyName }</strong>
+								<span class="badge pull-right">${vo.carName }</span>
+							</div>
+							<div class="col-md-3">
+								<span>
+									<fmt:formatDate value="${vo.rentalDate }" pattern="yyyy-MM-dd"/>
+									~ <fmt:formatDate value="${vo.returnDate }" pattern="MM-dd"/>
+								</span>
+							</div>
+							<div class="col-md-3">
+								<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
 	
-</table>   
-<%@include file="../rentcarbooking/list.jsp" %>
+								<span>${vo.bookingStatus }</span>
+								<span>예약자 - ${vo.consumerId }</span>
+								
+							</div>
+						</div><!-- //데이터 출력 -->
+					</c:if>
+					<c:if test="${login.gradeNo == 1}">
+						<c:if test="${login.id == vo.consumerId }">
+							<div class="list-group-item RCdata row">
+								<div class="col-md-3">
+									<span class="bookingNo">${vo.bookingNo }</span>
+								</div>
+								<div class="col-md-3">
+									<strong> ${vo.companyName }</strong>
+									<span class="badge pull-right">${vo.carName }</span>
+								</div>
+								<div class="col-md-3">
+									<span>
+										<fmt:formatDate value="${vo.rentalDate }" pattern="yyyy-MM-dd"/>
+										~ <fmt:formatDate value="${vo.returnDate }" pattern="MM-dd"/>
+									</span>
+								</div>
+								<div class="col-md-3">
+									<span><fmt:formatNumber value="${vo.totalPrice }" pattern="#,###"/>원</span>
+		
+									<span class="badge">${vo.bookingStatus }</span>
+									<span>[예약자 - ${vo.consumerId }]</span>
+									
+								</div>
+							</div><!-- //데이터 출력 -->						
+						</c:if>
+					
+					</c:if>
+				</c:forEach>
+				<a href="../rentcarbooking/list.do" class="btn btn-success">렌트카  예약 목록 상세 확인</a>
+			</div>			
+		</div>
+	</div>
+
 </div>
 </body>
 </html>

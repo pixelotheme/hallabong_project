@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="pageNav" tagdir="/WEB-INF/tags" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    
+     
 <meta charset="UTF-8">
 	<title>맛집 자세히 보기</title>
 <style type="text/css">
@@ -26,7 +24,10 @@
   }
 
 </style>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script type="text/javascript" src="/resources/reply/js/reply.js"></script>
+<script type="text/javascript" src="/resources/reply/js/replyFunc.js"></script>
+<script type="text/javascript" src="/resources/reply/js/replyEvent.js"></script>
 
 
 <script type="text/javascript">
@@ -42,16 +43,16 @@ $(function() {
 	});
 	
 	$("#listBtn").click(function(){
-		location = "list.do?page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}";
+		location = "list.do?page=" + "${param.page}"
+		+ 	"&perPageNum=" + "${param.perPageNum}"
+		+ "&key=" + "${param.key}"
+		+ "&word=" + "${param.word}";
 	});
 });
 </script>
 </head>
 <body>
-   	<input type="hidden" name="page" value="${pageObject.page }">
-   	<input type="hidden" name="perPageNum" value="${pageObject.perPageNum }">
-   	<input type="hidden" name="key" value="${pageObject.key }">
-   	<input type="hidden" name="word" value="${pageObject.word }">
+	<input type="hidden" id="no" data-no="${vo.no }">
 	<div class="container">
 	<!-- 맛집 내용 출력 -->
 	<div class="container">
@@ -73,7 +74,7 @@ $(function() {
 			
 			<p>주소 : ${vo.address }</p>
 			<p>전화번호 : ${vo.tel }</p>
-			<p>음식종류 : ${vo.kindName }</p>
+			<p>음식종류 : ${vo.kind }</p>
 			<p>가격대 : ${vo.price }</p>
 			<p>전화번호 : ${vo.tel }</p>
 			<p>${vo.content }</p>		
@@ -84,15 +85,24 @@ $(function() {
 	</div>
 
 		<!-- 그 외 기능 버튼 위치 -->
-<%-- 		<c:if test="${!empty login && login.gradeNo == 9 }"> <!-- 관리자 계정일때 수정, 삭제 표시 --> --%>
-			<button id="updateBtn" class="btn-default">수정</button>
-			<button id="deleteBtn" class="btn-default">삭제</button>
-<%-- 		</c:if> --%>
-			<button id="listBtn" class="btn-default">리스트</button>
+<div class="row">
+		<div class="col-md-4" style="padding: 20px;">
+			<div class="btn-group">
+		<c:if test="${!empty login && login.gradeNo == 9 }"> <!-- 관리자 계정일때 수정, 삭제 표시 --> 
+			<button type = "button" id="updateBtn" class="btn-default">수정</button>
+			<button type = "button" id="deleteBtn" class="btn-default">삭제</button>
+		</c:if> 
+			<button type = "button" id="listBtn" class="btn-default">리스트</button>
+			</div>
+			</div>
+			</div>
 			
-			
-	
+<%-- 					<c:if test="${!empty login && login.gradeNo == 9 }"> <!-- 관리자 계정일때 수정, 삭제 표시 --> --%>
+			<%@include file="../includes/reply.jsp" %>
+<%-- 				</c:if> --%>
+		
 			
 	</div>
+	
 </body>
 </html>

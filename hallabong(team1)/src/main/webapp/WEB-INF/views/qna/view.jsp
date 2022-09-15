@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>QNA 글 보기</title>
+<style type="text/css">
+.padding {
+padding: 10px;
+ 
+}
+</style>
 <!-- a태그 강제 클릭 이벤트를 하기 위한 라이브러리 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- alert창 디자인 바꾸기 위한 라이브러리 -->
@@ -25,7 +31,7 @@ $().ready(function () {
 	            denyButtonColor: '#d33',
 	        }).then((result) => {
 	        	  if (result.isConfirmed) {
-	        		    $("#deleteBtn").attr("href","delete.do?no=${vo.no }&perPageNum=${param.perPageNum}")
+	        		    $("#deleteBtn").attr("href","delete.do?no=${vo.no}&perPageNum=${param.perPageNum}")
 	        		    $("#deleteBtn")[0].click()
 	        		    Swal.fire('삭제 완료', '', 'success')
 	        		  } else if (result.isDenied) { 
@@ -67,7 +73,7 @@ $().ready(function () {
             denyButtonColor: '#d33',
         }).then((result) => {
         	  if (result.isConfirmed) {
-        		    $("#updateBtn").attr("href","update.do?no=${vo.no }&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
+        		    $("#updateBtn").attr("href","update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
         		    $("#updateBtn")[0].click()
         		    Swal.fire('수정창으로 이동합니다.', '', 'success')
         		  } else if (result.isDenied) { 
@@ -77,7 +83,7 @@ $().ready(function () {
     });
 });
 //답변으로 이동하기 ---------------------
-$().ready(function () {
+ $().ready(function () {
     $("#answerBtn").click(function () {
         Swal.fire({
             title: '답변 창으로 이동할까요?',
@@ -88,7 +94,7 @@ $().ready(function () {
             denyButtonColor: '#d33',
         }).then((result) => {
         	  if (result.isConfirmed) {
-        		    $("#answerBtn").attr("href","answer.do?no=${vo.no }&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
+        		    $("#answerBtn").attr("href","answer.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
         		    $("#answerBtn")[0].click()
         		    Swal.fire('답변 창으로 이동합니다.', '', 'success')
         		  } else if (result.isDenied) { 
@@ -102,38 +108,68 @@ $().ready(function () {
 <body>
 <div class="container">
 <h1 style="font-size: 14px;">QNA ${vo.no }번 글 보기</h1>
+<c:forEach items="${list }" var="vo">
+<c:if test="${vo.levNo == 0 && vo.parentNo == 1}">
 <div class="list-group">
+			<input type="hidden" name="parentNo" value="${vo.parentNo }">
 			<div class="list-group-item row">
-				<div class="col-md-3" style="font-size: 14px;">번호</div>
-				<div class="col-md-9" style="font-size: 14px;">${vo.no }</div>
+				<div class="col-md-3">번호</div>
+				<div class="col-md-9">${vo.no }</div>
 			</div>
 			<div class="list-group-item row">
-				<div class="col-md-3" style="font-size: 14px;">제목</div>
-				<div class="col-md-9" style="font-size: 14px;">${vo.title }</div>
+				<div class="col-md-3">제목</div>
+				<div class="col-md-9">${vo.title }</div>
 			</div>
 			<div class="list-group-item row">
-				<div class="col-md-3" style="font-size: 14px;">내용</div>
-				<div class="col-md-9" style="font-size: 14px;">${vo.content }</div>
+				<div class="col-md-3">내용</div>
+				<div class="col-md-9">${vo.content }</div>
 			</div>
 			<div class="list-group-item row">
-				<div class="col-md-3" style="font-size: 14px;">아이디</div>
-				<div class="col-md-9" style="font-size: 14px;">${vo.id }</div>
+				<div class="col-md-3">아이디</div>
+				<div class="col-md-9">${vo.id }</div>
 			</div>
 			<div class="list-group-item row">
-				<div class="col-md-3" style="font-size: 14px;">작성일</div>
-				<div class="col-md-9" style="font-size: 14px;"><fmt:formatDate value="${vo.writeDate }" pattern="yyyy-MM-dd"/></div>
+				<div class="col-md-3">작성일</div>
+				<div class="col-md-9"><fmt:formatDate value="${vo.writeDate }" pattern="yyyy-MM-dd"/></div>
 			</div>
 		</div>
-		<c:if test="${!empty login && login.gradeNo == 9}">
-			
-			<c:if test="${vo.id != login.id && login.gradeNo == 9}">
-				<a class="btn btn-info pull-right" id="answerBtn" style="font-size: 14px;">답변</a>
-			</c:if>
-			<c:if test="${vo.id == login.id && login.gradeNo == 9}">
-				<a class="btn btn-info pull-right" id="updateBtn" style="font-size: 14px;">수정</a>
-				<a class="btn btn-info pull-right" id="deleteBtn" style="font-size: 14px;">삭제</a>
-			</c:if>
-		</c:if>
+</c:if>
+</c:forEach>			
+						<div class="padding">
+					  	<i class="fa fa-comments"></i> 답변
+					  	</div>
+					  <c:forEach items="${list }" var="qna">
+					  <c:if test="${qna.parentNo > 1 }">
+<!-- 					  	<ul class="chat"> -->
+				     	<li class="list-group-item row title">
+				   			<input type="hidden" name="no" value="${qna.no }">
+				   			<input type="hidden" name="refNo" value="${qna.refNo }">
+				   			<input type="hidden" name="parentNo" value="${qna.parentNo }">
+				     		<p class="row"><strong>Q.</strong><c:out value=" ${qna.title }"/></p>
+				     	</li>
+				     	<li class="list-group-item row showContent"><p style="white-space: pre-line;">A. ${qna.content }</p>
+				     	<p>답변자: ${qna.id }</p></li>
+									<c:if test="${!empty login && login.gradeNo == 9}">
+
+										<c:if test="${vo.id != login.id && login.gradeNo == 9}">
+											<a class="btn btn-info pull-right" id="answerBtn" style="font-size: 14px;">답변</a>
+										</c:if>
+										<c:if test="${vo.id == login.id && login.gradeNo == 9}">
+											<a class="btn btn-info pull-right" id="updateBtn" style="font-size: 14px;">수정</a>
+											<a class="btn btn-info pull-right" id="deleteBtn" style="font-size: 14px;">삭제</a>
+										</c:if>
+									</c:if>
+<!-- 								</ul> -->
+					  	</c:if>
+					  	</c:forEach>
+					  	<!-- /.chat -->
+					  <!-- panel-body의 끝 -->
+				  <!-- panel의 끝 -->
+				  <div class="" id="footer_pagination">
+				  </div>
+			  <!-- col의 끝 -->
+		
+		
 				<a class="btn btn-info pull-right" id="listBtn" style="font-size: 14px;">리스트</a>
 		
 </div>

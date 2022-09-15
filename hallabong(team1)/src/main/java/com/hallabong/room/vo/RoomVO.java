@@ -10,7 +10,7 @@ import lombok.Data;
 public class RoomVO {
 
 	private int ro_no; //숙박 (객실)번호 
-	private int bus_no; // 사업장 번호 
+	private int no; // 사업장 번호 
 	private String ro_name; // 객실 명 
 	private String ro_price; // 객실 가격
 	private Date ro_date; // 등록일
