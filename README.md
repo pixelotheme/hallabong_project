@@ -21,8 +21,8 @@ com.hallabong.util.intercepter<br>
 <h5>특징적인 기능</h5>
 
 예약시 메일보내기 - rentcarboard.controller<br>
-ajax 이용한 JSON 배열 형식 통신 - ajax.Controller<br>
-java Date 타입을 이용한 날짜 계산 - ajax.Controller<br>
+ajax 이용한 JSON 배열 형식 통신 - ajax.Controller, <br>
+java Date 타입을 이용한 날짜 계산 - ajax.Controller, rentcarboard/view<br>
 예약시 정규표현식 - rentcarbooking/booking.jsp<br>
 업로드된 파일 서버 외부에 저장 - carfileupload.controller<br>
 Mybatis를 통한 페이징,검색쿼리,selectKey 사용 - rentcarboard/mapper/RentCarBoardMapper.xml<br>
