@@ -39,8 +39,7 @@ com.hallabong.util.intercepter<br>
 **root-context.xml, servlet-context.xml 은 개인정보가 포함되어 올리지 않음
 
 <br>
-![image](https://user-images.githubusercontent.com/59018532/190393865-b0691d06-e483-4882-8459-994a6873f5b7.png)
 
 
 <br>
-![image](https://user-images.githubusercontent.com/59018532/190380789-00e5f61e-df0d-41a4-98ce-d51625f00b1e.png)
+
