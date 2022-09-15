@@ -7,6 +7,7 @@ spring - 5.0.7.RELEASE<br>
 servlet - 3.1.0<br>
 mybatis - 3.4.6<br>
 sts - 4.7.0.RELEASE<br>
+형상관리 - svn <br>
 
 <h5>담당 내용 (렌터카게시판, 회사, 차종, 렌터카예약, 권한처리)</h5>
 com.hallabong.rentcarboard<br>
