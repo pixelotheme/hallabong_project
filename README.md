@@ -26,3 +26,6 @@ java Date 타입을 이용한 날짜 계산 - ajax.Controller<br>
 예약시 정규표현식 - rentcarbooking/booking.jsp<br>
 업로드된 파일 서버 외부에 저장 - carfileupload.controller<br>
 Mybatis를 통한 페이징,검색쿼리,selectKey 사용 - rentcarboard/mapper/RentCarBoardMapper.xml<br>
+
+
+**root-context.xml, servlet-context.xml 은 개인정보가 포함되어 올리지 않음
