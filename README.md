@@ -28,12 +28,14 @@ com.hallabong.util.intercepter<br>
 
 <h5>특징적인 기능</h5>
 
-1. 예약시 메일보내기 - rentcarboard.controller<br>
-2. ajax 이용한 JSON 배열 형식 통신 - ajax.Controller, <br>
-3. 예약날짜 선택시 java Date 타입을 이용한 날짜 계산 - ajax.Controller, rentcarboard/view<br>
-4. 예약시 정규표현식 - rentcarbooking/booking.jsp<br>
-5. 업로드된 파일 서버 외부에 저장 - carfileupload.controller<br>
-6. Mybatis를 통한 페이징,검색쿼리,selectKey 사용 - rentcarboard/mapper/RentCarBoardMapper.xml<br>
+https://blog.naver.com/hoan0418
+
+1. 예약시 메일보내기 - rentcarboard.controller<br><br>
+2. ajax 이용한 JSON 배열 형식 통신 - ajax.Controller <br><br>
+3. 예약날짜 선택시 java Date 타입을 이용한 날짜 계산 - ajax.Controller, rentcarboard/view<br><br>
+4. 예약시 정규표현식 - rentcarbooking/booking.jsp<br><br>
+5. 업로드된 파일 서버 외부에 저장 - carfileupload.controller<br><br>
+6. Mybatis를 통한 페이징,검색쿼리,selectKey 사용 - rentcarboard/mapper/RentCarBoardMapper.xml<br><br>
 
 
 **root-context.xml, servlet-context.xml 은 개인정보가 포함되어 올리지 않음
