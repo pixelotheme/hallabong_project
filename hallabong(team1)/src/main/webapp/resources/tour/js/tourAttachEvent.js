@@ -26,26 +26,4 @@ $(function(){
 		});
 	})(); // 처음에 문서가 로딩되면 바로 처리되는 함수의 끝
 
-	// 첨부 파일(둘러싸고 있는 li tag)을 클릭하면 처리되는 이벤트 ------------------------------
-	$(".uploadResult").on("click", "li", function(){
-		// alert("첨부파일 클릭");
-		var liObj = $(this);
-		// 작업할 파일명을 세팅한다.(서버에 올라간 파일명)
-		var prePath = liObj.data("path") + "/"
-			+ liObj.data("uuid") + "_" + liObj.data("filename");
-		// alert(prePath);
-		// alert(prePath.replace(new RegExp(/\\/g), "/"));
-		var path = encodeURIComponent(prePath);
-
-		if(liObj.data("type")){
-			// 이미지인 경우
-			showImage(path.replace(new RegExp(/\\/g), "/"));
-		} else {
-			// 이미지가 아닌 경우
-			// alert("이미지가 아닙니다.");
-			location = "/download?fileName=" + path;
-		}
-	});
-	// 첨부 파일(둘러싸고 있는 li tag)을 클릭하면 처리되는 이벤트의 끝
-	
 });

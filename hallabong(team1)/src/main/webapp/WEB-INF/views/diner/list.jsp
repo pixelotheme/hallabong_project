@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="pageNav" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,13 @@
 	background : #eee;
 	cursor:pointer;
 
+}
+.name{
+font-weight: 900;
+}
+.introduce{
+  font-style: italic;
+  color : #808080;	
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -51,7 +60,8 @@
 </head>
 <body>
 	<div class="container">
-	<h1 style="text-align: center;">맛집 리스트</h1> 
+	<h1 style="text-align: center; font-size : 150%;">맛집 리스트</h1>
+
 
 		<!--  가운데 정렬 -->
 <!-- 		<div>			 -->
@@ -65,31 +75,14 @@
 			<div class="input-group">
 				<select class="form-control" name="key" id="key">
 					<option value="r">지역</option>
-					<option value="k">종류</option>
-					<option value="n">이름</option>
-					<option value="rk">지역/종류</option>	
-					<option value="rn">지역 /이름</option>
-					<option value="kn">종류/이름</option>
+					<option value="k">음식 종류</option>
+					<option value="n">식당 이름</option>
+					<option value="rk">지역/음식 종류</option>	
+					<option value="rn">지역/식당 이름</option>
+					<option value="kn">음식 종류/식당 이름</option>
 					<option value="rkn">전체</option>
 				</select>
 			</div>
-<!-- 			<div class="input-group"> -->
-<!-- 				<select class="form-control" name="kind" id="kind" onchange = "kindChange()"> -->
-<!-- 					<option value="A">전체</option> -->
-<!-- 					<option value="B">한식</option> -->
-<!-- 					<option value="C">분식</option> -->
-<!-- 					<option value="D">양식</option> -->
-<!-- 					<option value="E">해산물</option> -->
-<!-- 					<option value="F">회/스시</option> -->
-<!-- 					<option value="G">세계음식</option> -->
-<!-- 					<option value="H">뷔페</option> -->
-<!-- 					<option value="I">디저트</option> -->
-<!-- 					<option value="J">카페</option> -->
-<!-- 					<option value="K">술집</option> -->
-<!-- 					<option value="L">브런치</option> -->
-<!-- 					<option value="M">치킨</option> -->
-<!-- 				</select> -->
-<!-- 			</div> -->
 			
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Search"
@@ -110,9 +103,10 @@
 					<div class="thumbnail dataRow" data-no = "${vo.no }">
 						<img src="${vo.image }" alt="${vo.name}" style="width: 100%">
 						<div class="caption">
-							<div>${vo.name }</div>
-							<div class="regionKind">${vo.region }-${vo.kind }</div>
-							<div>${vo.introduce }</div>
+							<div>
+							<p class = "name">${vo.name }</p></div>
+							<div class="regionKind"><p>${vo.region }-${vo.kind }</p></div>
+							<div class="introduce"><p>${vo.introduce }</p></div>
 							<br>
 							<div><p><span class="glyphicon glyphicon-eye-open" style="padding-right: 5px;"></span> ${vo.hit}</p>							
 							</div>
@@ -131,11 +125,13 @@
 		<div>
 			<pageNav:pageNav listURI="list.do" pageObject="${pageObject }" />
 		</div>
-
+  <c:if test="${!empty login && login.gradeNo == 9 }">
 			<a href="write.do?perPageNum=${pageObject.perPageNum }"
 				class="btn btn-default">등록</a>
+				</c:if>
 		</div>
-	</div>
+
+	
 
 </body>
 </html>

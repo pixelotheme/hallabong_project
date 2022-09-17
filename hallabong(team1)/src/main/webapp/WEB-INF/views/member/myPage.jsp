@@ -116,7 +116,7 @@ $(function(){
 					<c:if test="${login.gradeNo == 9 }">
 					
 						<div class="list-group-item RCdata row">
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<span class="bookingNo">${vo.bookingNo }</span>
 							</div>
 							<div class="col-md-3">
@@ -141,7 +141,7 @@ $(function(){
 					<c:if test="${login.gradeNo == 1}">
 						<c:if test="${login.id == vo.consumerId }">
 							<div class="list-group-item RCdata row">
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<span class="bookingNo">${vo.bookingNo }</span>
 								</div>
 								<div class="col-md-3">
@@ -166,7 +166,9 @@ $(function(){
 					
 					</c:if>
 				</c:forEach>
+				 <c:if test="${login.gradeNo == 9}">
 				<a href="../rentcarbooking/list.do" class="btn btn-success">렌트카  예약 목록 상세 확인</a>
+				</c:if>
 			</div>			
 		</div>
 	</div>

@@ -85,14 +85,14 @@
 	
 	<!-- 관광명소 좋아요 -->
 	<insert id="like">
-		insert into tourLike(id, likeNo)
-		values (#{id}, #{likeNo})
+		insert into tourLike(id, no)
+		values (#{id}, #{no})
 	</insert>
 
 	<!-- 관광명소 좋아요 취소 -->
 	<delete id="unlike">
 		delete from tourLike
-		where id = #{id} and likeNo = #{likeNo}
+		where id = #{id} and no = #{no}
 	</delete>
 	
 </mapper>

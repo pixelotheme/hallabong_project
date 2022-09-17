@@ -27,7 +27,7 @@ $(function(){
 //			$("myModal").data("star", star);
 	//	 alert("댓글 등록 창 열기 클릭1");
 		// 모달 창의 데이터를 지운다.
-		$("#modalReply").val("");
+		$("#modalReply, #star").val("");
 		// 필요한 입력항목은 보이게 필요 없는 보이지 않게
 		$("#modalUpdateBtn, #modalDeleteBtn").hide();
 		$("#modalRegisterBtn").show();
@@ -86,9 +86,6 @@ $(function(){
 		var id = $(this).find("strong").text();
 		$("#modalId").val(id);
 		
-		var star = $(this).find("p").html();
-		$("#star").val(star);
-		
 		
 		
 		// 필요한 입력항목은 보이게 필요 없는 보이지 않게
@@ -102,7 +99,7 @@ $(function(){
 		// 데이터수집 -> JSON
 		var reply = {
 			reply : $("#modalReply").val(),
-			star : $("#star").val(),
+			star : starValue,
 			rno : $("#myModal").data("rno")
 		}
 
@@ -177,5 +174,10 @@ $(function(){
 	// 별 이벤트
 	$(".star").click(function(){
 		starValue = $(this).data("star");
+			
+		
 	});
+	
+	
+	
 });

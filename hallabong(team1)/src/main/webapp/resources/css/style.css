@@ -418,6 +418,11 @@ h6, .h6 {
   font-size: 1rem;
 }
 
+.halla {
+	font-size: 35px!important;
+  color: white;
+}
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
@@ -469,6 +474,10 @@ h6, .h6 {
   .display-4 {
     font-size: calc(1.475rem + 2.7vw) ;
   }
+}
+
+.jejuh1{
+	font-size:30px!important;
 }
 
 hr {
@@ -4030,6 +4039,19 @@ input[type="button"].btn-block {
   white-space: nowrap;
 }
 
+.footerLogo{
+	margin: 0;
+	color: #FFF;
+	font-size: 25px !important;
+	font-weight: bold;
+}
+
+.footerLogo span{
+	font-size: 25px !important;
+	color: #F28F38 !important;
+	font-weight: bold;
+}
+
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
@@ -4270,6 +4292,10 @@ input[type="button"].btn-block {
 
 .navbar-light .navbar-brand {
   color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-brand {
+	padding: 5px 15px 0 !important;
 }
 
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
@@ -9384,6 +9410,7 @@ a.text-dark:hover, a.text-dark:focus {
   visibility: hidden !important;
 }
 
+
 @media print {
   *,
   *::before,
@@ -9428,6 +9455,7 @@ a.text-dark:hover, a.text-dark:focus {
   body {
     min-width: 992px !important;
   }
+
   .container {
     min-width: 992px !important;
   }
@@ -9524,7 +9552,7 @@ h6,
 }
 
 .navbar-light .navbar-nav .nav-link {
-  padding: 30px 15px;
+  padding: 30px 14px;
   color: #212121;
   font-weight: 500;
   outline: none;
@@ -9553,7 +9581,7 @@ h6,
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  
   z-index: 1;
 }
 

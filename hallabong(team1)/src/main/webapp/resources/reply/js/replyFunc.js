@@ -49,7 +49,6 @@ function showList(page){
 					str += "        <strong class='primary-font'>" + list[i].id + "</strong>";
 					str += "        <small class='pull-right text-muted'>" + replyService.displayTime(list[i].replyDate) + "</small>";
 					str += "        <p>" + list[i].reply + "</p>";
-					str += "        <p class='left clearfix' data-star='" + list[i].star + "'>" + "</p>";
 					str += "     </div>";
 					str += "  </div>";
 					str += "</li>";

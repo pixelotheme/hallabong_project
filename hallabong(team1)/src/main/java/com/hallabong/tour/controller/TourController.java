@@ -56,11 +56,15 @@ public class TourController {
 		return "tour/list";
 	}
 	
-	// 관광명소 글보기, 글수정 폼
+	// 관광명소 글보기
 	@GetMapping("/view.do")
 	public String view(long no, Model model) throws Exception {
 		
 		log.info("관광명소 게시판 글보기");
+		
+		TourVO vo = service.view(no);
+		vo.setContent(vo.getContent().replace("\n", "<br>"));
+		
 		model.addAttribute("vo", service.view(no));
 		
 		return "tour/view";
@@ -106,7 +110,7 @@ public class TourController {
 			vo.getAttachList().forEach(attach -> log.info(attach));
 		}
 		
-		Thread.sleep(2000);
+		Thread.sleep(1500);
 		
 		return "redirect:list.do?perPageNum=" + perPageNum;
 	}
@@ -135,7 +139,7 @@ public class TourController {
 			vo.getAttachList().forEach(attach -> log.info(attach));
 		}
 		
-		Thread.sleep(2000);
+		Thread.sleep(1500);
 		
 		pageObject.setWord(URLEncoder.encode(pageObject.getWord(), "UTF-8"));
 		

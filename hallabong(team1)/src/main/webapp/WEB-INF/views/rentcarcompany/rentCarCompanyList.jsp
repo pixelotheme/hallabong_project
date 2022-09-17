@@ -49,7 +49,7 @@ padding-bottom: 15px;
 				<th>회사명</th>
 				<th>연락처</th>
 				<th>주소</th>
-				<th>등록자 - 안보이게 (로그인아이디와 비교)</th>
+				<th>등록한 아이디</th>
 			</tr>
 			
 			

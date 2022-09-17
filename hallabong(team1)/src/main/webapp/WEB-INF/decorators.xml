@@ -8,6 +8,7 @@
 	<decorator name="main" page="default_decorator.jsp">
 		<pattern>/list/view.do*</pattern>
 		<pattern>/business/*</pattern>
+		<pattern>/room/*</pattern>
 		<pattern>/error/*</pattern>
 		<pattern>/member/*</pattern>
 		<pattern>/faq/*</pattern>

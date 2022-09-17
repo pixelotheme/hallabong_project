@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>호텔예약 상세보기</title>
+<script type="text/javascript" src="/resources/hotelbooking/js/hbookingEvent.js"></script>
+<title>호텔예약 수정하기</title>
 </head>
 <body>
 
@@ -26,7 +27,6 @@
         </div>
     </div>
     <!-- Header End -->
-    <h2>호텔예약상세보기</h2>
     	<form method="post">
 		<input name="page" value="${param.page }" type="hidden">
 		<input name="perPageNum" value="${param.perPageNum }" type="hidden">

@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 			<!-- or, like -->
 			where 1=0
 				<if test="area.indexOf('서귀포시'.toString()) >= 0">
-					or title like ${"'%" + word + "%'"}
+					or area like ${"'%" + word + "%'"}
 				</if>
 				
 		</if>
@@ -43,9 +43,9 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 	<!-- 	// view -->
 	<!-- 	public BusinessVO view(long no) throws Exception; -->
  	<select id="view" resultType="com.hallabong.business.vo.BusinessVO">
-		select b.no, m.id, b.area, b.name, b.content, b.bus_tel, b.bus_mail, b.bus_address, b.fileName
-		from business b, member m
-		where no = #{no} and (b.id = m.id)
+		select no, id, area, name, content, bus_tel, bus_mail, bus_address, fileName
+		from business 
+		where no = #{no} 
 	</select>
 	
 	
@@ -60,14 +60,16 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 	<!-- 	// write처리 -->
 	<!-- 	public int write(BusinessVO vo) throws Exception; -->
 	<insert id="write">
-		insert into business(no, id, area, name, content, bus_tel, bus_maile, bus_address, fileName)
-		values(Business_seq.nextval, #{id}, #{area}, #{name}, #{content}, #{bus_tel}, #{bus_mail}, #{bus_address}, #{fileName} )
+		insert into business(no, id, area, name, content, bus_tel, bus_mail, bus_address, fileName)
+		values(business_seq.nextval, #{id}, #{area}, #{name}, #{content}, #{bus_tel}, #{bus_mail}, #{bus_address}, #{fileName} )
 	</insert>
 	<!-- 	// update처리 -->
 	<!-- 	public int update(BusinessVO vo) throws Exception; -->
 	<update id="update">
-		update business set title = #{title}, content = #{content}
+		update business set id = #{id}, area = #{area}, name = #{name}, content = #{content}, bus_tel = #{bus_tel}, bus_mail = #{bus_mail},
+		bus_address = #{bus_address}, fileName = #{fileName}
 		where no = #{no}
+		
 	</update>
 	<!-- 	// delete 처리 -->
 	<!-- 	public int delete(long no) throws Exception; -->

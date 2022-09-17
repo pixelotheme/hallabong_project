@@ -42,6 +42,18 @@
 		values(hotel_booking_seq.nextval,  #{userName}, #{userTel}, #{userEmail},#{payOption},#{payType},
 		#{confirmNo}) 
 	</insert>
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="hbno" order="BEFORE" resultType="long">
+			select hotel_booking_seqnextval from dual
+		</selectKey>
+		
+		insert into hotel_booking(hbno, userName, userTel, userEmail, payOption, payType, confirmNo)
+		values (#{hbno},  #{userName}, #{userTel}, #{userEmail},#{payOption},#{payType},
+		#{confirmNo})
+	</insert>
+	
+	
+	
 	<!-- 	// update처리 -->
 	<update id="update">
 		update hotel_booking set userName = #{userName}, userTel = #{userTel}, userEmail = #{userEmail}

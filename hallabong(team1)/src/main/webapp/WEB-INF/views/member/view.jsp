@@ -42,10 +42,18 @@
 			<th>이메일</th>
 			<td class="id">${vo.email }</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th>주소</th> -->
-<%-- 			<td class="id">${vo.address }</td> --%>
-<!-- 		</tr> -->
+		<tr>
+			<th>주소</th>
+			<td class="id">${vo.address }</td>
+		</tr>
+		<tr>
+			<th>면허</th>
+			<td class="id">${vo.license }</td>
+		</tr>
+		<tr>
+			<th>취미</th>
+			<td class="id">${vo.hobby }</td>
+		</tr>
 		<tr>
 			<th>가입일</th>
 			<td class="id"><fmt:formatDate value="${vo.regDate }"/></td>

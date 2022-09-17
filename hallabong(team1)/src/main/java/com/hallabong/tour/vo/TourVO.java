@@ -19,7 +19,7 @@ public class TourVO {
 	private String tel;
 	private String hours;
 	private String roadMap;
-	private String likeNo;
+	private String myLiked;
 	private int likeCnt;
 	// 첨부 되어서 올라오는 파일 -> input tag의 name="imageFile" 맞춰줘야 한다.
 	private MultipartFile imageFile;

@@ -11,6 +11,11 @@ select{
     border: 1px solid #999;
 }
 
+.loginname{
+	
+	font-size: 100px;
+}
+
 a {
     color: black;
     text-decoration: none;

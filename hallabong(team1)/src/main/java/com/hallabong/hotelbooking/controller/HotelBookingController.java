@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hallabong.hotelbooking.service.HotelBookingService;
 import com.hallabong.hotelbooking.vo.HotelBookingVO;
@@ -30,8 +31,8 @@ public class HotelBookingController {
 	@Qualifier("hotelBookingServiceImpl")
 	private HotelBookingService service;
 	
-	@Inject
-	private RoomService roomServiceImpl;
+//	@Inject
+//	private RoomService roomServiceImpl;
 	
 	
 	
@@ -47,7 +48,7 @@ public class HotelBookingController {
 		
 		model.addAttribute("list", service.list(pageObject));
 		model.addAttribute("pageObject", pageObject);
-	//	model.addAttribute("roomlist",roomServiceImpl.list(ro_no)); 
+		//model.addAttribute("roomlist",roomServiceImpl.view(ro_no)); 
 		
 		return "hotelbooking/list";
 	} 
@@ -72,12 +73,15 @@ public class HotelBookingController {
 	} 
 	
 	@PostMapping("/write.do")
-	public String write( HotelBookingVO vo, HttpSession session,int perPageNum, Model model) throws Exception{
+	public String write( HotelBookingVO vo, HttpSession session,int perPageNum, Model model,RedirectAttributes rttr) throws Exception{
 		vo.setId(((LoginVO)session.getAttribute("login")).getId());
 		vo.setRo_no(3);		
 		log.info("호텔예약 등록 입니다.-----------------");
 		//model.addAttribute("roomlist",roomServiceImpl.list(ro_no)); 
 		service.write(vo);
+		rttr.addFlashAttribute("result", "register success : hbno - "+vo.getHbno());
+
+		
 		return "redirect:list.do?perPageNum=" + perPageNum;
 	}
 	

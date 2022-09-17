@@ -7,7 +7,7 @@
 <!-- alert창 디자인 바꾸기 위한 라이브러리 -->
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<title>${vo.no }번 글 수정하기</title>
+<title>QNA 글 수정하기</title>
 <script type="text/javascript">
 //취소(돌아가기)--------------------------
 $().ready(function () {
@@ -82,6 +82,8 @@ $().ready(function () {
 	<form method="post">
 		<input name="page" value="${param.page }" type="hidden">
 		<input name="perPageNum" value="${param.perPageNum }" type="hidden">
+		<input name="refNo" value="${param.refNo }" type="hidden">
+		<input name="parentNo" value="${param.parentNo }" type="hidden">
 		<div class="form-group">
 			<label style="font-size: 14px;">번호</label>
 			<input name="no" required="required" class="form-control" value="${vo.no }" style="font-size: 14px;">

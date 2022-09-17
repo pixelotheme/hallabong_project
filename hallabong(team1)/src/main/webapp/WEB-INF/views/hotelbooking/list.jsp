@@ -43,8 +43,8 @@
 		      <tr class="dataRow hotelbooking"> 
 		        <td class="no">${vo.hbno }</td>
 <%-- 		       <c:forEach items="${roomlist }" var="roomvo">  --%>
-			        <td>${roomvo.ro_name }베니키아호텔-싱글스탠다드룸</td>
-			        <td>${roomvo.ro_people}3명</td>
+			        <td>베니키아호텔-싱글스탠다드룸</td>
+			        <td>3명</td>
 			        <td>2022.09.05~2022.09.08</td>
 <%-- 		        </c:forEach> --%>
 		        <td>${vo.progress }

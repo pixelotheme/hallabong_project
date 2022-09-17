@@ -36,7 +36,7 @@ public class QnaServiceImpl implements QnaService{
 
 	// QNA 보기
 	@Override
-	public List<QnaVO> view(long no, long refNo) throws Exception {
+	public List<QnaVO> view(Integer no, Integer refNo) throws Exception {
 		// TODO Auto-generated method stub
 		
 		return mapper.view(no, refNo);
@@ -59,14 +59,14 @@ public class QnaServiceImpl implements QnaService{
 
 	// 수정
 	@Override
-	public int update(QnaVO vo) throws Exception {
+	public List<QnaVO> update(QnaVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return mapper.update(vo);
 	}
 
 	// 삭제
 	@Override
-	public int delete(long no) throws Exception {
+	public int delete(Integer no) throws Exception {
 		// TODO Auto-generated method stub
 		return mapper.delete(no);
 	}

@@ -17,9 +17,6 @@ public interface TourService {
 	// 글보기에서 첨부파일 확인
 	public List<TourAttachVO> agetAttachList(Long no) throws Exception;
 	
-	// 이미지 변경
-	public int imageChange(TourVO vo) throws Exception;
-	
 	// 글작성
 	public int write(TourVO vo) throws Exception;
 	

@@ -13,7 +13,8 @@ import com.hallabong.hotelbooking.vo.HotelBookingVO;
 import com.webjjang.util.PageObject;
 
 import lombok.Setter;
-
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Service
 @Qualifier("hotelBookingServiceImpl")
 public class HotelBookingServiceImpl implements HotelBookingService {
@@ -38,8 +39,13 @@ public class HotelBookingServiceImpl implements HotelBookingService {
 
 	@Override
 	public int write(HotelBookingVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return mapper.write(vo);
+		log.info("예약 등록 - vo : " + vo);
+		//게시판 테이블 글등록 - board의 bno가 세팅되서 나온다.
+		int result = mapper.insertSelectKey(vo);
+		
+		log.info("예약 등록 -result : " + result);
+	
+		return result;
 	}
 
 	@Override

@@ -3,17 +3,15 @@ package com.hallabong.business.mapper;
 import java.util.List;
 
 import com.hallabong.business.vo.BusinessVO;
-import com.hallabong.util.businesspageobject.BusinessPageObject;
+import com.webjjang.util.PageObject;
 
 public interface BusinessMapper {
 	// list
-	public List<BusinessVO> list(BusinessPageObject pageObject) throws Exception;
+	public List<BusinessVO> list(PageObject pageObject) throws Exception;
 	// 전체 데이터 개수
-	public long getTotalRow(BusinessPageObject pageObject) throws Exception;
-	
+	public long getTotalRow(PageObject pageObject) throws Exception;
 	// view
 	public BusinessVO view(long no) throws Exception;
-	
 	// imageChange 처리
 	public int imageChange(BusinessVO vo) throws Exception;
 	// write처리

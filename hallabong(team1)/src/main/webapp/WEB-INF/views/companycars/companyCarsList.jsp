@@ -65,7 +65,7 @@ $("#key").val("${empty(pageObject.key)?'P':pageObject.key}");
 		<table width="100%"
 			class="table table-bordered table-hover">
 			<tr>
-				<th>회사명, 회사이름</th>
+				<th>회사명, 차량이름</th>
 				<th>번호판</th>
 				<th>예약 상황</th>
 				<th>예약자</th>

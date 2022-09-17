@@ -1,49 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="pageNav" tagdir="/WEB-INF/tags" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방 보기</title>
- 
-<!-- 장점 : 재활용 가능, 이미지게시판과 이미지 댓글을 동시에 개발할 수 있다. 보안에 도움이 된다. -->
-<!-- utility JS -->
-<script type="text/javascript" src="/resources/js/hotelbooking/util.js" ></script>
-
-<!-- 댓글 객체인 replyServcie를 가져오자. - 처리하는 함수만 존재, 호출이 없다. -->
-<script type="text/javascript" src="/resources/js/hotelbooking/reply.js" ></script>
-
-<!-- 댓글 페이지네이션 - 처리하는 함수만 존재, 호출이 없다. -->
-<script type="text/javascript" src="/resources/js/hotelbooking/replyPagination.js" ></script>
-
-<!-- 댓글 이벤트처리 / replyServcie를 호출해서 서버에서 DB처리를 하는것을가져오자. -->
-<script type="text/javascript" src="/resources/js/hotelbooking/replyEvent.js"></script>
+	<title>객실 보기</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <script type="text/javascript">
-	module="/hotelbookingdate";
-	 var ro_no = "1";
+$(function() {
+	$("#updateBtn").click(function(){
+		location = "update.do?ro_no=${vo.ro_no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}";
+	});
 	
-</script>
-
-<script type="text/javascript">
-$(function(){
-	$("#deleteBtn").click(function(){
-		return confirm("정말 삭제하시겠습니까?");
+	$("#deleteBtn").on("click", function(){
+		if(confirm("정말 삭제하시겠니까?"))
+			location = "delete.do?ro_no=${vo.ro_no}&perPageNum=${param.perPageNum}&no=&{param.no}";
+	});
+	
+	$("#listBtn").click(function(){
+		location = "list.do?page=" + "${param.page}"
+		+ 	"&perPageNum=" + "${param.perPageNum}"
+		+ "&key=" + "${param.key}"
+		+ "&word=" + "${param.word}"
+		+ "&no"= + "${param.no}"
+		;
 	});
 });
+
 </script>
+<style type="text/css">
+  .img{
+    position: relative;                                                           
+    height: 50vh;
+    background-size: cover;
+  }
+  .img-cover{
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     background-size: cover;                                                              
+  }
+
+</style>
+
 </head>
 <body>
+	<input type="hidden" id="ro_no" data-no="${vo.ro_no }">
 	<div class="container">
-	<div>방번호1번</div>
-			
-				<a href="update.do?no=1&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}" class="btn btn-default">수정</a>
-				<a href="delete.do?no=1&perPageNum=${param.perPageNum}" class="btn btn-default" id="deleteBtn">삭제</a>
-		<a href="list.do?page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}" class="btn btn-default">리스트</a>
-	
-		<!--  캘린더 있는 부분 -->
-	<%@ include file="../hotelbookingdate/hotelbookingdate.jsp" %>
-	
+	<!-- 객실 출력 -->
+	<div class="container">
+		<div class="img" style="background-image: url('${vo.fileName}');">
+	        <h4>
+	        </h4>        
+	        
+	        <div class="img-cover"></div>
+		</div>
 	</div>
+	<h2>${vo.ro_name }</h2>
+	<h1></h1>
+	<hr style="border:solid; color= silver">
+	
+	<div class="container">		
+		<div class="container">
+			
+			<p>객실명 : ${vo.ro_name }</p>
+			<p>가격  1박 기준: ${vo.ro_price }</p>
+			<p>인원 : ${vo.ro_people }</p>
+			<p>객실 기본옵션 : ${vo.ro_info }</p>
+			<p>예약 상태 : ${vo.ro_state }</p>
+
+		</div>		
+	</div>
+
+		<!-- 그 외 기능 버튼 위치 -->
+<div class="row">
+		<div class="col-md-4" style="padding: 20px;">
+			<div class="btn-group">
+<%-- 		<c:if test="${!empty login && login.gradeNo == 9 }"> <!-- 관리자 계정일때 수정, 삭제 표시 --> --%>
+			<button type = "button" id="updateBtn" class="btn-default">수정</button>
+			<button type = "button" id="deleteBtn" class="btn-default">삭제</button>
+<%-- 		</c:if> --%>
+			<button type = "button" id="listBtn" class="btn-default">리스트</button>
+			</div>
+			</div>
+			</div>
+			
+<%-- 					<c:if test="${!empty login && login.gradeNo == 9 }"> <!-- 관리자 계정일때 수정, 삭제 표시 --> --%>
+<%-- 				</c:if> --%>
+		
+			
+	</div>
+</body>
+</html>

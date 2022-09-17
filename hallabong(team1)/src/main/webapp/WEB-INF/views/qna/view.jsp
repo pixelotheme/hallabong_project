@@ -10,7 +10,50 @@
 <style type="text/css">
 .padding {
 padding: 10px;
- 
+}
+.showContent {
+border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #eee;
+}
+.Btn{
+padding: 10px 0px 10px 10px;
+}
+.Btn1{
+ margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn2{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn3{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn4{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn5{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn6{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn7{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn8{
+margin-right: 1px;
+ margin-left: 1px;
+}
+.Btn9{
+margin-right: 1px;
+ margin-left: 1px;
 }
 </style>
 <!-- a태그 강제 클릭 이벤트를 하기 위한 라이브러리 -->
@@ -62,10 +105,34 @@ $().ready(function () {
     });
 });
 //수정으로 이동하기 ---------------------
-$().ready(function () {
-    $("#updateBtn").click(function () {
+// $().ready(function () {
+//     $("#updateBtn").click(function () {
+//         Swal.fire({
+//             title: '수정창으로 이동할까요?',
+//             text: "",
+//             icon: 'question',
+//             showDenyButton: true,
+//             confirmButtonColor: '#3085d6',
+//             denyButtonColor: '#d33',
+//         }).then((result) => {
+//         	  if (result.isConfirmed) {
+//         		    $("#updateBtn").attr("href","update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
+//         		    $("#updateBtn")[0].click()
+//         		    Swal.fire('수정창으로 이동합니다.', '', 'success')
+//         		  } else if (result.isDenied) { 
+//         		    Swal.fire('수정창으로 이동 안 합니다.', '', 'success')
+//         		  }
+//         })
+//     });
+// });
+//답변 수정으로 이동하기 ---------------------
+$(this).ready(function () {
+    $(".Btn3").click(function () {
+    	var no = $(this).val();
+    	var refNo = $(this).val();
+    	var parentNo = $(this).val();
         Swal.fire({
-            title: '수정창으로 이동할까요?',
+            title: '답변 수정으로 이동할까요?',
             text: "",
             icon: 'question',
             showDenyButton: true,
@@ -73,8 +140,18 @@ $().ready(function () {
             denyButtonColor: '#d33',
         }).then((result) => {
         	  if (result.isConfirmed) {
-        		    $("#updateBtn").attr("href","update.do?no=${vo.no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
-        		    $("#updateBtn")[0].click()
+          		  var no = $(this).parent().find(".no1").text();
+          		  var refNo = $(this).parent().find(".refNo1").text();
+          		  var parentNo = $(this).parent().find(".parentNo1").text();
+            	  alert(no);
+            	  alert(refNo);
+            	  alert(parentNo);
+					location = "update.do?no="+ no
+						+ "&refNo=" + refNo
+						+ "&parentNo=" + parentNo
+						+ "&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}";
+      		   // $(".Btn3").attr("href","update.do?no=${qna.no}&page=${param.page}&perPageNum=${param.perPageNum}&key=${param.key}&word=${param.word}")
+        		    $(".Btn3")[0].click()
         		    Swal.fire('수정창으로 이동합니다.', '', 'success')
         		  } else if (result.isDenied) { 
         		    Swal.fire('수정창으로 이동 안 합니다.', '', 'success')
@@ -142,23 +219,26 @@ $().ready(function () {
 					  <c:if test="${qna.parentNo > 1 }">
 <!-- 					  	<ul class="chat"> -->
 				     	<li class="list-group-item row title">
-				   			<input type="hidden" name="no" value="${qna.no }">
-				   			<input type="hidden" name="refNo" value="${qna.refNo }">
-				   			<input type="hidden" name="parentNo" value="${qna.parentNo }">
-				     		<p class="row"><strong>Q.</strong><c:out value=" ${qna.title }"/></p>
+				   			
+<%-- 				   			<input type="hidden" name="refNo" class="refNo1" value="${qna.refNo }"> --%>
+<%-- 				   			<input type="hidden" name="parentNo" class="parentNo1" value="${qna.parentNo }"> --%>
+				     		<p class="row" style="padding: 2px 1px 3px 5px;"><strong>Q.</strong><c:out value=" ${qna.title }"/></p>
 				     	</li>
 				     	<li class="list-group-item row showContent"><p style="white-space: pre-line;">A. ${qna.content }</p>
-				     	<p>답변자: ${qna.id }</p></li>
+				     	<p>답변자: ${qna.id }</p>
 									<c:if test="${!empty login && login.gradeNo == 9}">
-
-										<c:if test="${vo.id != login.id && login.gradeNo == 9}">
-											<a class="btn btn-info pull-right" id="answerBtn" style="font-size: 14px;">답변</a>
-										</c:if>
 										<c:if test="${vo.id == login.id && login.gradeNo == 9}">
-											<a class="btn btn-info pull-right" id="updateBtn" style="font-size: 14px;">수정</a>
-											<a class="btn btn-info pull-right" id="deleteBtn" style="font-size: 14px;">삭제</a>
+											<a class="btn btn-info pull-right Btn1" id="updateBtn" style="font-size: 14px;">수정</a>
+											<a class="btn btn-info pull-right Btn2" id="deleteBtn" style="font-size: 14px;">삭제</a>
 										</c:if>
+										<a class="btn btn-info pull-right Btn3" id="updateBtn" style="font-size: 14px;">수정</a>
+											<a class="btn btn-info pull-right Btn4" id="deleteBtn" style="font-size: 14px;">삭제</a>
 									</c:if>
+									<span class="no1">${qna.no }<input type="hidden" name="no" ></span>
+				   			<span class="refNo1">${qna.refNo }<input type="hidden" name="refNo" ></span>
+				   			<span class="parentNo1">${qna.parentNo }<input type="hidden" name="parentNo" ></span>
+									</li>
+									
 <!-- 								</ul> -->
 					  	</c:if>
 					  	</c:forEach>
@@ -169,9 +249,21 @@ $().ready(function () {
 				  </div>
 			  <!-- col의 끝 -->
 		
-		
-				<a class="btn btn-info pull-right" id="listBtn" style="font-size: 14px;">리스트</a>
-		
+				<div class="Btn">
+				<a class="btn btn-info pull-right Btn5" id="listBtn">리스트</a>
+				<c:if test="${!empty login && login.gradeNo == 9}">
+
+				<c:if test="${vo.id != login.id && login.gradeNo == 9}">
+					<a class="btn btn-info pull-right Btn6" id="answerBtn" style="font-size: 14px;">답변</a>
+				</c:if>
+				<c:if test="${vo.id == login.id && login.gradeNo == 9}">
+					<a class="btn btn-info pull-right Btn7" id="updateBtn" style="font-size: 14px;">수정</a>
+					<a class="btn btn-info pull-right Btn8" id="deleteBtn" style="font-size: 14px;">삭제</a>
+				</c:if>
+					<a class="btn btn-info pull-right Btn8" id="updateBtn" style="font-size: 14px;">수정</a>
+					<a class="btn btn-info pull-right Btn9" id="deleteBtn" style="font-size: 14px;">삭제</a>
+				</c:if>
+				</div>
 </div>
 </body>
 </html>

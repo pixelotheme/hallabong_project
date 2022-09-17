@@ -11,18 +11,22 @@
 <meta charset="UTF-8">
 	<title>맛집 자세히 보기</title>
 <style type="text/css">
-  .img{
-    position: relative;                                                           
-    height: 50vh;
-    background-size: cover;
-  }
-  .img-cover{
-     position: absolute;
-     height: 100%;
-     width: 100%;
-     background-size: cover;                                                              
-  }
+/*   .img{ */
+/*     position: relative;                                                             */
+/*      height: 50vh;  */
+/*      background-size: cover;  */
+/*   } */
+/*   .img-cover{ */
+/*      position: absolute; */
+/*      height: 100%; */
+/*      width: 100%; */
+/*      background-size: cover;                                                               */
+/*   } */
+.content{
+font-style : italic;
+font-weight: 700;
 
+}
 </style>
 
 <script type="text/javascript" src="/resources/reply/js/reply.js"></script>
@@ -38,7 +42,7 @@ $(function() {
 	});
 	
 	$("#deleteBtn").on("click", function(){
-		if(confirm("정말 삭제하시겠니까?"))
+		if(confirm("정말 삭제하시겠습니까?"))
 			location = "delete.do?no=${vo.no}&perPageNum=${param.perPageNum}";
 	});
 	
@@ -56,12 +60,13 @@ $(function() {
 	<div class="container">
 	<!-- 맛집 내용 출력 -->
 	<div class="container">
-		<div class="img" style="background-image: url('${vo.image}');">
+<%-- 		<div class="img" style="background-image: url('${vo.image}'); "> --%>
+		<p style="text-align:center;"><img class = "image" src="${vo.image }" alt="${vo.name }" ></p>
 	        <h4>
 	        </h4>        
 	        
-	        <div class="img-cover"></div>
-		</div>
+<!-- 	        <div class="img-cover" style="width: 100%"></div> -->
+<!-- 		</div> -->
 	</div>
 	<h2>${vo.name }</h2>
 	<p><span class="glyphicon glyphicon-eye-open" style="padding-right: 10px;"></span> ${vo.hit }</p>
@@ -77,7 +82,7 @@ $(function() {
 			<p>음식종류 : ${vo.kind }</p>
 			<p>가격대 : ${vo.price }</p>
 			<p>전화번호 : ${vo.tel }</p>
-			<p>${vo.content }</p>		
+			<p class = "content">${vo.content }</p>		
 			<p>주차 : ${vo.park }</p>
 			<p>영업시간 : ${vo.hours }</p>
 
@@ -97,9 +102,7 @@ $(function() {
 			</div>
 			</div>
 			
-<%-- 					<c:if test="${!empty login && login.gradeNo == 9 }"> <!-- 관리자 계정일때 수정, 삭제 표시 --> --%>
 			<%@include file="../includes/reply.jsp" %>
-<%-- 				</c:if> --%>
 		
 			
 	</div>

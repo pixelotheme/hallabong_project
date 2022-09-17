@@ -31,7 +31,6 @@
         </div>
     </div>
     <!-- Header End -->
-    <h2>호텔예약등록</h2>
     <form method="post">
 	<input name="perPageNum" value="${param.perPageNum }" type="hidden">
 	

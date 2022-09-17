@@ -66,5 +66,30 @@
         }
     });
     
+			$(".bigdata").on('click',"div[id='dataRow']",function() {
+			//alert("click");
+			var no = $(this).find(".no").text();
+			alert("dataRow class click. no =" + no);
+
+ 			if ($(this).find('h6').data("type") === 'business'){
+				//alert("d")	
+ 				location = "/business/view.do?no=" + no;
+				}
+			});	
+			
+			$(".rentdata").on('click',"div[id='cardata']",function() {
+			//alert("click");
+			var carNo = $(this).find(".no").text();
+			var carInfoNo = $(this).find(".infoNo").text();
+			var companyNo = $(this).find(".comNo").text();
+			alert("dataRow class click. no =" + carNo + carInfoNo + companyNo);
+				
+			//alert($(this).find('h6').data("type") === 'rentCarBoard');
+ 				location = "/rentcarboard/rentCarBoardView.do?carNo=" + carNo 
+						+"&carInfoNo=" + carInfoNo 
+						+"&companyNo=" + companyNo 
+						;
+			});
+
 })(jQuery);
 

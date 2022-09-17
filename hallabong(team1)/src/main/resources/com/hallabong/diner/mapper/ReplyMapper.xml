@@ -8,10 +8,10 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 	<!--  댓글 리스트 -->
 	<select id="getListWithPaging" resultType="com.hallabong.diner.vo.ReplyVO">
 	<![CDATA[
-		SELECT rno, no, reply, id, replyDate, updateDate, star
+		SELECT rno, no, reply, id, replyDate, updateDate
 		FROM (
 		    SELECT /*+ INDEX_DESC(diner_reply diner_reply_rno_pk) */
-		        rownum rn, rno, no, reply, id, replyDate, updateDate, star
+		        rownum rn, rno, no, reply, id, replyDate, updateDate
 		        FROM diner_reply
 		        WHERE no = #{no}
 		        AND rno > 0
@@ -31,8 +31,8 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 
 	<!-- 댓글 등록 -->
 	<insert id="insert">
-		insert into diner_reply(rno, no, reply, id, star)
-		values(diner_reply_seq.nextval, #{no}, #{reply}, #{id}, #{star})
+		insert into diner_reply(rno, no, reply, id)
+		values(diner_reply_seq.nextval, #{no}, #{reply}, #{id})
 	</insert>
 	
 	<!-- 댓글 수정 -->
@@ -40,7 +40,6 @@ PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
 		update diner_reply
 		set
 			reply = #{reply},
-			star = #{star},
 			updateDate = sysdate
 		where rno = #{rno}
 	</update>

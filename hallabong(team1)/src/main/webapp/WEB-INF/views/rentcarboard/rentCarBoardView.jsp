@@ -11,6 +11,11 @@
 <meta charset="UTF-8">
 <title>렌트카 view</title>
 
+<style type="text/css">
+.list-group-item{
+	margin-bottom: 1px;
+}
+</style>
 <!-- datepicker -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -169,18 +174,12 @@ $(function(){
 					<div class="col-xs-3">연료</div>
 					<div class="col-xs-9">${carBasicInfoVO.carFuel }</div><p></p>
 				</li>
-<!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-xs-3">회사 번호</div><div class="col-xs-9">${carsVO.companyNo }</div> --%>
-<!-- 				</li> -->
 				<li class="list-group-item row">
 					<div class="col-xs-3">가격</div><div class="col-xs-9"><fmt:formatNumber value='${carsVO.price }' pattern='#,###원'/></div>
 				</li>
 				<li class="list-group-item row">
 					<div class="col-xs-3">기어</div><div class="col-xs-9">${carsVO.gearbox}</div>
 				</li>
-<!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-xs-3">보험종류</div><div class="col-xs-9">${carsVO.insuranceType }</div> --%>
-<!-- 				</li> -->
 				<li class="list-group-item row">
 					<div class="col-xs-3">대여가능 나이</div><div class="col-xs-9"><fmt:formatNumber value='${carsVO.rentAge }' pattern='#살'/></div>
 				</li>
@@ -190,21 +189,9 @@ $(function(){
 				<li class="list-group-item row">
 					<div class="col-xs-3">면허</div><div class="col-xs-9">${carsVO.license }</div>
 				</li>
-<!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-xs-3">보험 안내</div><div class="col-xs-9">${carsVO.insuranceInfo }</div> --%>
-<!-- 				</li> -->
-<!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-xs-3">참고사항</div><div class="col-xs-9">${carsVO.rentCarNote }</div> --%>
-<!-- 				</li> -->
-<!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-xs-3">취소/환불</div><div class="col-xs-9">${carsVO.cancelAndRefund }</div> --%>
-<!-- 				</li> -->
 				<li class="list-group-item row">
 					<div class="col-xs-3">연식</div><div class="col-xs-9">${carsVO.modelYears }</div>
 				</li>
-<!-- 				<li class="list-group-item row"> -->
-<%-- 					<div class="col-xs-3">렌트카 등록 아이디</div><div class="col-xs-9">${carsVO.id }</div> --%>
-<!-- 				</li> -->
 			</ul>	
 		</div>	
 

@@ -38,40 +38,36 @@ $(document).ready(function(){
 	<input type="hidden" name="perPageNum" value="${pageObject.perPageNum}">
 	<input type="hidden" name="word" value="${pageObject.word}">
 	<input type="hidden" name="del" value="${vo.thumbnail}">
-	<input class="form-control" name="no" value="${vo.no}" readonly="readonly"
-   			id="no" data-no="${vo.no}" type="hidden">
-   	<input class="login" id="login" value="${vo.id}" type="hidden">
+	<input type="hidden" name="no" value="${vo.no}" readonly="readonly" id="no" data-no="${vo.no}">
+   	<input type="hidden" name="login" id="login" value="${vo.id}">
    	<div class="sub_title">
-		<h2 id="viewShopNo">${vo.name}</h2>
+		<h2>${vo.name}</h2>
 		<div class="subInfo">
 			<ul>
 				<li>${vo.areaName}</li>
 				<li>${vo.themeName}</li>
 			</ul>
 		</div>
-	</div><!-- // sub_title -->
-	
-	<div class="likeCon">
-		<!-- 좋아요 부분 -->
-		<c:if test="${empty login}"> 
-			<!-- 로그인을 하지 않은 경우 - 좋아요와 상관이 없음 -->
-			<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like">좋아요</i></button>
-		</c:if>
-		<c:if test="${!empty login}">
-			<!--  로그인을 한 경우 -->
-			<c:if test="${empty vo.likeNo}">
-			<!-- 만약 로그인을 한 경우 likeNo가 비어있다면 좋아요를 누를 수 있다.-->
-				<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like">좋아요</i></button>
+		
+		<div class="likeCon">
+			<!-- 좋아요 부분 -->
+			<c:if test="${empty login}"> 
+				<!-- 로그인을 하지 않은 경우 - 좋아요와 상관이 없음 -->
+				<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like"></i> ${vo.likeCnt}</button>
 			</c:if>
-			<c:if test="${!empty vo.likeNo}">
-				<!-- 만약 로그인을 한 경우 myLiked가 비어있지 않다면 좋아요를 취소할 수 있다.-->
-				<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like">취소</i></button>
+			<c:if test="${!empty login}">
+				<!--  로그인을 한 경우 -->
+				<c:if test="${empty vo.no}">
+				<!-- 만약 로그인을 한 경우 likeNo가 비어있다면 좋아요를 누를 수 있다.-->
+					<button type="button" id="likeBtn" class="like"><i class="fa fa-heart-o" id="like"></i> ${vo.likeCnt}</button>
+				</c:if>
+				<c:if test="${!empty vo.no}">
+					<!-- 만약 로그인을 한 경우 myLiked가 비어있지 않다면 좋아요를 취소할 수 있다.-->
+					<button type="button" id="likeBtn" class="like"><i class="fa fa-heart" id="like"></i> ${vo.likeCnt}</button>
+				</c:if>
 			</c:if>
-		</c:if>
-		<div class="likeText">
-			<p>좋아요 ${vo.likeCnt}개</p>
 		</div>
-	</div>
+	</div><!-- // sub_title -->
 	
 	<div class="info_box">
 		<div class="summaryInfo">
@@ -98,14 +94,12 @@ $(document).ready(function(){
 	</div><!-- // info_box -->
 	
 	
-	<div class="text-right">
-		<c:if test="${!empty login}">
-			<c:if test="${!empty login && login.gradeNo == 9 }">
-				<button id="updateBtn" class="btn btn-info">글수정</button>
-				<button id="deleteBtn" class="btn btn-default">글삭제</button>
-			</c:if>
+	<div class="text-right" style="margin-top:30px;">
+		<c:if test="${!empty login && login.gradeNo == 9 }">
+			<button id="updateBtn" class="btn btnC">글수정</button>
+			<button id="deleteBtn" class="btn btnD">글삭제</button>
 		</c:if>
-				<button id="listBtn" class="btn btn-default">글목록</button>
+			<button id="listBtn" class="btn btnD">글목록</button>
 	</div>
 </div><!-- //container -->
 </body>

@@ -83,7 +83,7 @@ public class QnaController {
 	
 	// 질문 / 답변 보기(QNA 글 보기)
 	@GetMapping("/view.do")
-	public String view(long no, long refNo, Model model) throws Exception{
+	public String view(Integer no, Integer refNo, Model model) throws Exception{
 		
 		log.info("no ----------------------" + no);
 		// list = new ArrayList<QnaVO>();
@@ -103,7 +103,7 @@ public class QnaController {
 	
 	// 답변하기 폼
 	@GetMapping("/answer.do")
-	public String answerForm(long no, Model model, long refNo) throws Exception {
+	public String answerForm(Integer no, Model model, Integer refNo) throws Exception {
 		
 		model.addAttribute("vo", service.view(no, refNo));
 		
@@ -131,24 +131,29 @@ public class QnaController {
 	
 	// 수정 폼
 	@GetMapping("/update.do")
-	public String updateForm(long no, Model model, long refNo) throws Exception {
+	public String updateForm(Integer no, Model model, Integer refNo) throws Exception {
+		
+		List<QnaVO> list = service.view(no, refNo);
 		
 		// DB에서 데이터 가져오기
-		model.addAttribute("vo", service.view(no, refNo));
-		
+		model.addAttribute("list", list);
+		log.info("no111111111111111111refref:::"+ no + refNo);
 		Thread.sleep(1000);
 		return "qna/update";
 	}
 	
 	// 수정 처리
 	@PostMapping("/update.do")
-	public String update(QnaVO vo, PageObject pageObject) throws Exception {
+	public String update(Integer no, Integer refNo, Integer parentNo, QnaVO vo, PageObject pageObject) throws Exception {
 		
 		// DB 처리
-		service.update(vo);
-		
+		List<QnaVO> list = service.update(vo);
+		log.info("ovovovovovvoovovvoo:::"+ list);
+
 		Thread.sleep(1000);
-		return "redirect:view.do?no=" + vo.getNo()
+		return "redirect:view.do?no=" + no
+				+ "&refNo=" + refNo
+				+ "&parentNo=" + parentNo
 				+ "&page=" + pageObject.getPage()
 				+ "&perPageNum=" + pageObject.getPerPageNum()
 				+ "&key=" + pageObject.getKey()
@@ -157,7 +162,7 @@ public class QnaController {
 	
 	// 삭제처리
 	@GetMapping("/delete.do")
-	public String delete(long no, int perPageNum) throws Exception{
+	public String delete(Integer no, int perPageNum) throws Exception{
 		
 		// DB 처리
 		service.delete(no);

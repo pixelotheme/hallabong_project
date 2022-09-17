@@ -5,11 +5,11 @@
 	<!-- 	// list -->
 	<select id="list" resultType="com.hallabong.hotelbookingdate.vo.HotelBookingDateVO">
 	<![CDATA[
-		select bono, ro_no, id, hbno,checkin, checkout, booking_state
+		select bono, ro_no, hbno,checkin, checkout
 		from(
 			select
 			/*+ INDEX_DESC( hotel_booking_date hotel_booking_date_pk)*/
-			 rownum rnum, bono, ro_no, id, hbno, checkin, checkout, booking_state
+			 rownum rnum, bono, ro_no, hbno, checkin, checkout
 			from hotel_booking_date
 			WHERE ro_no = 1
 		        AND bono > 0
@@ -33,13 +33,10 @@
 	</select>
 
 	
-	
-	
 	<!-- 	// write처리 -->
 	<insert id="write">
-		insert into hotel_booking(hbno, id, ro_no,userName, userTel, userEmail, payOption, payType, confirmNo)
-		values(hotel_booking_seq.nextval, #{id}, '03', #{userName}, #{userTel}, #{userEmail},#{payOption},#{payType},
-		#{confirmNo})
+		INSERT INTO hotel_booking_date
+		VALUES(hotel_booking_date_seq.nextval, '3', '#{hbno}', '#{checkin}','#{checkout}');
 	</insert>
 	<!-- 	// update처리 -->
 	<update id="update">

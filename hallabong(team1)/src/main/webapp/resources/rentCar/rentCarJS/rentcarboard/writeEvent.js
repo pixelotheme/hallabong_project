@@ -34,7 +34,7 @@ $(function(){
 		else{
 
 			if(!checkData()){
-				alert("입력다시")
+//				alert("입력다시")
 				return false;
 				}
 			else{

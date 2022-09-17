@@ -48,8 +48,6 @@ function themeChange() {
 </head>
 <body>
 <div class="container">
-	<h2>Tour</h2>
-	
 	<!-- 검색 부분 -->
 	<form class="form-inline">
 		<input name="page" type="hidden" value="${pageObject.page}">
@@ -57,7 +55,7 @@ function themeChange() {
 		
 		<div class="input-group" id="area_select">
 			<select name="area" id="area" class="form-control" onchange="areaChange()">
-				<option value="0">지역 전체</option>
+				<option value="0" ${(pageObject.area == 0)? "selected":""}>지역 전체</option>
 				<option value="1" ${(pageObject.area == 1)? "selected":""}>제주시</option>
 				<option value="2" ${(pageObject.area == 2)? "selected":""}>애월읍</option>
 				<option value="3" ${(pageObject.area == 3)? "selected":""}>한림읍</option>
@@ -74,7 +72,7 @@ function themeChange() {
 		</div>
 		<div class="input-group" id="theme_select">
 			<select name="theme" id="theme" class="form-control" onchange="themeChange()">
-				<option value="0">테마 전체</option>
+				<option value="0" ${(pageObject.theme == 0)? "selected":""}>테마 전체</option>
 				<option value="1" ${(pageObject.theme == 1)? "selected":""}>체험관광</option>
 				<option value="2" ${(pageObject.theme == 2)? "selected":""}>휴양관광</option>
 				<option value="3" ${(pageObject.theme == 3)? "selected":""}>역사문화</option>
@@ -120,7 +118,7 @@ function themeChange() {
 	
 	<div class="text-right">
 		<c:if test="${!empty login && login.gradeNo == 9 }">
-			<a href="write.do?perPageNum=${pageObject.perPageNum}" class="btn btn-info">등록</a>
+			<a href="write.do?perPageNum=${pageObject.perPageNum}" class="btn btnC">등록</a>
 		</c:if>
 	</div>
 	<div class="text-center">

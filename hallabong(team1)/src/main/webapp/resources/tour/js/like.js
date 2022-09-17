@@ -2,16 +2,16 @@
  * 좋아요 처리, 좋아요 취소
  */
 
-var bookmarkService = (
+var likeService = (
    function() {
 
       function likeView(param, callback, error) {
 
-         var likeNo = $("#viewShopNo").text();
-         var id = $(".login").text();
+         var no = $("#no").text();
+         var id = $("#login").text();
          $.getJSON(
 
-            "/tour/view.do?likeNo=" + likeNo + "&id=" + id,
+            "/tour/view.do?no=" + no + "&id=" + id,
             function(data) {
 
                if (callback) {
@@ -43,7 +43,7 @@ var bookmarkService = (
 
 
       //좋아요 처리 함수
-      function bookmark(like, callback, error) {
+      function liked(like, callback, error) {
 
          $.ajax({
             //전송방법의 타입
@@ -93,7 +93,7 @@ var bookmarkService = (
          });//$.ajax의 끝 
       }
       return {
-         bookmark: bookmark,
+         liked: liked,
          likeView: likeView,
          deleteBookmark: deleteBookmark
       }
@@ -102,21 +102,21 @@ var bookmarkService = (
 
 $(function() {
 
-   var id = $(".login").text();
-   var likeNo = $("#viewShopNo").text();
+   var id = $("#login").text();
+   var no = $("#no").text();
 
    //   alert(id);
 
    $(".like").click(function() {
 
       // 북마크 모달창 수정 버튼 이벤트 - 수정 처리 -----------------------------------------
-      var login = $(".login").text();
+      var login = $("#login").text();
 
    });
 
    function checkLike() {
 
-      bookmarkService.likeView({ likeNo: likeNo, id: id }, function(data) {
+      likeService.likeView({ no: no, id: id }, function(data) {
 
          if (data != null) {
             $(".like").attr("class", "liked");		//  수정 완료
@@ -134,10 +134,10 @@ $(function() {
    $(document).on("click", ".liked", function() {
       var unlike = {};
 
-      unlike.likeNo = likeNo;
+      unlike.no = no;
       unlike.id = id;
 		
-		bookmarkService.deleteBookmark(unlike, function(result, status) {
+		likeService.deleteBookmark(unlike, function(result, status) {
          console.log("result=" + result + ",status =" + status);
 //         alert("result=" + result + ",status =" + status);
 
@@ -157,13 +157,13 @@ $(function() {
 
    // 좋아요 이벤트 ================================================
    $(document).on("click", ".like", function() {
-      // alert("bookmark alert");
+      // alert("liked alert");
       var like = {};
 
-      like.likeNo = likeNo;
+      like.no = no;
       like.id = id;
 
-      bookmarkService.bookmark(like, function(result, status) {
+      likeService.liked(like, function(result, status) {
 
          if (status == "notmodified") {
 

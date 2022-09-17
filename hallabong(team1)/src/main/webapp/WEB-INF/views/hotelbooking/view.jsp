@@ -36,7 +36,7 @@
         </div>
     </div>
     <!-- Header End -->
-    <h2>호텔예약수정하기</h2>
+    
     <div class="container-fluid booking mt-5 pb-5">
         <div class="container pb-5">
             <div class="bg-light shadow" style="padding: 30px;">

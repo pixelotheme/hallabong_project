@@ -46,34 +46,34 @@ replyService = {
 	
 	
 	
-//	write : function(reply, callback, error){
-//		
-//	 	console.log("reply write ....... reply : " + JSON.stringify(reply));
-// 		
-// 		// ajax를 이용해서 서버에 데이터 전달(URL - /reply/new)
-// 		$.ajax(
-// 			{
-// 				type : "post", // 전달 방식
-// 				url : module +"/write.do", // url
-// 				data : JSON.stringify(reply), // 브라우저 -> 서버 전달 데이터
-// 				contentType : "application/json; charset=utf-8", // 전달 데이터의 형식
-// 				success : function(result, status, xhr){ // 서버 처리가 성공 후 브라우저에서 실행된 함수 
-// 							 if(callback) {
-// 							 	callback(result);
-// 							 }
-// 					},
-// 				error : function(xhr, status, er) { // 서버 처리가 실패 후 브라우저에서 실행된 함수 
-// 							if(error) {
-// 								error(er);
-// 							} else {
-// 								console.log(xhr);
-// 								console.log(status);
-// 								console.log(er);
-// 							}
-// 					}
-// 			}
-// 		  );	
-//	},// write의 끝
+	write : function(reply, callback, error){
+		
+	 	console.log("reply write ....... reply : " + JSON.stringify(reply));
+ 		
+ 		// ajax를 이용해서 서버에 데이터 전달(URL - /reply/new)
+ 		$.ajax(
+ 			{
+ 				type : "post", // 전달 방식
+ 				url : module +"/write.do", // url
+ 				data : JSON.stringify(reply), // 브라우저 -> 서버 전달 데이터
+ 				contentType : "application/json; charset=utf-8", // 전달 데이터의 형식
+ 				success : function(result, status, xhr){ // 서버 처리가 성공 후 브라우저에서 실행된 함수 
+ 							 if(callback) {
+ 							 	callback(result);
+ 							 }
+ 					},
+ 				error : function(xhr, status, er) { // 서버 처리가 실패 후 브라우저에서 실행된 함수 
+ 							if(error) {
+ 								error(er);
+ 							} else {
+ 								console.log(xhr);
+ 								console.log(status);
+ 								console.log(er);
+ 							}
+ 					}
+ 			}
+ 		  );	
+	},// write의 끝
 //	
 //	// 댓글 수정
 //	update : function(reply, callback, error){

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hallabong.rentcarboard.carbasicinfo.domain.RentCarBoardCarBasicInfoVO;
 import com.hallabong.rentcarboard.carbasicinfo.service.RentCarBoardCarBasicInfoService;
 import com.hallabong.rentcarboard.carfileupload.service.RentCarBoardCarFileUploadService;
+import com.hallabong.rentcarboard.carinsurance.domain.RentCarBoardCarInsuranceVO;
 import com.hallabong.rentcarboard.carinsurance.service.RentCarBoardCarInsuranceService;
 import com.hallabong.rentcarboard.caroption.domain.RentCarBoardCarOptionVO;
 import com.hallabong.rentcarboard.caroption.service.RentCarBoardCarOptionService;
@@ -91,13 +92,48 @@ public class RentCarBoardController {
 		rccVO.setAddress(rccVO.getAddress().replace("/", ","));
 		
 		model.addAttribute("companyVO", rccVO); //완료
-		model.addAttribute("carsVO", service.getCars(carNo));
+		
+		RentCarBoardCarsVO rcbcVO = service.getCars(carNo);
+		log.info("carVO : " + rcbcVO);
+		if(rcbcVO.getCancelAndRefund() == null || rcbcVO.getCancelAndRefund().equals("")) {
+			rcbcVO.setCancelAndRefund("입력된 내용이 없습니다");
+		}else {
+			rcbcVO.setCancelAndRefund(rcbcVO.getCancelAndRefund().replace("\n", "<br>").replace(" ", "&nbsp;"));
+		}
+		
+		if(rcbcVO.getInsuranceInfo() == null || rcbcVO.getInsuranceInfo().equals("")) {
+			rcbcVO.setInsuranceInfo("입력된 내용이 없습니다");
+		}else {
+			rcbcVO.setInsuranceInfo(rcbcVO.getInsuranceInfo().replace("\n", "<br>").replace(" ", "&nbsp;"));
+		}
+		
+		if(rcbcVO.getRentCarNote() == null || rcbcVO.getRentCarNote().equals("")) {
+			
+			rcbcVO.setRentCarNote("입력된 내용이 없습니다");
+		}else {
+			rcbcVO.setRentCarNote(rcbcVO.getRentCarNote().replace("\n", "<br>").replace(" ", "&nbsp;"));
+		}
+				
+		model.addAttribute("carsVO", rcbcVO);
 		
 		//리스트에서 carInfoNo 도 같이 뽑아둠
 		model.addAttribute("carBasicInfoVO", cbiService.getCarBasicInfo(carInfoNo)); // 완료
-		
 		model.addAttribute("carOptionVO", copService.getCarOption(carNo)); //완료
-		model.addAttribute("carInsuranceVO", cisService.getCarInsurance(carNo)); //완료
+		
+		List<RentCarBoardCarInsuranceVO> rcbiVO =  cisService.getCarInsurance(carNo);
+		for(RentCarBoardCarInsuranceVO vo : rcbiVO) {
+			if(vo.getCustomerCharge() == null || vo.getCustomerCharge().equals("")) {
+				vo.setCustomerCharge("입력된 내용이 없습니다");
+			}
+			else {
+				vo.setCustomerCharge(vo.getCustomerCharge().replace("\n", "<br>").replace(" ", "&nbsp;"));
+				
+			}
+			
+			
+		}
+		model.addAttribute("carInsuranceVO", rcbiVO); //완료
+		
 		model.addAttribute("carFileUploadVO", cfupService.getCarFileUpload(carInfoNo)); //완료
 		
 		PageObjectCustom pageObject = new PageObjectCustom();
@@ -125,6 +161,7 @@ public class RentCarBoardController {
 		log.info("rentCarWrite"+carsVO);
 		//로그인한 아이디로 지정
 		carsVO.setId("admin");
+		
 		
 		int result = service.writeCarGetCarNo(carsVO);
 		log.info("result" + result);

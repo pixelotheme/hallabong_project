@@ -46,13 +46,6 @@ public class TourServiceImpl implements TourService {
 		return attachMapper.findByNo(no);
 	}
 
-	// 이미지 변경
-	@Override
-	public int imageChange(TourVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return mapper.imageChange(vo);
-	}
-
 	// 글작성
 	@Override
 	public int write(TourVO vo) throws Exception {

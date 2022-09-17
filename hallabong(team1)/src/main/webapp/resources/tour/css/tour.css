@@ -10,7 +10,7 @@
 }
 
 .form-inline{
-	margin-bottom:40px!important;
+	margin-bottom:60px!important;
 }
 
 #area_select{
@@ -48,6 +48,10 @@
 	margin:0!important;
 	border-left:none!important;
 	border-radius:0!important;
+}
+
+.form-group textarea{
+	height: 150px !important;
 }
 
 /* 리스트 */
@@ -103,6 +107,9 @@
 	text-align:left;
 	font-size:18px !important;
 	margin:0;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .tourList .caption p.name span{
 	display:none;
@@ -163,9 +170,9 @@
 .summaryInfo{
 	width:100%;
 	border-top:2px solid #1d1d1d;
-	border-bottom:1px dotted #888;
+	border-bottom:1px dotted #CCC;
 	padding:25px 0;
-	margin-bottom:35px;
+	margin-bottom:60px;
 }
 .summaryInfo dl{
 	margin:0;
@@ -206,8 +213,8 @@
 	margin-top:50px;
 	margin-left:-12px;
 	padding-left:13px;
-	color:#f16214;
-	font-size:25px;
+	color:#FF8000;
+	font-size:25px !important;
 	line-height:36px;
 	font-weight:bold;
 }
@@ -217,20 +224,77 @@
     width:6px;
     height:6px;
     margin-right:2px;
-    background-color:#f16214;
+    background-color:#FF8000;
     vertical-align:text-top;
 }
 .info p{
 	line-height:23px;
 }
-.root_daum_roughmap{width:100%!important;}
+.root_daum_roughmap{
+	width:100%!important;
+}
 
+.uploadResult ul{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
 
 .uploadResult ul li{
 	list-style:none;
+	width: 400px;
+	padding: 2px;
+}
+
+.uploadResult ul li img{
+	max-width: 100%;
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
 	background-color: #F28F38 !important;
     border-color: #F28F38 !important;
+}
+
+.btnC{
+	background:#FF8000;
+	border-color:#FF8000;
+	color:#FFF;
+}
+.btnC:hover{
+	color:#FFF;
+}
+.btnD{
+	background:#FFF;
+	border-color:#CCC;
+	color:#333;
+}
+
+/* 좋아요 버튼 부분 */
+.likeCon{
+	text-align: center;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.likeCon button{
+	background: none;
+	border: none;
+	float: left;
+}
+.likeCon button:active, .likeCon button:focus{
+	border: none;
+}
+.likeCon .likeText{
+	float: left;
+}
+.likeCon .likeText p{
+	margin: 0;
+}
+.fa-heart{
+	color: red;
 }

@@ -61,11 +61,14 @@ function execPostCode() {
 	$(function(){
 		$("#pwChange").hide();
 			$("#pwChangeBtn").click(function(){
-				$("#pwChange").show();
+				confirm("비밀번호를 변경하시겠습니까?");
+				if(confirm == 1) {
+					$("#pwChange").show();
+					}
 
 
 				})
-		})
+		});
 		
 	
 	// 비밀번호 확인
@@ -220,8 +223,8 @@ function execPostCode() {
 						name="address" id="addr2" type="text" readonly="readonly"  style="background:#eee;" value="${vo.address }" /> </span>
 				</div>
 				<div>
-					<span class="postboxtext int_mobile"> <input class="int" placeholder="상세주소" name="address"
-						id="addr3" type="text" /> </span>
+					<span class="postboxtext int_mobile"> 
+					<input class="int" placeholder="상세주소" name="address" id="addr3" type="text" /> </span>
 				</div>
 				
 				<div>

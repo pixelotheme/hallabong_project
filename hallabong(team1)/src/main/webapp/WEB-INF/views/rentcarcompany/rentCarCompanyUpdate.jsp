@@ -27,7 +27,7 @@ $(function(){
 //회사 삭제
 	$("#deleteBtn").on("click", function(){
 		
-			alert(companyNo)
+// 			alert(companyNo)
 			if(confirm("정말 삭제하시겠습니까?")){
 			location='companyDelete.do?companyNo='+companyNo;
 				}

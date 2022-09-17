@@ -76,7 +76,7 @@ public class DinerReplyRestController {
 		log.info(insertCount);
 		
 		return insertCount == 1 // 정상 등록이 되었나?
-				? new ResponseEntity<String>("register success!", HttpStatus.OK) // true
+				? new ResponseEntity<String>("Thank you for your review!", HttpStatus.OK) // true
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR); // false
 	}
 	
@@ -93,7 +93,7 @@ public class DinerReplyRestController {
 		log.info("modify ......... vo : " + vo);
 		
 		return service.modify(vo) == 1
-				? new ResponseEntity<String>("update success", HttpStatus.OK)
+				? new ResponseEntity<String>("GOOD UPDATE!", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
 	}
 	
@@ -103,7 +103,7 @@ public class DinerReplyRestController {
 		log.info("remove - rno : " + rno);
 		
 		return service.remove(rno) == 1
-			? new ResponseEntity<String>("remove success~", HttpStatus.OK)
+			? new ResponseEntity<String>("NICE DELETE!", HttpStatus.OK)
 			: new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 	}
 

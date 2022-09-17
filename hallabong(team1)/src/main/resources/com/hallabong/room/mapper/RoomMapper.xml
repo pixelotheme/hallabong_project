@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/dtd/mybatis-3-mapper.dtd"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.hallabong.room.mapper.RoomMapper">
+
+	<!--  댓글 리스트 -->
+	<select id="list" resultType="com.hallabong.room.vo.RoomVO">
+	<![CDATA[
+		SELECT ro_no, no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName 
+		FROM (
+		    SELECT rownum rnum, ro_no, no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName 
+		FROM (
+		    	select r.ro_no, r.no, r.ro_name, r.id, r.ro_price, r.ro_people, r.ro_info, r.ro_state, r.fileName 
+       			 from room r, business b
+				 where r.no = b.no and b.no = #{no}
+				 
+		        order by ro_no desc
+		        )
+		) where rnum between #{pageObject.startRow} and #{pageObject.endRow}
+	]]>
+	</select>
+<!-- 		SELECT ro_no, no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName  -->
+<!-- 		FROM ( -->
+<!-- 		    SELECT ro_no, no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName  -->
+<!-- 		FROM ( -->
+<!-- 		    	select ro_no, no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName  -->
+<!-- 				from room -->
+<!-- 		        WHERE no = #{no} -->
+<!-- 		        order by no desc -->
+<!-- 		) where rnum between #{startRow} and #{endRow} -->
+
+	<!-- 해당 글번호 댓글의 전체 데이터 개수 가져오기 -->
+	<select id="getTotalRow" resultType="Long">
+		<![CDATA[
+			select count(*)
+			from  room r, business b
+				 where r.no = b.no and b.no = #{no}
+		]]>
+	</select>
+	<update id="imageChange">
+		update room set fileName = #{fileName}
+		where ro_no = #{ro_no}
+	</update>
+	
+	<!--  보기 -->
+	<select id="view" resultType="com.hallabong.room.vo.RoomVO">
+		select ro_no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName 
+		from room 
+		where ro_no = #{ro_no} 
+	</select>
+	<!--  등록 -->
+	<insert id="write">
+		insert into room(no, ro_no, ro_name, id, ro_price, ro_people, ro_info, ro_state, fileName)
+		values(#{no},room_seq.nextval,  #{ro_name}, #{id}, #{ro_price}, #{ro_people}, #{ro_info}, #{ro_state}, #{fileName})
+	</insert>
+	
+	<!--  수정 -->
+	<update id="update">
+		update room set ro_no = ${ro_no}, no = ${no}, ro_name = #{ro_name}, ro_price = #{ro_price}, ro_people = #{ro_people}, ro_info = #{ro_info}, ro_state = #{ro_state}, fileName =#{fileName}
+		where ro_no = #{ro_no} and no = #{no}
+	</update>
+	
+	<!--  삭제 -->
+		<delete id="delete">
+		delete from room
+		where ro_no = #{ro_no} 
+	</delete>
+</mapper>
