@@ -39,7 +39,7 @@ https://blog.naver.com/hoan0418
 6. Mybatis를 통한 페이징,검색쿼리,selectKey 사용 - rentcarboard/mapper/RentCarBoardMapper.xml<br><br>
 
 
-**root-context.xml, servlet-context.xml 은 개인정보가 포함되어 올리지 않음
+
 
 
 ![image](https://user-images.githubusercontent.com/59018532/190394549-0b96154e-8327-40ab-b9a5-3dc7dc26820d.png)
