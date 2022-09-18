@@ -408,7 +408,7 @@ $(function(){
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardList.do?page=${param.page }&perPageNum=${param.perPageNum }&key=${param.key }&word=${param.word }'">리스트</button>
+			<button class="btn btn-default" type="button" onclick="location='/rentcarboard/rentCarBoardList.do?page=${!empty param.page? param.page:1 }&perPageNum=${!empty param.perPageNum? param.perPageNum:10 }&key=${param.key }&word=${param.word }'">리스트</button>
 		</div>
 		
 		<!--회사 등록된 아이디와  관리자아이디가 같을 때만 보이게 한다 -->
