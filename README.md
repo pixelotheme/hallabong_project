@@ -9,6 +9,13 @@ mybatis - 3.4.6<br>
 sts - 4.7.0.RELEASE<br>
 형상관리 - svn <br>
 
+javascript <br>
+jquery <br>
+ajax <br>
+bootstrap <br>
+
+
+
 <h5>담당 내용 (렌터카게시판, 회사, 차종, 렌터카예약, 권한처리)</h5>
 com.hallabong.rentcarboard<br>
 com.hallabong.rentcarboard.ajax<br>
@@ -27,23 +34,31 @@ com.hallabong.util.intercepter<br>
 - view/rentcarbooking/**.jsp<br>
 - view/rentcarcompany/**.jsp<br>
 
+기본적인 CRUD에 메일보내기, ajax 통신, 파일업로드, 정규표현식, interceptor를 사용하고 BootStrap을 사용하여 디자인을 했습니다 
+
+
 <h5>특징적인 기능</h5>
 
 https://blog.naver.com/hoan0418
 
 1. 예약시 메일보내기 - rentcarboard.controller<br><br>
 2. ajax 이용한 JSON 배열 형식 통신 - ajax.Controller <br><br>
-3. 예약날짜 선택시 java Date 타입을 이용한 날짜 계산 - ajax.Controller, rentcarboard/view<br><br>
+3. 예약날짜 선택시 java Date 타입을 이용한 날짜 계산(Ajax 사용) - ajax.Controller, rentcarboard/view<br><br>
 4. 예약시 정규표현식 - rentcarbooking/booking.jsp<br><br>
 5. 업로드된 파일 서버 외부에 저장 - carfileupload.controller<br><br>
 6. Mybatis를 통한 페이징,검색쿼리,selectKey 사용 - rentcarboard/mapper/RentCarBoardMapper.xml<br><br>
+7. interceptor를 사용한 권한설정 - com.hallabong.util.intercepter, root-context.xml <br><br>
 
 
 
-
-
+담당 db 테이블
 ![image](https://user-images.githubusercontent.com/59018532/190394549-0b96154e-8327-40ab-b9a5-3dc7dc26820d.png)
+<br><br>렌터카보기 - 날짜 선택시 금액변동
 ![image](https://user-images.githubusercontent.com/59018532/190396069-70088a48-b8cf-4ea9-ba88-dd8a77a4d161.png)
+![image](https://user-images.githubusercontent.com/59018532/191149826-5456b121-217e-406d-b812-ddfbb9044dbe.png)
+<br><br>렌터카 예약시 메일발송
+![image](https://user-images.githubusercontent.com/59018532/191149725-76c21a0b-31eb-404d-b5e6-745c6ebe5ad8.png)
+
 ![image](https://user-images.githubusercontent.com/59018532/190398033-1acd283c-e242-4497-8f86-9f2c77e09b5a.png)
 
 
